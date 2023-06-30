@@ -1,36 +1,39 @@
 import { useEffect, useState } from 'react'
 import {Box, Typography } from '@mui/material'
+import {motion, AnimatePresence} from 'framer-motion'
+import './css/description.css'
 
 
 const typoStyleMain = {
-    position:'relative', 
+    position:'absolute', 
     fontFamily:'Roman', 
     fontWeight: 'bold',
     fontSize:'26px',
     width:'370px',
     left:'4%',
-    top:'25px',   
+    top:'25px',
 }
 
 const typoStyleComment = {
+  position:'absolute',
   fontFamily:'roman', 
   color: '#322d2e',
   fontSize:'20px', 
 }
 
-const description1 =  <Typography
-sx={typoStyleMain}
->
-    Gain real world experience. 
-    <Typography
-    sx={typoStyleComment}
-    >
-        With TrueLearn you can subscribe
-        to any course channel you want. 
-    </Typography>
-</Typography>
+// Gain real world experience. 
+// With TrueLearn you can subscribe
+// to any course channel you want. 
 
- const description2 =  <Typography
+const description1 = <div>
+
+<h2 className='typoStyleMain' >Gain real world experience. </h2>
+<h3 className='typoStyleComment' > With TrueLearn you can subscribe to any course channel you want. </h3>
+</div>
+
+
+ const description2 =  
+  <Typography
 sx={typoStyleMain}
 >
     Get true skills from real profesionals. 
@@ -41,7 +44,8 @@ sx={typoStyleMain}
     </Typography>
 </Typography>
 
- const description3 =  <Typography
+
+ const description3 =   <Typography
 sx={typoStyleMain}
 >
     Always with the best subscription deals. 
@@ -52,8 +56,12 @@ sx={typoStyleMain}
         come learn with TrueLearn. 
     </Typography>
 </Typography>
+
+
+  
     const descriptions = [[description1], [description2],[description3]]
     const len = descriptions.length - 1; 
+
 
 
 export default function DescriptionForImage() {
@@ -67,6 +75,8 @@ export default function DescriptionForImage() {
        return () => clearInterval(interval); 
     }, [activeindex]);
 
+
+
   return (
    
     <>
@@ -74,7 +84,9 @@ export default function DescriptionForImage() {
     position='relative'
     top="10px"
     >
-  <div>{descriptions[activeindex]}</div>
+  <div
+  >{descriptions[activeindex]}</div>
+
     </Box>
     </>
   )

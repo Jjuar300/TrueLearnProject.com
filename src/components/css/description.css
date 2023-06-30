@@ -1,0 +1,21 @@
+
+
+.typoStyleMain{
+
+    position: absolute;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 26px;
+    width: 370px;
+    left: 5%;
+    top: 5px;
+}
+
+.typoStyleComment{
+position: absolute;
+font-family: 'Times New Roman', Times, serif;
+color:#322d2e ;
+font-size: 20px ;
+top: 50px;
+left: 5%;
+}
