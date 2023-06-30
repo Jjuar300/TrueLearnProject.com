@@ -1,21 +1,22 @@
 
-
-.typoStyleMain{
-
-    position: absolute;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: bold;
-    font-size: 26px;
-    width: 370px;
-    left: 5%;
-    top: 5px;
+.slider{
+    left: 0%;
+    animation: slide 3s  ease;
+    animation-delay: 3.5s;
 }
 
-.typoStyleComment{
-position: absolute;
-font-family: 'Times New Roman', Times, serif;
-color:#322d2e ;
-font-size: 20px ;
-top: 50px;
-left: 5%;
+
+
+@keyframes slide {
+    from { 
+        position: absolute;
+        left: 60%;
+        opacity: 1;
+    }
+    to {
+        position: absolute;
+        left:0%; 
+        opacity: 1;
+    }
+        
 }

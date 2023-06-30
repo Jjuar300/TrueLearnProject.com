@@ -25,7 +25,7 @@ const typoStyleComment = {
 // With TrueLearn you can subscribe
 // to any course channel you want. 
 
-const description1 = <div>
+const description1 = <div className='slider'>
 
 <h2 className='typoStyleMain' >Gain real world experience. </h2>
 <h3 className='typoStyleComment' > With TrueLearn you can subscribe to any course channel you want. </h3>
@@ -84,8 +84,12 @@ export default function DescriptionForImage() {
     position='relative'
     top="10px"
     >
-  <div
-  >{descriptions[activeindex]}</div>
+  {/* <div
+  >{descriptions[activeindex]}</div> */}
+
+<div>
+  {description1}
+</div>
 
     </Box>
     </>
