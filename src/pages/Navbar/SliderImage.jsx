@@ -5,7 +5,7 @@ import LearnImage2 from '../../assets/samantha-borges-EeS69TTPQ18-unsplash.jpg'
 import LearnImage3  from '../../assets/emmanuel-ikwuegbu-MSX3O-Sqa8U-unsplash.jpg'
 import {AspectRatio} from 'react-aspect-ratio'
 import SimpleImageSlider from 'react-simple-image-slider'
-import Descriptions from '../../components/DescriptionForImage'
+import Descriptions from './DescriptionForImage'
 
 export default function SliderImage() {
     

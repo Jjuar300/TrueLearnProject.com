@@ -6,6 +6,7 @@ const SignUpButton = styled(Button)({
         backgroundColor: '#09469c', 
         ":hover": {backgroundColor: '#0d68e7'}, 
         left: '60%', 
+        width:'20px', 
 })
 
 export default SignUpButton;

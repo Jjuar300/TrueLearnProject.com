@@ -5,19 +5,21 @@ import SignUpButton from '../../components/SignUpButton'
 
 export default function SignUp() {
   return (
-
- <SignUpButton
- name='SignUpButton'
- sx={{
-  top: '-6px'
- }}
- >
- <Typography
- color='white'
- fontSize='10px'
- >
-     Sign Up
- </Typography>
- </SignUpButton>
+      <Typography
+    sx={{
+      position:'absolute', 
+      color: 'white',
+      backgroundColor:'#09469c',
+      width:'50px',
+      height:'20px', 
+      left:'50%',
+      ":hover": {backgroundColor: '#0d68e7'}, 
+      borderRadius: '5px',
+       textAlign:'center', 
+       fontSize:'10px',
+    }}
+    >
+       SIGN UP
+    </Typography>  
   )
 }

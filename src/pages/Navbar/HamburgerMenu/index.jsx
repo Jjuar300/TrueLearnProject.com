@@ -23,19 +23,20 @@ export default function HamburgerMenu() {
 
   return (
 <>
-<Button
+
+<MenuIcon
 name='HamburgerMenuIcon'
 onClick={() => dispatch(handleOpen())}
  sx={{
   position: 'absolute', 
-  left: '82%', 
-  top: '27px', 
+  left: '87%', 
+  top: '30px', 
   fontSize: '30px', 
   color: 'black', 
+
 }}
->
-<MenuIcon/>
-</Button>
+/>
+
 <Drawer 
 anchor='right'
 open={open}
