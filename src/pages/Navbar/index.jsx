@@ -6,6 +6,7 @@ import HamburgerMenu from './HamburgerMenu/index'
 import SearchBar from './SearchBar'
 import Promo from './Promo'
 import SliderImage from './SliderImage'
+import Categories from './Categories'
 
 export default function NavBar() {
   return (
@@ -37,8 +38,8 @@ export default function NavBar() {
     <Signup ></Signup>
     <HamburgerMenu></HamburgerMenu>
     <SliderImage></SliderImage>
-
     <SearchBar></SearchBar>
+    <Categories></Categories>
     </Box>
 
 

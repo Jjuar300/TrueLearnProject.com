@@ -1,0 +1,23 @@
+/* *{
+    border: 1px solid red;
+} */
+
+.categories{
+    position:absolute; 
+    top: 560px;
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-items: start;
+    align-items: center;
+}
+
+.categories button {
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid black;
+    font-weight: bold;
+}
