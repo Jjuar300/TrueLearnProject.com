@@ -48,6 +48,7 @@ function closeDrawer() {
       </TextField>
 
       <Box
+      name="onCloseClick"
       onClick={() => dispatch(handleClose())}
      sx={{height:'500px', 
     backgroundColor:'transparent', 
@@ -59,6 +60,7 @@ function closeDrawer() {
      </Drawer>
 
      <SearchIcon
+     name='SearchIcon'
       onClick={() => dispatch(handleOpen())}
      sx={{
       position: 'absolute', 

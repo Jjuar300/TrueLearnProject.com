@@ -7,8 +7,12 @@ import SearchBar from './SearchBar'
 import Promo from './Promo'
 import SliderImage from './SliderImage'
 import Categories from './Categories'
+import TrueLearnlogo from '../../assets/Logo.png'
+import { useDispatch } from 'react-redux'
+import { getToSwitchHomePage } from '../../state/TrueLearnLogoSlice'
 
 export default function NavBar() {
+  const disptach = useDispatch(); 
   return (
 
     <>
@@ -21,19 +25,17 @@ export default function NavBar() {
       position:'relative', 
       top:'-10px', 
       height:'500px', 
-      backgroundColor:'#f9f8f9',
     }}
     >
-      <Typography
-      position='relative'
-      fontSize='25px'
-      left='2%'
-      top='20px'
-      width='100px'
-      fontFamily='roman'
+      <Box
+     sx={{
+      position:'absolute', 
+      top:'10px',
+      left:'1%',  
+     }}
       >
-        TrueLearn
-      </Typography>
+       <img  width='150px' src={TrueLearnlogo} />
+      </Box>
 
     <Signup ></Signup>
     <HamburgerMenu></HamburgerMenu>

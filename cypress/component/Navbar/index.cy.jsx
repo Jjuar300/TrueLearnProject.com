@@ -9,13 +9,25 @@ describe('testing Navbar functionality', () => {
     it('SignUp button was clicked', () => {
         cy.get(`[name="SignUpButton"]`).click().should('be.visible')  
     }); 
+
+    it('clicking the SearchIcon', () => {
+        cy.get(`[name="SearchIcon"]`).click()
+    })
+
    it('testing searchBar input', () => {
     cy.get(`[name="SearchBar"]`).type('Machine Learning')
    })
-})
 
-/*
-SignUpButton
-HamburgerMenuButton
-SearchBar
-*/
+   it('clicking the white box area to exit the searchbar', () => {
+    cy.get(`[name="onCloseClick"]`).click()
+   })
+
+   it('testing categories buttons', () => {
+    cy.get('.AI').click()
+    cy.get('.productmanagement').click()
+    cy.get('.robotics').click()
+    cy.get('.graphicdesign').click()
+    cy.get('.engineering').click()
+   })
+
+})

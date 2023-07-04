@@ -14,7 +14,8 @@ export default function CancelButton() {
     name='CancelButtonIcon'
     sx={{
       color:'black', 
-      left: '35%',
+      left: '10%',
+      top:'-5px', 
     }}
     >
      <CancelIcon fontSize='large' />

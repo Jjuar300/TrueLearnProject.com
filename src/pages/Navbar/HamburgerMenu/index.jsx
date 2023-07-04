@@ -14,6 +14,7 @@ import CancelButton from './CancelButton';
 import {useSelector} from 'react-redux'
 import { useDispatch } from 'react-redux';
 import { handleOpen } from '../../../state/CancelButtonSlice';
+import TrueLearnLogo from '../../../assets/Logo.png'
 
 //I forgot to add the menuicon inside the button component. 
 export default function HamburgerMenu() {
@@ -51,20 +52,10 @@ width='230px'
 textAlign='center'
 role='presentation'
 >
+  <img width='120px'  src={TrueLearnLogo} />
 
 <Typography
-sx={{
-  position: 'absolute', 
-  top: '10px', 
-  left: '16%', 
-  fontSize: '25px', 
-}}
->
-  TrueLearn
-</Typography>
-
-<Typography
-name='about'
+name='exploreCourses'
 onClick={() => console.log('about me typo was clicked')}
 sx={{
   position: 'absolute', 

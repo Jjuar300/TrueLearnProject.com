@@ -1,0 +1,16 @@
+
+
+
+.signUptext{
+    position: absolute;
+    left: 18%;
+    top: 90px;
+    width: 250px;
+}
+
+
+.form{
+    position: absolute;
+    border: 1px solid gray;
+    height: 55rem;
+}

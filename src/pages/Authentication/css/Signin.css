@@ -1,0 +1,30 @@
+
+/* *{
+    border: 1px solid red;
+} */
+
+.form{
+    position: absolute;
+    border: 1px solid gray;
+    height:40rem;
+    width: 47vh;
+    left: -1%;
+    top: 5rem;
+}
+
+.form form{
+    position: absolute;
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+    gap: 3rem;
+    top: 170px;
+    left: 13%;
+}
+
+.signintext{
+    position: absolute;
+    left: 10%;
+    top: 90px;
+    width: 330px;
+}
