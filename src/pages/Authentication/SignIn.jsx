@@ -9,7 +9,6 @@ import './css/Signin.css'
 import SignUpPage from './SignUp'
 import {useSelector, useDispatch} from 'react-redux'
 import {getSwitchToSignup} from '../../state/AuthenticationSlice'
-import { getToSwitchHomePage } from '../../state/TrueLearnLogoSlice'
 
 export default function SignIn() {
 const [signin, setSignin] = useState(true); 
@@ -19,7 +18,7 @@ const dispatch = useDispatch();
   return (
   <>
     <div>
-     <img onClick={() => dispatch(getToSwitchHomePage())} width='150px' src={TruelearnLogo} />
+     <img width='150px' src={TruelearnLogo} />
      <SignupButton></SignupButton>
      <SearchBar></SearchBar>
      <HamburgerMenu></HamburgerMenu>
@@ -27,9 +26,12 @@ const dispatch = useDispatch();
 {isSignUp ?  <div className='form'>
    <h1 className='signintext' >Sign In to your account</h1>
    <Formik >
-    <form>
+    <form
+    name='form'
+    >
    <TextField 
    required
+       name='email'
       label='Email' 
       variant='outlined'  
       type='Email'
@@ -41,6 +43,7 @@ const dispatch = useDispatch();
        >
 
         <TextField 
+        name='password'
         required
         label='password'
         variant='outlined'
@@ -52,6 +55,7 @@ const dispatch = useDispatch();
         />
 
         <Button
+        name='Signinbutton'
         sx={{
           border:'1px solid gray', 
           color:'white', 
@@ -63,6 +67,7 @@ const dispatch = useDispatch();
         </Button>
 
         <Button
+        name='forgotpasswordbutton'
         sx={{
           position:'absolute', 
           top:'16rem',
@@ -94,6 +99,7 @@ const dispatch = useDispatch();
         </Typography>
 
         <Button
+        name='signupbutton'
         onClick={() => dispatch(getSwitchToSignup())}
         sx={{
           width:'90px', 

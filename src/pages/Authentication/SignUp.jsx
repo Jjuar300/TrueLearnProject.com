@@ -23,6 +23,7 @@ const dispatch = useDispatch();
   <form>
 
     <TextField 
+    name='firstname'
     autoComplete='new-text'
     label='First Name'
     variant='outlined'
@@ -34,6 +35,7 @@ const dispatch = useDispatch();
     />
 
     <TextField 
+    name='lastname'
     autoComplete='new-text'
     label='Last Name'
     variant='outlined'
@@ -58,6 +60,7 @@ const dispatch = useDispatch();
     }}
     >  
     <Box
+    name='uploadphoto'
     sx={{
       border:'2px dashed gray',
       width: '10rem',
@@ -72,7 +75,8 @@ const dispatch = useDispatch();
     </Box>
     </Box>
 
-  <TextField 
+  <TextField
+  name='email' 
   required
     label='Email' 
     variant='outlined'  
@@ -84,7 +88,8 @@ const dispatch = useDispatch();
     /
       >
 
-      <TextField 
+      <TextField
+      name='password' 
       required
       label='password'
       variant='outlined'
@@ -96,6 +101,7 @@ const dispatch = useDispatch();
       />
 
       <Button
+      name='signupbutton'
       sx={{
         border:'1px solid gray', 
         color:'white', 
@@ -120,6 +126,7 @@ const dispatch = useDispatch();
         </Typography>
 
         <Button
+        name='signin'
        onClick={() => dispatch(getSwitchToSignin())}
         sx={{
           color:'#1d0031', 
