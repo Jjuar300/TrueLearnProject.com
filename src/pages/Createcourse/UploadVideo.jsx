@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Button, Typography, Box, OutlinedInput} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import LectureSection from '../../components/LectureSection';
+import { useSelector, useDispatch } from 'react-redux';
+import { handleOpenSection, handleCloseSection } from '../../state/AddSectionSlice';
 
 export default function UploadVideo() {
+  const openSection = useSelector(state => state.AddSection.isSection)
+  const dispatch = useDispatch(); 
   return (
     <>
+
     <Box
     sx={{
         position:'absolute', 
-        top:'20px',
+        top:'5px',
         display:'flex',
         flexDirection:'column', 
         justifyItems:'center',  
@@ -25,7 +31,7 @@ export default function UploadVideo() {
                 color:'#22033c', 
                 fontFamily:'roman', 
             }}
-            >Upload Video</Typography>
+            >Upload Videos</Typography>
 
         <Typography
         sx={{
@@ -39,6 +45,23 @@ export default function UploadVideo() {
         </Typography>
     </Box>
 
+    <Button
+    sx={{
+      position:'relative', 
+      border:'1px solid gray', 
+      fontSize:'15px', 
+      width:'20rem',
+      height:'1.5rem',  
+      backgroundColor:'black', 
+      color:'white', 
+      top:'120px', 
+      left:'4%', 
+      ':hover': {backgroundColor: 'gray'}, 
+    }}
+    >
+      Save
+    </Button>
+
    <Box
    sx={{
     position:'absolute', 
@@ -46,7 +69,7 @@ export default function UploadVideo() {
     flexDirection:'column', 
     gap:'2rem',
     flexWrap:'wrap', 
-    top:'160px', 
+    top:'170px', 
     left:'8%',  
    }}
    >
@@ -113,7 +136,6 @@ sx={{
 /
 >
    
-
   <Box
     name='uploadvideo'
     sx={{
@@ -139,61 +161,31 @@ sx={{
 
 </Box>
 
+{openSection &&
+<LectureSection></LectureSection>
+}
 
 <Box
-    name="section"
+onClick={() => dispatch(handleOpenSection()) }
+name='addsection'
 sx={{
-    border:'1px solid black',
-    width:'300px', 
-    height:'200px',  
+  position:'relative', 
+  border:'1px solid gray', 
+  padding:'.3rem', 
+  top:'-15px', 
 }}
 >
-    <AddIcon
+<AddIcon
     name="addicon"
     sx={{
         position:'relative', 
         border:'1px solid black', 
         fontSize:'30px', 
-        top:'10px',
-        left:'5%',  
+        top:'3px',
+        left:'42%',  
 
     }}
     />
-
-<OutlinedInput
-placeholder='Add a section:'
-sx={{
-    position:'relative', 
-    height:'30px', 
-    left:'10%', 
-}}
-/
->
-   
-
-  <Box
-    name='uploadvideo'
-    sx={{
-        position:'relative', 
-      border:'2px solid gray',
-      width: '5rem',
-      height:'5rem', 
-      padding:'.2rem',
-      left:'35%', 
-      top:'40px',  
-    }}
-    >
-      <PlayArrowIcon
-      sx={{
-        position:'relative', 
-        fontSize:'50px', 
-        top:'10px', 
-        left:'13%', 
-      }}
-      />
-
-    </Box>
-
 </Box>
 
    </Box>

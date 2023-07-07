@@ -5,8 +5,8 @@ import ClassInfo from './ClassInfo'
 export default function CreateCourse() {
   return (
     <>
-    <UploadVideo/>
-    {/* <ClassInfo/> */}
+    {/* <UploadVideo/> */}
+    <ClassInfo/>
     </>
   )
 }
