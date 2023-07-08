@@ -9,7 +9,7 @@ import SliderImage from './SliderImage'
 import Categories from './Categories'
 import TrueLearnlogo from '../../assets/Logo.png'
 import { useDispatch } from 'react-redux'
-import { getToSwitchHomePage } from '../../state/TrueLearnLogoSlice'
+import UserIconMenu from '../UserProfile/UserIconMenu'
 
 export default function NavBar() {
   const disptach = useDispatch(); 

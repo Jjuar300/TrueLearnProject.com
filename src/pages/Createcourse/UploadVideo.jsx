@@ -6,10 +6,13 @@ import LectureSection from '../../components/LectureSection';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleOpenSection } from '../../state/createcourse/AddSectionSlice';
 import { handleSwitch } from '../../state/createcourse/indexSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function UploadVideo() {
   const openSection = useSelector(state => state.AddSection.isSection)
   const dispatch = useDispatch(); 
+  const navigate = useNavigate(); 
+
   return (
     <>
 
@@ -47,7 +50,7 @@ export default function UploadVideo() {
     </Box>
 
     <Button
-    onClick={() => dispatch(handleSwitch())}
+    onClick={() => navigate('/createcourse')}
     sx={{
       position:'relative', 
       border:'1px solid gray', 

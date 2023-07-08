@@ -6,8 +6,6 @@ import {
   Drawer
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
-import SignUpButton from '../../../components/SignUpButton';
-import CancelIcon from '@mui/icons-material/Cancel';
 import SignUp from './SignUp'
 import SignIn from './SignIn';
 import CancelButton from './CancelButton';
@@ -15,10 +13,7 @@ import {useSelector} from 'react-redux'
 import { useDispatch } from 'react-redux';
 import { handleOpen } from '../../../state/CancelButtonSlice';
 import TrueLearnLogo from '../../../assets/Logo.png'
-import CreateCourse from '../../Createcourse';
 
-
-//I forgot to add the menuicon inside the button component. 
 export default function HamburgerMenu() {
   
   const open = useSelector((state) => state.handleDrawer.open)

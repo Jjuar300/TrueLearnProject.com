@@ -5,15 +5,11 @@ import {BrowserRouter, Navigate, Routes, Route} from 'react-router-dom'
 import Createcourse from './pages/Createcourse'
 import UploadVideo from "./pages/Createcourse/UploadVideo";
 import CourseInfo from "./pages/Createcourse/CourseInfo";
-import { useSelector } from "react-redux";
-
-
+import UserProfile from "./pages/UserProfile";
 
 function App() {
-const isuploadVideo = useSelector(state => state.CreatingCourse.uploadVideo)
-const isuploadCourseInfo = useSelector(state => state.CreatingCourse.uploadCourseInfo)
 
-  return (
+return (
   <>
    <div className="app" >
     <BrowserRouter>
@@ -21,8 +17,10 @@ const isuploadCourseInfo = useSelector(state => state.CreatingCourse.uploadCours
    <Route path="/" element={<HomePage/>} />
       <Route path="/signin" element={<SignInPage/>} />
       <Route path="signup" element={<SignUpPage/>} />
-      <Route path="/createcourse" element={isuploadVideo  ? <Createcourse/> : <UploadVideo/> } />
-      <Route path="/createcourse" element={false ? <Createcourse/> : <CourseInfo/>} />
+      <Route path="/createcourse" element={ <Createcourse/>} />
+      <Route path="uploadvideo" element={<UploadVideo/>} />
+      <Route path="courseinfo" element={<CourseInfo/>} />
+      <Route path="userprofile" element={<UserProfile/>} />
     </Routes>
     </BrowserRouter>
    </div>

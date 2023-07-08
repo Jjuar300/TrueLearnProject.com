@@ -3,6 +3,9 @@ import {Box, Typography, OutlinedInput, TextField, Button} from '@mui/material'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Formik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { handleSwitchToUploadCourseInfo } from '../../state/createcourse/indexSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Catergories = [
   {
@@ -28,6 +31,9 @@ const Catergories = [
 ]
 
 export default function ClassInfo() {
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate(); 
+
   return (
    <>
      <Formik>
@@ -130,6 +136,7 @@ export default function ClassInfo() {
      </Box>
 
      <Button
+     onClick={() => navigate('/createcourse')}
     sx={{
       position:'relative', 
       border:'1px solid gray', 
