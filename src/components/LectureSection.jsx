@@ -3,7 +3,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import RemoveIcon from '@mui/icons-material/Remove';
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { handleCloseSection } from '../state/AddSectionSlice';
+import { handleCloseSection } from '../state/createcourse/AddSectionSlice';
 
 export default function LectureSection() {
   const closeSection = useSelector(state => state.AddSection.isSection);

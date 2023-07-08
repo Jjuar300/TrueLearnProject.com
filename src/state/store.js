@@ -4,7 +4,8 @@ import PromoSlice from './PromoSlice'
 import  SearchBarDrawer  from './SearchbarSlice'
 import AuthenticationSlice from './AuthenticationSlice'
 import TrueLearnLogoSlice from './TrueLearnLogoSlice'
-import AddSectionSlice from './AddSectionSlice'
+import AddSectionSlice from './createcourse/AddSectionSlice'
+import indexSlice from './createcourse/indexSlice'
 
 export default configureStore({
 reducer: {
@@ -13,7 +14,8 @@ reducer: {
     SearchBarDrawer: SearchBarDrawer,
     Authenticate: AuthenticationSlice,
     TrueLearnLogoSlice: TrueLearnLogoSlice,
-    AddSection: AddSectionSlice,     
+    AddSection: AddSectionSlice,
+    CreatingCourse: indexSlice,      
 },     
 
 })

@@ -59,7 +59,7 @@ export default function ClassInfo() {
       position:'absolute',
       display:'flex', 
       flexDirection:'column', 
-      top:'12rem',
+      top:'15rem',
       left:'8%',
       gap:'2rem', 
       flexWrap:'wrap',  
@@ -111,14 +111,41 @@ export default function ClassInfo() {
       >
         <TextField
         select
-        label='select'
-        defaultValue='choose'
+        label='Catergory'
+        defaultValue='Artificial Inteligence'
+        sx={{
+          width:'20rem', 
+        }}
         >
+      {Catergories.map((option) =>(
+        <MenuItem key={option.value} value={option.value} > 
+        {option.label}
+        </MenuItem>
+      ))}
 
-        </TextField>
+          </TextField>
+
       </Box>
 
      </Box>
+
+     <Button
+    sx={{
+      position:'relative', 
+      border:'1px solid gray', 
+      fontSize:'15px', 
+      width:'20rem',
+      height:'1.5rem',  
+      backgroundColor:'black', 
+      color:'white', 
+      top:'160px', 
+      left:'4%', 
+      ':hover': {backgroundColor: 'gray'}, 
+    }}
+    >
+      Save
+    </Button>
+
       </form>
      </Formik>
 

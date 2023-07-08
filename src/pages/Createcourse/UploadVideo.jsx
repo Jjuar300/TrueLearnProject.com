@@ -4,7 +4,8 @@ import AddIcon from '@mui/icons-material/Add';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import LectureSection from '../../components/LectureSection';
 import { useSelector, useDispatch } from 'react-redux';
-import { handleOpenSection, handleCloseSection } from '../../state/AddSectionSlice';
+import { handleOpenSection } from '../../state/createcourse/AddSectionSlice';
+import { handleSwitch } from '../../state/createcourse/indexSlice';
 
 export default function UploadVideo() {
   const openSection = useSelector(state => state.AddSection.isSection)
@@ -46,6 +47,7 @@ export default function UploadVideo() {
     </Box>
 
     <Button
+    onClick={() => dispatch(handleSwitch())}
     sx={{
       position:'relative', 
       border:'1px solid gray', 
