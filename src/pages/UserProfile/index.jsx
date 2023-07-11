@@ -7,7 +7,7 @@ import UserDetails from './UserDetails';
 export default function 
 () {
   return (
-   <>
+  <>
    <UserDetails/>
    <UserTile/>
    <UserPictureProfile/>

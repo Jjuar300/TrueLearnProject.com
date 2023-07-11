@@ -2,7 +2,6 @@ import React from 'react'
 import { Box, Typography, TextField } from '@mui/material'
 import {Formik} from 'formik'
 
-
 export default function UserDetails() {
   return (
   <>
@@ -16,7 +15,8 @@ export default function UserDetails() {
     flexDirection:'column',
     gap:'2rem', 
     top:'30rem',
-    left:'5%',   
+    left:'5%', 
+    height:'1rem',   
    }}
    >
    
@@ -100,7 +100,6 @@ export default function UserDetails() {
     flexDirection:'column',
     top:'30rem',
     width:'22rem',
-    height:'10rem',  
    }}
    >
    <Typography
@@ -119,6 +118,115 @@ export default function UserDetails() {
         />
    </Box>
    
+   <Box
+   name='Company'
+   sx={{
+    display:'flex',
+    flexDirection:'column',
+    top:'30rem',
+    width:'22rem',
+   }}
+   >
+   <Typography
+    sx={{
+        position:'relative',  
+        top:'1.6rem', 
+        width:'5rem', 
+    }}
+    >
+        Company 
+    </Typography>
+
+    <Typography
+    sx={{ 
+        position:'relative', 
+        left:'77%', 
+        width:'5rem', 
+    }}
+    >
+        (Optional)
+    </Typography>
+
+    <TextField
+        placeholder='ex://Google'
+        type='text'
+        fullWidth
+        />
+   </Box>
+
+   <Box
+   name='Linked'
+   sx={{
+    display:'flex',
+    flexDirection:'column',
+    top:'30rem',
+    width:'22rem',
+   }}
+   >
+   <Typography
+    sx={{
+        position:'relative',  
+        top:'1.6rem', 
+        width:'5rem', 
+    }}
+    >
+        Job Title
+    </Typography>
+
+    <Typography
+    sx={{ 
+        position:'relative', 
+        left:'77%', 
+        width:'5rem', 
+    }}
+    >
+        (Optional)
+    </Typography>
+
+    <TextField
+        placeholder='ex:// Product manager'
+        type='text'
+        fullWidth
+        />
+   </Box>
+
+
+   <Box
+   name='Linked'
+   sx={{
+    display:'flex',
+    flexDirection:'column',
+    top:'30rem',
+    width:'22rem',
+   }}
+   >
+   <Typography
+    sx={{
+        position:'relative',  
+        top:'1.6rem', 
+        width:'5rem', 
+    }}
+    >
+        Linked
+    </Typography>
+
+    <Typography
+    sx={{ 
+        position:'relative', 
+        left:'77%', 
+        width:'5rem', 
+    }}
+    >
+        (Optional)
+    </Typography>
+
+    <TextField
+        placeholder='www.linked.com/in/'
+        type='text'
+        fullWidth
+        />
+   </Box>
+
 
    </Box>
     </form>
