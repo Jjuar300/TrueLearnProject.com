@@ -69,31 +69,6 @@ export default function UserDetails() {
    </Box>
 
    <Box
-   name='jobtitle'
-   sx={{
-    display:'flex',
-    flexDirection:'column',
-    top:'30rem',
-    width:'22rem',  
-   }}
-   >
-   <Typography
-    sx={{
-        top:'30rem', 
-    }}
-    >
-        Job title
-    </Typography>
-
-    <TextField
-    fullWidth
-        placeholder='Engineer'
-        type='text'
-        />
-   </Box>
-
-
-   <Box
    name='About me'
    sx={{
     display:'flex',

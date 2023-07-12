@@ -13,15 +13,60 @@ import {useSelector} from 'react-redux'
 import { useDispatch } from 'react-redux';
 import { handleOpen } from '../../../state/CancelButtonSlice';
 import TrueLearnLogo from '../../../assets/Logo.png'
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function HamburgerMenu() {
-  
+  const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
   const open = useSelector((state) => state.handleDrawer.open)
   const dispatch = useDispatch(); 
 
   return (
 <>
+{
+  isNotMobileScreen ?
 
+  
+<Box
+sx={{
+  position:'relative', 
+  left:'15%'
+}}
+>
+<Typography
+name='exploreCourses'
+sx={{
+  position: 'absolute', 
+  left:'60%', 
+  top: '40px', 
+  fontSize: '18px',  
+  fontFamily:'roman', 
+  fontWeight:'bold', 
+  color:'#373b3f',
+}}
+>
+  Explore Courses
+</Typography>
+
+<Typography
+name='createCourse'
+sx={{
+  position: 'absolute', 
+  top:'40px',
+  fontSize: '25px', 
+  left:'72%', 
+  fontSize:'18px', 
+  fontFamily:'roman', 
+  fontWeight:'bold', 
+  color:'#373b3f', 
+}}
+>
+  Create Course
+</Typography>
+
+</Box>
+  
+  :<Box>
+  
 <MenuIcon
 name='HamburgerMenuIcon'
 onClick={() => dispatch(handleOpen())}
@@ -82,6 +127,8 @@ sx={{
 
 </Box>
 </Drawer>
+</Box>
+}
 </>
 
   )

@@ -6,29 +6,28 @@ import LearnImage3  from '../../assets/emmanuel-ikwuegbu-MSX3O-Sqa8U-unsplash.jp
 import {AspectRatio} from 'react-aspect-ratio'
 import SimpleImageSlider from 'react-simple-image-slider'
 import Descriptions from './DescriptionForImage'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 export default function SliderImage() {
-    
+    const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
   
     const setimages = [
         { url: LearnImage1}, 
         { url: LearnImage2}, 
         { url: LearnImage3}
     ]
-    
-    const styleImage = {
-        width:'370px', 
-        height: '260px',
-    }
-
 
    
   return (
    
-    <Box sx={{ position:'absolute', top:'80px'}}>
+    <Box sx={{ 
+      position:'absolute', 
+      top: isNotMobileScreen ? '100px' :'80px', 
+      left: isNotMobileScreen ? '5%' : '0%', 
+      }}  > 
         <SimpleImageSlider 
-        width={370}
-        height={260}
+        width={isNotMobileScreen ? 800 : 370} 
+        height={isNotMobileScreen ? 550 : 260}
         images={setimages}
         autoPlay={true}
         autoPlayDelay={3}
@@ -37,3 +36,4 @@ export default function SliderImage() {
     </Box>
   )
 }
+
