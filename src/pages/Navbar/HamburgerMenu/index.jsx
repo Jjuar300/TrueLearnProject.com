@@ -28,20 +28,24 @@ export default function HamburgerMenu() {
   
 <Box
 sx={{
-  position:'relative', 
-  left:'15%'
+  position:'absolute',
+  display:'flex', 
+  gap:'3rem',  
+   width:'20rem', 
+   left:'72%',
+   top:'2.4rem',  
 }}
 >
 <Typography
 name='exploreCourses'
 sx={{
-  position: 'absolute', 
   left:'60%', 
   top: '40px', 
   fontSize: '18px',  
   fontFamily:'roman', 
   fontWeight:'bold', 
   color:'#373b3f',
+  cursor:'pointer', 
 }}
 >
   Explore Courses
@@ -50,14 +54,14 @@ sx={{
 <Typography
 name='createCourse'
 sx={{
-  position: 'absolute', 
   top:'40px',
   fontSize: '25px', 
-  left:'72%', 
+  left:'70%', 
   fontSize:'18px', 
   fontFamily:'roman', 
   fontWeight:'bold', 
   color:'#373b3f', 
+  cursor:'pointer', 
 }}
 >
   Create Course

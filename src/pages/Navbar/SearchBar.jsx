@@ -31,8 +31,8 @@ function closeDrawer() {
     sx={{
       position:'absolute',  
       left:'13%', 
-      top:'1rem', 
-      width:'30rem', 
+      top:'1.5rem', 
+      width:'50rem', 
     }}
     >
       

@@ -9,7 +9,6 @@
     justify-content: space-around;
     gap: 10px;
     flex-direction: row;
-    justify-content: space-around;
     flex-wrap: wrap;
     justify-items: start;
     align-items: center;
@@ -20,4 +19,21 @@
     border-radius: 20px;
     border: 1px solid black;
     font-weight: bold;
+}
+
+
+@media only  screen and (min-width: 1000px) {
+    .categories{
+        left: 55%;
+    }
+
+    .categories button {
+        background-color: rgb(255, 255, 255);
+        font-family:'Times New Roman', Times, serif;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+    .categories button:hover{
+        background-color: #eaebec;
+    }
 }

@@ -4,6 +4,8 @@ import React from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 export default function SignUp() {
+  const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
+
   return (
   <Button
   name='SignUpButton'
@@ -13,10 +15,10 @@ export default function SignUp() {
     backgroundColor:'#8002a2',
     width:'60px',
     height:'30px', 
-    left:'50%',
+    left: isNotMobileScreen ? '65%' :'50%',
     ":hover": {backgroundColor: '#a403cf'}, 
     borderRadius: '5px',
-     top:'35px', 
+     top: isNotMobileScreen ? '40px'  : '35px', 
   }}
   >
         <Typography

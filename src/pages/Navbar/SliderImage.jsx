@@ -22,7 +22,7 @@ export default function SliderImage() {
    
     <Box sx={{ 
       position:'absolute', 
-      top: isNotMobileScreen ? '100px' :'80px', 
+      top: isNotMobileScreen ? '110px' :'80px', 
       left: isNotMobileScreen ? '5%' : '0%', 
       }}  > 
         <SimpleImageSlider 

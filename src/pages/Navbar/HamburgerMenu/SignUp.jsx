@@ -3,6 +3,7 @@ import SignUpButton from '../../../components/SignUpButton'
 import { Typography } from '@mui/material'
 
 export default function SignUp() {
+
   return (
     <SignUpButton
     name='SignUpButton'
@@ -23,3 +24,6 @@ export default function SignUp() {
     </SignUpButton>
   )
 }
+
+
+

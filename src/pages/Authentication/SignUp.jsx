@@ -9,15 +9,16 @@ import './css/signUp.css'
 import {useSelector, useDispatch} from 'react-redux'
 import {getSwitchToSignin} from '../../state/AuthenticationSlice' 
 import SignInPage from './SignIn'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 export default function SignIn() {
 const isSignin = useSelector(state => state.Authenticate.signin)
 const dispatch = useDispatch(); 
+const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 
   return (
   <>
-
-  {isSignin ? <div className='form'>
+  {isSignin ? <div className='signupform'>
   <h1 className='signUptext' >Create an account</h1>
   <Formik >
   <form>
@@ -49,7 +50,7 @@ const dispatch = useDispatch();
     <Box
     sx={{
       border:'1px solid gray',
-      borderRadius:'10px', 
+      borderRadius:'5px', 
       width: '16rem',
       height:'5rem',
       display:'flex',  
@@ -115,10 +116,11 @@ const dispatch = useDispatch();
       <Box
       sx={{
         position:'absolute',
-        top:'40rem',  
+        top: isNotMobileScreen ? '35rem' :'40rem',  
         display:'flex', 
         justifyContent:'space-between',
         alignItems:'center',  
+        left: isNotMobileScreen ? '7%' : 'none', 
       }}
       >
         <Typography>

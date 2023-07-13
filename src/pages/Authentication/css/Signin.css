@@ -3,7 +3,7 @@
     border: 1px solid red;
 } */
 
-.form{
+.signform{
     position: absolute;
     border: 1px solid gray;
     height:40rem;
@@ -12,7 +12,7 @@
     top: 5rem;
 }
 
-.form form{
+.signform form{
     position: absolute;
     display: flex;
     width: 300px;
@@ -27,4 +27,14 @@
     left: 10%;
     top: 90px;
     width: 330px;
+}
+
+@media only screen and (min-width:1000px){
+    
+    .signform{
+        position: absolute;
+        left: 36%;
+        top: 10rem;
+    }
+
 }

@@ -11,7 +11,6 @@ import {useSelector, useDispatch} from 'react-redux'
 import {getSwitchToSignup} from '../../state/AuthenticationSlice'
 
 export default function SignIn() {
-const [signin, setSignin] = useState(true); 
 const isSignUp = useSelector(state => state.Authenticate.signup)
 const dispatch = useDispatch(); 
 
@@ -23,7 +22,7 @@ const dispatch = useDispatch();
      <SearchBar></SearchBar>
      <HamburgerMenu></HamburgerMenu>
     </div>
-{isSignUp ?  <div className='form'>
+{isSignUp ?  <div className='signform'>
    <h1 className='signintext' >Sign In to your account</h1>
    <Formik >
     <form
