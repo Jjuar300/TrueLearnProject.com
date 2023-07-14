@@ -1,18 +1,21 @@
 import React from 'react'
 import {Box, Typography, Button} from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 export default function UserInfo() {
+    const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
+
   return (
    <>
 
     <Box
     name='usertitle'
     sx={{
-        position:'relative', 
+        position:'relative',  
         border:'1px solid #f2eeef', 
         height:'5rem', 
-        width:'20rem',
-        left:'5%',
+        width: isNotMobileScreen ? '80rem' : '20rem',
+        left: isNotMobileScreen ? '15%' : '5%',
         borderLeftStyle:'hidden',
         borderRightStyle:'hidden', 
     }}
@@ -22,7 +25,7 @@ export default function UserInfo() {
             position:'relative', 
             fontFamily:'roman', 
             fontSize:'25px', 
-            left:'5%', 
+            left: isNotMobileScreen ? '35%' : '5%', 
             top:'10px', 
             color:'#3a2f33', 
         }}
@@ -35,7 +38,7 @@ export default function UserInfo() {
             fontFamily:'roman', 
             fontSize:'17px', 
             top:'13px', 
-            left:'5%',
+            left: isNotMobileScreen ? '35%' : '5%', 
             color:'#3a2f33', 
         }}
         >

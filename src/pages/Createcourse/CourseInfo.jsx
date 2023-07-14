@@ -1,11 +1,12 @@
-import React from 'react'
+
 import {Box, Typography, OutlinedInput, TextField, Button} from '@mui/material'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { handleSwitchToUploadCourseInfo } from '../../state/createcourse/indexSlice';
 import { useNavigate } from 'react-router-dom';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 const Catergories = [
   {
@@ -33,10 +34,18 @@ const Catergories = [
 export default function ClassInfo() {
   const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
+  const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
 
   return (
    <>
-     <Formik>
+    <Box
+    sx={{
+      position:'absolute', 
+      left: isNotMobileScreen ? '40%' : 'none', 
+      top: isNotMobileScreen ? '10rem' :'none'
+    }}
+    >
+    <Formik>
       <form>
       <Box
      name='courseoverview'
@@ -155,6 +164,7 @@ export default function ClassInfo() {
 
       </form>
      </Formik>
+    </Box>
 
    </>
   )

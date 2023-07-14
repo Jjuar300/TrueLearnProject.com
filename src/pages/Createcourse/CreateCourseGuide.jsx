@@ -2,21 +2,27 @@ import React  from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import FeaturedVideoIcon from '@mui/icons-material/FeaturedVideo';
 import InfoIcon from '@mui/icons-material/Info';
-import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { 
-  handleSwitchToUploadCourseInfo, 
-  handleSwitch, 
-} from '../../state/createcourse/indexSlice';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import SignupButton from '../Navbar/Signup';
+import SearchBar from '../Navbar/SearchBar';
+import HamburgerMenu from '../Navbar/HamburgerMenu';
+import TruelearnLogo from '../../assets/Logo.png'
 
 export default function CreateCourseGuide() {
-    const uploadVideo = useSelector(state => state.CreatingCourse.uploadVideo)
-    const uploadCourseInfo = useSelector(state => state.CreatingCourse.uploadCourseInfo )
-    const dispatch = useDispatch(); 
     const navigate = useNavigate(); 
+    const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
 
     return (
    <>
+
+<div>
+     <img width='150px' src={TruelearnLogo} />
+     <SignupButton></SignupButton>
+     <SearchBar></SearchBar>
+     <HamburgerMenu></HamburgerMenu>
+    </div>
+
    <Box
       name='guide'
       sx={{
@@ -24,8 +30,8 @@ export default function CreateCourseGuide() {
         display:'flex', 
         flexDirection:'column', 
         gap:'2rem', 
-        top:'7rem',
-        left:'25%' 
+        top: isNotMobileScreen ? '13rem' : '7rem',
+        left: isNotMobileScreen ? '43%' : '25%' 
       }}
       >
 
@@ -34,7 +40,7 @@ export default function CreateCourseGuide() {
         position:'relative', 
         fontFamily:'roman', 
         fontWeight:'bold', 
-        top:'-4rem',
+        top: isNotMobileScreen ? '0rem' : '-4rem',
         left:'-5%',  
         color:'#1b0032', 
       }}
@@ -50,7 +56,8 @@ export default function CreateCourseGuide() {
           flexDirection:'column', 
           left:'25%',
           width:'12rem',
-          height:'12rem',   
+          height:'12rem',
+          cursor:'pointer',    
         }}
         >
           <FeaturedVideoIcon
@@ -85,7 +92,8 @@ export default function CreateCourseGuide() {
           flexDirection:'column', 
           left:'25%', 
           width:'12rem',
-          height:'12rem',   
+          height:'12rem',
+          cursor:'pointer',    
         }}
         >
           <InfoIcon

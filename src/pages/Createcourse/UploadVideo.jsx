@@ -5,20 +5,33 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import LectureSection from '../../components/LectureSection';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleOpenSection } from '../../state/createcourse/AddSectionSlice';
-import { handleSwitch } from '../../state/createcourse/indexSlice';
 import { useNavigate } from 'react-router-dom';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 export default function UploadVideo() {
   const openSection = useSelector(state => state.AddSection.isSection)
   const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
+  const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
 
   return (
     <>
-
+    <Box
+    name='uploadvideo'
+    sx={{
+      position:'absolute', 
+      display:'flex', 
+      flexDirection:'column', 
+      flexWrap:'wrap', 
+      left: isNotMobileScreen ? '35%' : '43%', 
+      top: isNotMobileScreen ? '4rem' : '10rem', 
+    }}
+    >
+      
     <Box
     sx={{
-        position:'absolute', 
+        position:'relative', 
         top:'5px',
         display:'flex',
         flexDirection:'column', 
@@ -55,12 +68,12 @@ export default function UploadVideo() {
       position:'relative', 
       border:'1px solid gray', 
       fontSize:'15px', 
-      width:'20rem',
+      width: isNotMobileScreen ? '30rem' :'20rem',
       height:'1.5rem',  
       backgroundColor:'black', 
       color:'white', 
       top:'120px', 
-      left:'4%', 
+      left: isNotMobileScreen ? '10%' : '4%', 
       ':hover': {backgroundColor: 'gray'}, 
     }}
     >
@@ -69,7 +82,7 @@ export default function UploadVideo() {
 
    <Box
    sx={{
-    position:'absolute', 
+    position:'relative', 
     display:'flex', 
     flexDirection:'column', 
     gap:'2rem',
@@ -86,7 +99,6 @@ export default function UploadVideo() {
       padding:'3rem',  
       backgroundColor:'#f7f6f6',
       color:'gray', 
-      top:'200px', 
       left:'12%', 
     }}
     >  
@@ -105,7 +117,8 @@ sx={{
       border:'2px solid gray',
       width: '10rem',
       height:'4rem', 
-      padding:'.5rem', 
+      padding:'.5rem',
+      cursor:'pointer', 
     }}
     >
 
@@ -114,7 +127,7 @@ sx={{
         position:'absolute', 
         fontSize:'5rem', 
         top:'55px',
-        left:'36%',  
+        left: isNotMobileScreen ? '40%' : '36%',  
       }}
       />
 
@@ -125,7 +138,7 @@ sx={{
     name="introduction"
 sx={{
     border:'1px solid black',
-    width:'300px', 
+    width: isNotMobileScreen ? '500px' : '300px', 
     height:'200px',  
 }}
 >
@@ -136,7 +149,8 @@ sx={{
     position:'relative', 
     height:'30px', 
     left:'12%', 
-    top:'20px', 
+    top:'20px',
+    width: isNotMobileScreen ? '25rem' : 'none'  
 }}
 /
 >
@@ -146,11 +160,12 @@ sx={{
     sx={{
         position:'relative', 
       border:'2px solid gray',
-      width: '5rem',
+      width: isNotMobileScreen ? '10rem' : '5rem',
       height:'5rem', 
       padding:'.2rem',
       left:'35%', 
-      top:'40px',  
+      top:'40px',
+      cursor:'pointer',   
     }}
     >
       <PlayArrowIcon
@@ -158,7 +173,7 @@ sx={{
         position:'relative', 
         fontSize:'50px', 
         top:'10px', 
-        left:'13%', 
+        left: isNotMobileScreen ? '30%' : '13%', 
       }}
       />
 
@@ -178,6 +193,7 @@ sx={{
   border:'1px solid gray', 
   padding:'.3rem', 
   top:'-15px', 
+  cursor:'pointer', 
 }}
 >
 <AddIcon
@@ -194,6 +210,7 @@ sx={{
 </Box>
 
    </Box>
+    </Box>
     </>
   )
 }

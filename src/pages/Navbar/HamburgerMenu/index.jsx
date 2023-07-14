@@ -14,11 +14,13 @@ import { useDispatch } from 'react-redux';
 import { handleOpen } from '../../../state/CancelButtonSlice';
 import TrueLearnLogo from '../../../assets/Logo.png'
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useNavigate } from 'react-router-dom';
 
 export default function HamburgerMenu() {
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
   const open = useSelector((state) => state.handleDrawer.open)
   const dispatch = useDispatch(); 
+  const navigate = useNavigate(); 
 
   return (
 <>
@@ -52,6 +54,7 @@ sx={{
 </Typography>
 
 <Typography
+onClick={() => navigate('/createcourse')}
 name='createCourse'
 sx={{
   top:'40px',

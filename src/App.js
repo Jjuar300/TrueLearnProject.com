@@ -1,11 +1,11 @@
 import SignInPage from "./pages/Authentication/SignIn";
 import HomePage from "./pages/Homepage";
-import {BrowserRouter, Navigate, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Navigate, Routes, Route, Link} from 'react-router-dom'
 import Createcourse from './pages/Createcourse'
 import UploadVideo from "./pages/Createcourse/UploadVideo";
 import CourseInfo from "./pages/Createcourse/CourseInfo";
 import UserProfile from "./pages/UserProfile";
-import ChanelPage from "./pages/LearningPage.jsx/index.jsx";
+import LearningPage from "./pages/LearningPage.jsx/index.jsx";
 import Mycourses from "./pages/Mycourses";
 
 function App() {
@@ -21,7 +21,7 @@ return (
       <Route path="/uploadvideo" element={<UploadVideo/>} />
       <Route path="/courseinfo" element={<CourseInfo/>} />
       <Route path="/userprofile" element={<UserProfile/>} />
-      <Route path="/chanels" element={<ChanelPage/>} />
+      <Route path="/learning" element={<LearningPage/>} />
       <Route path="/mycourses" element={<Mycourses/>}/>
     </Routes>
     </BrowserRouter>

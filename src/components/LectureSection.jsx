@@ -4,10 +4,11 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { handleCloseSection } from '../state/createcourse/AddSectionSlice';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function LectureSection() {
-  const closeSection = useSelector(state => state.AddSection.isSection);
   const dispatch = useDispatch(); 
+  const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
 
     return (
     <>
@@ -15,8 +16,8 @@ export default function LectureSection() {
     name="section"
 sx={{
     border:'1px solid black',
-    width:'300px', 
-    height:'200px',  
+    width: isNotMobileScreen ? '500px' : '300px', 
+    height:'200px', 
 }}
 >
 
@@ -28,16 +29,17 @@ sx={{
     position:'relative',  
     left:'5%', 
     top:'7px',  
-
+    cursor:'pointer', 
 }}
 />
 
 <OutlinedInput
-placeholder='Add a section:'
+placeholder='Add a section title:'
 sx={{
     position:'relative', 
     height:'30px', 
     left:'10%', 
+    width: isNotMobileScreen ? '25rem' : 'none'
 }}
 /
 >
@@ -47,11 +49,12 @@ sx={{
     sx={{
         position:'relative', 
       border:'2px solid gray',
-      width: '5rem',
+      width: isNotMobileScreen ? '10rem' : '5rem',
       height:'5rem', 
       padding:'.2rem',
-      left:'35%', 
-      top:'40px',  
+      left: isNotMobileScreen ? '30%' : '35%', 
+      top:'40px', 
+      cursor:'pointer',  
     }}
     >
       <PlayArrowIcon
@@ -59,7 +62,7 @@ sx={{
         position:'relative', 
         fontSize:'50px', 
         top:'10px', 
-        left:'13%', 
+        left: isNotMobileScreen ? '30%' : '13%', 
       }}
       />
 

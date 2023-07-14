@@ -1,8 +1,11 @@
 import React from 'react'
 import { Box, Typography, TextField } from '@mui/material'
 import {Formik} from 'formik'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 export default function UserDetails() {
+    const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
+
   return (
   <>
   <Formik>
@@ -15,7 +18,7 @@ export default function UserDetails() {
     flexDirection:'column',
     gap:'2rem', 
     top:'30rem',
-    left:'5%', 
+    left: isNotMobileScreen ? '40%' : '5%', 
     height:'1rem',   
    }}
    >

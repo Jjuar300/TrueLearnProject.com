@@ -1,8 +1,11 @@
 import React from 'react'
 import {Box, Typography, Button} from '@mui/material'
 import PortraitIcon from '@mui/icons-material/Portrait';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function UserPictureProfile() {
+    const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
+
   return (
    <>
    <Box
@@ -21,6 +24,7 @@ export default function UserPictureProfile() {
         borderRadius:'10px', 
         display:'flex', 
         flexDirection:'column', 
+        cursor:'pointer', 
     }}
     >
 
@@ -43,7 +47,7 @@ export default function UserPictureProfile() {
            fontSize:'80px',
             color:'#c7c2c8',
             top:'4rem', 
-            left:'35%', 
+            left: isNotMobileScreen ? '47%' : '35%', 
         }}
         />
 
@@ -52,7 +56,7 @@ export default function UserPictureProfile() {
             position:'relative', 
             fontFamily:'roman', 
             top:'5rem',
-            left:'26%', 
+            left: isNotMobileScreen ? '45%' : '26%', 
             color:'#867c88',
             fontWeight:'bold',
             width:'11rem',    

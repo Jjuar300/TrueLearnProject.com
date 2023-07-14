@@ -2,8 +2,11 @@ import React from 'react'
 import {Box, Typography, Button, TextField, InputAdornment, IconButton} from '@mui/material'
 import { Formik } from 'formik'
 import SearchIcon from '@mui/icons-material/Search';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function SearchBar() {
+  const isNotMobileScreen = useMediaQuery('(min-width:1000px)');
+
   return (
     <>
    <Formik>
@@ -11,15 +14,17 @@ export default function SearchBar() {
       <Box
       sx={{
         position:'relative', 
-        top:'5rem', 
+        top: isNotMobileScreen ? '10rem' : '5rem', 
+        width: isNotMobileScreen ? '50rem' : 'none', 
+        left: isNotMobileScreen ? '25%' : 'none', 
       }}
       >
         <Typography
         sx={{
           position:'absolute', 
           top:'-2rem',
-          left:'15%',  
-          fontSize:'35px', 
+          left: isNotMobileScreen ? '40%' : '15%',  
+          fontSize:'35px',  
           fontFamily:'roman', 
           fontWeight:'bold', 
         }}

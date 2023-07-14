@@ -2,12 +2,15 @@
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { useNavigate } from 'react-router-dom'
 
 export default function SignUp() {
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
+  const navigate = useNavigate(); 
 
   return (
   <Button
+  onClick={() => navigate('/signin')}
   name='SignUpButton'
   sx={{
     position:'absolute', 

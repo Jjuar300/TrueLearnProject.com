@@ -9,6 +9,7 @@ import './css/Signin.css'
 import SignUpPage from './SignUp'
 import {useSelector, useDispatch} from 'react-redux'
 import {getSwitchToSignup} from '../../state/AuthenticationSlice'
+import NavBar from '../Navbar'
 
 export default function SignIn() {
 const isSignUp = useSelector(state => state.Authenticate.signup)
@@ -16,12 +17,9 @@ const dispatch = useDispatch();
 
   return (
   <>
-    <div>
-     <img width='150px' src={TruelearnLogo} />
-     <SignupButton></SignupButton>
-     <SearchBar></SearchBar>
-     <HamburgerMenu></HamburgerMenu>
-    </div>
+  
+  <NavBar></NavBar>
+
 {isSignUp ?  <div className='signform'>
    <h1 className='signintext' >Sign In to your account</h1>
    <Formik >

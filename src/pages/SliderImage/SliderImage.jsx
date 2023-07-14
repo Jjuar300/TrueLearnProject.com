@@ -7,6 +7,7 @@ import {AspectRatio} from 'react-aspect-ratio'
 import SimpleImageSlider from 'react-simple-image-slider'
 import Descriptions from './DescriptionForImage'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import Categories from './Categories'
 
 export default function SliderImage() {
     const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
@@ -20,9 +21,10 @@ export default function SliderImage() {
    
   return (
    
+    <>
     <Box sx={{ 
       position:'absolute', 
-      top: isNotMobileScreen ? '110px' :'80px', 
+      top: isNotMobileScreen ? '200px' :'80px', 
       left: isNotMobileScreen ? '5%' : '0%', 
       }}  > 
         <SimpleImageSlider 
@@ -34,6 +36,8 @@ export default function SliderImage() {
         />  
           <Descriptions></Descriptions>
     </Box>
+     <Categories></Categories>
+    </>
   )
 }
 

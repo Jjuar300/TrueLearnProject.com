@@ -5,16 +5,15 @@ import Signup from './Signup'
 import HamburgerMenu from './HamburgerMenu/index'
 import SearchBar from './SearchBar'
 import Promo from './Promo'
-import SliderImage from './SliderImage'
-import Categories from './Categories'
 import TrueLearnlogo from '../../assets/Logo.png'
 import { useDispatch } from 'react-redux'
-import UserIconMenu from '../UserProfile/UserIconMenu'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { useNavigate } from 'react-router-dom'
 
 export default function NavBar() {
   const disptach = useDispatch(); 
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
+  const navigate = useNavigate(); 
 
   return (
 
@@ -39,17 +38,22 @@ export default function NavBar() {
      sx={{
       position:'absolute', 
       top:'10px',
-      left:'1%',  
+      left:'1%', 
      }}
       >
-       <img  width='150px' src={TrueLearnlogo} />
+       <img  
+        width='150px' 
+        src={TrueLearnlogo} 
+        onClick={() => navigate('/')}
+        style={{
+          cursor:'pointer', 
+        }}
+        />
       </Box>
 
     <Signup ></Signup>
     <HamburgerMenu></HamburgerMenu>
-    <SliderImage></SliderImage>
     <SearchBar></SearchBar>
-    <Categories></Categories>
     </Box>
 
 
