@@ -4,10 +4,7 @@ import FeaturedVideoIcon from '@mui/icons-material/FeaturedVideo';
 import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import SignupButton from '../Navbar/Signup';
-import SearchBar from '../Navbar/SearchBar';
-import HamburgerMenu from '../Navbar/HamburgerMenu';
-import TruelearnLogo from '../../assets/Logo.png'
+import NavBar from '../Navbar';
 
 export default function CreateCourseGuide() {
     const navigate = useNavigate(); 
@@ -16,12 +13,7 @@ export default function CreateCourseGuide() {
     return (
    <>
 
-<div>
-     <img width='150px' src={TruelearnLogo} />
-     <SignupButton></SignupButton>
-     <SearchBar></SearchBar>
-     <HamburgerMenu></HamburgerMenu>
-    </div>
+<NavBar/>
 
    <Box
       name='guide'
@@ -30,8 +22,9 @@ export default function CreateCourseGuide() {
         display:'flex', 
         flexDirection:'column', 
         gap:'2rem', 
-        top: isNotMobileScreen ? '13rem' : '7rem',
-        left: isNotMobileScreen ? '43%' : '25%' 
+        top: isNotMobileScreen ? '13rem' : '12rem',
+        left: isNotMobileScreen ? '35%' : '25%',
+        width: isNotMobileScreen ? '15rem' : 'none' ,  
       }}
       >
 
@@ -41,8 +34,9 @@ export default function CreateCourseGuide() {
         fontFamily:'roman', 
         fontWeight:'bold', 
         top: isNotMobileScreen ? '0rem' : '-4rem',
-        left:'-5%',  
+        left: isNotMobileScreen ? '5%' : '-5%',  
         color:'#1b0032', 
+        width: isNotMobileScreen ? 'none' : '16rem', 
       }}
       >
         Create with TrueLearn
@@ -55,7 +49,7 @@ export default function CreateCourseGuide() {
           display:'flex', 
           flexDirection:'column', 
           left:'25%',
-          width:'12rem',
+          width:'15rem',
           height:'12rem',
           cursor:'pointer',    
         }}
@@ -69,13 +63,14 @@ export default function CreateCourseGuide() {
              color:'#ccbdbe',
              padding:'1rem', 
              backgroundColor:'#fbf9f9',  
+             width: isNotMobileScreen ? '25rem' : 'none', 
           }}
           />
               <Typography
               sx={{
                 position:'relative', 
                 top:'-24px',
-                left:'15%', 
+                left: isNotMobileScreen ? '65%' : '15%', 
                 opacity:'.5', 
                 fontFamily:'roman',  
               }}
@@ -105,13 +100,14 @@ export default function CreateCourseGuide() {
              color:'#ccbdbe',
              padding:'1rem', 
              backgroundColor:'#fbf9f9',  
+             width: isNotMobileScreen ? '25rem' : 'none', 
           }}
           />
               <Typography
               sx={{
                 position:'relative', 
                 top:'-24px',
-                left:'18%', 
+                left: isNotMobileScreen ? '90%' : '18%', 
                 opacity:'.5', 
                 fontFamily:'roman',  
               }}
@@ -130,7 +126,7 @@ export default function CreateCourseGuide() {
       backgroundColor:'#28034c', 
       color:'white', 
       top:'30px', 
-      left:'-20%', 
+      left: isNotMobileScreen ? '25%' : '-20%', 
       ':hover': {backgroundColor: 'gray'}, 
     }}
     >

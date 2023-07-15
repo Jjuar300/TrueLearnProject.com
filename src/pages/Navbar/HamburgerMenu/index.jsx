@@ -15,6 +15,7 @@ import { handleOpen } from '../../../state/CancelButtonSlice';
 import TrueLearnLogo from '../../../assets/Logo.png'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useNavigate } from 'react-router-dom';
+import { handleClose } from '../../../state/CancelButtonSlice';
 
 export default function HamburgerMenu() {
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
@@ -39,6 +40,7 @@ sx={{
 }}
 >
 <Typography
+onClick={() => {navigate('/mycourses')}}
 name='exploreCourses'
 sx={{
   left:'60%', 
@@ -54,7 +56,7 @@ sx={{
 </Typography>
 
 <Typography
-onClick={() => navigate('/createcourse')}
+onClick={() =>{navigate('/createcourse')}}
 name='createCourse'
 sx={{
   top:'40px',
@@ -101,10 +103,14 @@ width='230px'
 textAlign='center'
 role='presentation'
 >
-  <img width='120px'  src={TrueLearnLogo} />
+  <img
+  onClick={() => {navigate('/'); dispatch(handleClose())}} 
+  width='120px'  
+  src={TrueLearnLogo} />
 
 <Typography
 name='exploreCourses'
+onClick={() => {navigate('/mycourses'); dispatch(handleClose())}}
 sx={{
   position: 'absolute', 
   top: '100px',
@@ -117,7 +123,7 @@ sx={{
 
 <Typography
 name='createCourse'
-onClick={()=> console.log('a course was created')}
+onClick={()=> {navigate('/createcourse'); dispatch(handleClose())}}
 sx={{
   position: 'absolute', 
   top:'200px',

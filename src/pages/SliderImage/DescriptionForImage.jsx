@@ -44,7 +44,7 @@ export default function DescriptionForImage() {
     <Box
     sx={{
       position:'relative', 
-      top: isNotMobileScreen ? '-20rem' :'10px', 
+      top: isNotMobileScreen ? '-20rem' :'10rem', 
       left: isNotMobileScreen ? '50rem' : '0%', 
       fontSize: isNotMobileScreen ? '20px' : 'none', 
     }}

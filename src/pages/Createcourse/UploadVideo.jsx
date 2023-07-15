@@ -24,8 +24,8 @@ export default function UploadVideo() {
       display:'flex', 
       flexDirection:'column', 
       flexWrap:'wrap', 
-      left: isNotMobileScreen ? '35%' : '43%', 
-      top: isNotMobileScreen ? '4rem' : '10rem', 
+      left: isNotMobileScreen ? '35%' : '-1%', 
+      top: isNotMobileScreen ? '4rem' : '5rem', 
     }}
     >
       
@@ -38,7 +38,8 @@ export default function UploadVideo() {
         justifyItems:'center',  
         gap:'1rem',
         left:'7%', 
-        flexWrap:'wrap',   
+        flexWrap:'wrap', 
+        width:'20rem',  
     }}
 >
 <Typography
@@ -88,7 +89,7 @@ export default function UploadVideo() {
     gap:'2rem',
     flexWrap:'wrap', 
     top:'170px', 
-    left:'8%',  
+    left:'8%',
    }}
    >
    <Box
@@ -100,6 +101,7 @@ export default function UploadVideo() {
       backgroundColor:'#f7f6f6',
       color:'gray', 
       left:'12%', 
+      width: isNotMobileScreen ? 'none' : '13rem', 
     }}
     >  
 
@@ -115,7 +117,7 @@ sx={{
     name='previewvideo'
     sx={{
       border:'2px solid gray',
-      width: '10rem',
+      width: isNotMobileScreen ? '10rem' : '5rem',
       height:'4rem', 
       padding:'.5rem',
       cursor:'pointer', 
@@ -127,7 +129,7 @@ sx={{
         position:'absolute', 
         fontSize:'5rem', 
         top:'55px',
-        left: isNotMobileScreen ? '40%' : '36%',  
+        left: isNotMobileScreen ? '40%' : '32%',  
       }}
       />
 
@@ -193,7 +195,8 @@ sx={{
   border:'1px solid gray', 
   padding:'.3rem', 
   top:'-15px', 
-  cursor:'pointer', 
+  cursor:'pointer',
+  width: isNotMobileScreen ? 'none' : '18rem', 
 }}
 >
 <AddIcon
