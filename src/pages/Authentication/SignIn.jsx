@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Box, Card, TextField, Button, Typography} from '@mui/material'
 import HamburgerMenu from '../Navbar/HamburgerMenu'
 import TruelearnLogo from '../../assets/Logo.png'
 import SignupButton from '../Navbar/Signup'
 import SearchBar from '../Navbar/SearchBar'
-import {Field, Form, Formik} from 'formik'
+import {Field, Form, Formik, useFormik} from 'formik'
 import './css/Signin.css'
 import SignUpPage from './SignUp'
 import {useSelector, useDispatch} from 'react-redux'
@@ -15,24 +15,47 @@ export default function SignIn() {
 const isSignUp = useSelector(state => state.Authenticate.signup)
 const dispatch = useDispatch(); 
 
+const formikLogin = useFormik({
+  initialValues: {
+    email:'', 
+    password: '', 
+  },
+  onSubmit: (values) => {
+   fetch('http://localhost:3005/auth/login', {
+    method: 'POST', 
+    headers: {'Content-Type' : 'application/json'},
+    body: JSON.stringify(values)
+   });
+  }, 
+})
+
+let FORMIK_EMAIL =  formikLogin.values.email; 
+let FORMIK_PASSWORD  = formikLogin.values.password
+
+const handledataswitchlogin = () => {
+  //getting the user data/ info.
+  //if the user data then switch to the signinpage. 
+}
+
   return (
   <>
   
   <NavBar></NavBar>
-
 {isSignUp ?  <div className='signform'>
    <h1 className='signintext' >Sign In to your account</h1>
-   <Formik >
     <form
     name='form'
+    onSubmit={formikLogin.handleSubmit}
     >
    <TextField 
    required
        name='email'
       label='Email' 
-      variant='outlined'  
+      variant='outlined'
       type='Email'
-      autoComplete='new-Email' 
+      onChange={formikLogin.handleChange}
+      value={FORMIK_EMAIL}
+      autoComplete='new-Email'
       sx={{
         backgroundColor:'#fdf8ff'
       }}
@@ -45,6 +68,8 @@ const dispatch = useDispatch();
         label='password'
         variant='outlined'
         type='password'
+        onChange={formikLogin.handleChange}
+        value={FORMIK_PASSWORD}
        autoComplete='new-password'
        sx={{
         backgroundColor:'#fdf8ff', 
@@ -53,6 +78,7 @@ const dispatch = useDispatch();
 
         <Button
         name='Signinbutton'
+        type='submit'
         sx={{
           border:'1px solid gray', 
           color:'white', 
@@ -111,7 +137,6 @@ const dispatch = useDispatch();
        </Box>
 
     </form>
-    </Formik>
    </div> :
    <SignUpPage />
    }

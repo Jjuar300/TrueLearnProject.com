@@ -4,24 +4,45 @@ import HamburgerMenu from '../Navbar/HamburgerMenu'
 import TruelearnLogo from '../../assets/Logo.png'
 import SignupButton from '../Navbar/Signup'
 import SearchBar from '../Navbar/SearchBar'
-import {Field, Form, Formik} from 'formik'
+import {Field, Form, Formik, useFormik} from 'formik'
 import './css/signUp.css'
 import {useSelector, useDispatch} from 'react-redux'
 import {getSwitchToSignin} from '../../state/AuthenticationSlice' 
 import SignInPage from './SignIn'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { useNavigate } from 'react-router-dom'
 
 export default function SignIn() {
 const isSignin = useSelector(state => state.Authenticate.signin)
 const dispatch = useDispatch(); 
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
+const navigate = useNavigate(); 
+
+const formiksignup = useFormik({
+  initialValues: {
+    firstname:'', 
+    lastname: '', 
+    email:'', 
+    password:'', 
+    uploadphoto:null, 
+  },
+  onSubmit: (values) => {
+   fetch('http://localhost:3005/auth/login', {
+    method: 'POST', 
+    headers: {'Content-Type' : 'application/json'},
+    body: JSON.stringify(values)
+   })
+  }
+})
+
+
 
   return (
   <>
   {isSignin ? <div className='signupform'>
   <h1 className='signUptext' >Create an account</h1>
-  <Formik >
-  <form>
+
+  <form onSubmit={formiksignup.handleSubmit}>
 
     <TextField 
     name='firstname'
@@ -29,6 +50,8 @@ const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
     label='First Name'
     variant='outlined'
     type='text'
+    onChange={formiksignup.handleChange}
+    values={formiksignup.firstname}
     required
     sx={{
       backgroundColor:'#fdf8ff'
@@ -41,6 +64,8 @@ const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
     label='Last Name'
     variant='outlined'
     type='text'
+    onChange={formiksignup.handleChange}
+    value={formiksignup.lastname}
     required
     sx={{
       backgroundColor:'#fdf8ff'
@@ -82,6 +107,8 @@ const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
     label='Email' 
     variant='outlined'  
     type='Email'
+    onChange={formiksignup.handleChange}
+    values={formiksignup.email}
     autoComplete='new-Email' 
     sx={{
       backgroundColor:'#fdf8ff'
@@ -95,6 +122,8 @@ const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
       label='password'
       variant='outlined'
       type='password'
+      onChange={formiksignup.handleChange}
+      values={formiksignup.password}
       autoComplete='new-password'
       sx={{
       backgroundColor:'#fdf8ff', 
@@ -103,6 +132,7 @@ const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 
       <Button
       name='signupbutton'
+      onClick={formiksignup.handleSubmit}
       sx={{
         border:'1px solid gray', 
         color:'white', 
@@ -142,7 +172,6 @@ const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
       </Box>
 
   </form>
-  </Formik>
   </div> :
   <SignInPage/>
   }
