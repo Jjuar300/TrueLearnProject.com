@@ -16,12 +16,18 @@ import TrueLearnLogo from '../../../assets/Logo.png'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useNavigate } from 'react-router-dom';
 import { handleClose } from '../../../state/CancelButtonSlice';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import axios from 'axios';
+import { gettoken } from '../../../state/ServerSlice';
 
 export default function HamburgerMenu() {
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
   const open = useSelector((state) => state.handleDrawer.open)
   const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
+  const userData = useSelector(state => state.ServerSlice.data)
+  
+  // console.log(userData)
 
   return (
 <>
@@ -35,15 +41,15 @@ sx={{
   display:'flex', 
   gap:'3rem',  
    width:'20rem', 
-   left:'72%',
+   left: userData ? '65%' : '72%',
    top:'2.4rem',  
 }}
 >
 <Typography
 onClick={() => {navigate('/mycourses')}}
 name='exploreCourses'
-sx={{
-  left:'60%', 
+sx={{ 
+  left: '60%', 
   top: '40px', 
   fontSize: '18px',  
   fontFamily:'roman', 
@@ -55,28 +61,36 @@ sx={{
   Explore Courses
 </Typography>
 
-<Typography
-onClick={() =>{navigate('/createcourse')}}
-name='createCourse'
-sx={{
-  top:'40px',
-  fontSize: '25px', 
-  left:'70%', 
-  fontSize:'18px', 
-  fontFamily:'roman', 
-  fontWeight:'bold', 
-  color:'#373b3f', 
-  cursor:'pointer', 
-}}
->
-  Create Course
-</Typography>
+
+{
+  userData ?
+  <Typography
+  onClick={() =>{navigate('/createcourse')}}
+  name='createCourse'
+  sx={{
+    top:'40px',
+    fontSize: '25px', 
+    left:'70%', 
+    fontSize:'18px', 
+    fontFamily:'roman', 
+    fontWeight:'bold', 
+    color:'#373b3f', 
+    cursor:'pointer', 
+  }}
+  >
+    Create Course
+  </Typography>
+  : 
+null
+}
 
 </Box>
   
   :<Box>
-  
-<MenuIcon
+
+{ userData ? 
+
+< AccountCircleIcon
 name='HamburgerMenuIcon'
 onClick={() => dispatch(handleOpen())}
  sx={{
@@ -87,7 +101,21 @@ onClick={() => dispatch(handleOpen())}
   color: 'black', 
 
 }}
-/>
+/> :
+
+< MenuIcon
+name='HamburgerMenuIcon'
+onClick={() => dispatch(handleOpen())}
+ sx={{
+  position: 'absolute', 
+  left: '87%', 
+  top: '30px', 
+  fontSize: '30px', 
+  color: 'black', 
+
+}}
+ /> 
+}
 
 <Drawer 
 anchor='right'
@@ -121,7 +149,7 @@ sx={{
   Explore Courses
 </Typography>
 
-<Typography
+{ userData ? <Typography
 name='createCourse'
 onClick={()=> {navigate('/createcourse'); dispatch(handleClose())}}
 sx={{
@@ -133,10 +161,14 @@ sx={{
 >
   Create Course
 </Typography>
+: 
+null
+}
+
 
 <CancelButton/>
-<SignUp/>
-<SignIn/>
+{ userData ? null : <SignUp/>}
+{ userData ? null : <SignIn/>}
 
 </Box>
 </Drawer>

@@ -24,6 +24,6 @@ getSwitchToSignin: state => {
 
 export const {
     getSwitchToSignin, 
-    getSwitchToSignup
+    getSwitchToSignup,
 } = Authentication.actions; 
 export default Authentication.reducer; 

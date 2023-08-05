@@ -1,9 +1,4 @@
-import React from 'react'
 import {Box, Card, TextField, Button, Typography} from '@mui/material'
-import HamburgerMenu from '../Navbar/HamburgerMenu'
-import TruelearnLogo from '../../assets/Logo.png'
-import SignupButton from '../Navbar/Signup'
-import SearchBar from '../Navbar/SearchBar'
 import {Field, Form, Formik, useFormik} from 'formik'
 import './css/signUp.css'
 import {useSelector, useDispatch} from 'react-redux'
@@ -11,47 +6,77 @@ import {getSwitchToSignin} from '../../state/AuthenticationSlice'
 import SignInPage from './SignIn'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import NavBar from '../Navbar'
 
 export default function SignIn() {
 const isSignin = useSelector(state => state.Authenticate.signin)
 const dispatch = useDispatch(); 
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const navigate = useNavigate(); 
+const [data, setdata] = useState({
+  firstname: '', 
+  lastname:'', 
+  picturePhoto:null, 
+  email:'', 
+  password:'', 
+}); 
 
-const formiksignup = useFormik({
-  initialValues: {
-    firstname:'', 
-    lastname: '', 
-    email:'', 
-    password:'', 
-    uploadphoto:null, 
-  },
-  onSubmit: (values) => {
-   fetch('http://localhost:3005/auth/login', {
-    method: 'POST', 
-    headers: {'Content-Type' : 'application/json'},
-    body: JSON.stringify(values)
-   })
+const firstName = data.firstname; 
+const lastName = data.lastname;
+const Email = data.email; 
+const Password = data.password; 
+
+
+const getUserSignUp = async (e) => {
+  e.preventDefault();
+  const {
+    firstname,
+    lastname,
+    email, 
+    password 
+  } = data;
+
+  try{
+ const {data} = await axios.post('/usersignup', {
+  firstname, 
+  lastname, 
+  email,
+  password, 
+ })
+
+ if(!data){
+  console.log('not data')
+ }else{
+  setdata({})
+  navigate('/signin')
+ }
+
+  }catch(err){
+    console.log(err)
   }
-})
-
+}
 
 
   return (
   <>
-  {isSignin ? <div className='signupform'>
+
+ <NavBar/> 
+
+  <div className='signupform'>
   <h1 className='signUptext' >Create an account</h1>
 
-  <form onSubmit={formiksignup.handleSubmit}>
+  <form onSubmit={getUserSignUp} >
 
     <TextField 
     name='firstname'
     autoComplete='new-text'
     label='First Name'
     variant='outlined'
+    value={firstName}
+    onChange={(e) => setdata({...data, firstname: e.target.value})}
     type='text'
-    onChange={formiksignup.handleChange}
-    values={formiksignup.firstname}
     required
     sx={{
       backgroundColor:'#fdf8ff'
@@ -63,9 +88,9 @@ const formiksignup = useFormik({
     autoComplete='new-text'
     label='Last Name'
     variant='outlined'
+    value={lastName}
+    onChange={(e) => setdata({...data, lastname: e.target.value})}
     type='text'
-    onChange={formiksignup.handleChange}
-    value={formiksignup.lastname}
     required
     sx={{
       backgroundColor:'#fdf8ff'
@@ -107,8 +132,8 @@ const formiksignup = useFormik({
     label='Email' 
     variant='outlined'  
     type='Email'
-    onChange={formiksignup.handleChange}
-    values={formiksignup.email}
+    value={Email}
+    onChange={(e) => setdata({...data, email: e.target.value})}
     autoComplete='new-Email' 
     sx={{
       backgroundColor:'#fdf8ff'
@@ -122,8 +147,8 @@ const formiksignup = useFormik({
       label='password'
       variant='outlined'
       type='password'
-      onChange={formiksignup.handleChange}
-      values={formiksignup.password}
+      value={Password}
+      onChange={(e) => setdata({...data, password: e.target.value})}
       autoComplete='new-password'
       sx={{
       backgroundColor:'#fdf8ff', 
@@ -132,7 +157,7 @@ const formiksignup = useFormik({
 
       <Button
       name='signupbutton'
-      onClick={formiksignup.handleSubmit}
+      type='submit'
       sx={{
         border:'1px solid gray', 
         color:'white', 
@@ -159,7 +184,7 @@ const formiksignup = useFormik({
 
         <Button
         name='signin'
-       onClick={() => dispatch(getSwitchToSignin())}
+       onClick={() => navigate('/signin')}
         sx={{
           color:'#1d0031', 
           top:'4px',
@@ -172,10 +197,7 @@ const formiksignup = useFormik({
       </Box>
 
   </form>
-  </div> :
-  <SignInPage/>
-  }
-
+  </div> 
   </>
   )
 }

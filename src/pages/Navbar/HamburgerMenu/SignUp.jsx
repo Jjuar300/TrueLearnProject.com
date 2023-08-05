@@ -12,7 +12,7 @@ export default function SignUp() {
 
   return (
     <SignUpButton
-    onClick={() => {navigate('/signin'); dispatch(handleClose())}}
+    onClick={() => {navigate('/signup'); dispatch(handleClose())}}
     name='SignUpButton'
     sx={{
       left: '-1%',

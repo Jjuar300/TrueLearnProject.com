@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useContext } from 'react'
 import { Box, Paper, Typography } from '@mui/material'
 import Signup from './Signup'
 import HamburgerMenu from './HamburgerMenu/index'
@@ -8,12 +8,17 @@ import Promo from './Promo'
 import TrueLearnlogo from '../../assets/Logo.png'
 import { useDispatch } from 'react-redux'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import UserMenu from './UserMenu'
+import { UserContext } from '../../context/userContext'
 
 export default function NavBar() {
   const disptach = useDispatch(); 
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
   const navigate = useNavigate(); 
+  const userData =  useSelector(state => state.ServerSlice.data)
+  // const {user} = useContext(UserContext)
 
   return (
 
@@ -51,7 +56,7 @@ export default function NavBar() {
         />
       </Box>
 
-    <Signup ></Signup>
+    { userData ? <UserMenu/> : <Signup/>}
     <HamburgerMenu></HamburgerMenu>
     <SearchBar></SearchBar>
     </Box>

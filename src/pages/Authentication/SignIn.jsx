@@ -1,60 +1,80 @@
-import React, { useEffect, useState } from 'react'
+import React, { useDebugValue, useEffect, useState, useContext } from 'react'
 import {Box, Card, TextField, Button, Typography} from '@mui/material'
-import HamburgerMenu from '../Navbar/HamburgerMenu'
-import TruelearnLogo from '../../assets/Logo.png'
-import SignupButton from '../Navbar/Signup'
-import SearchBar from '../Navbar/SearchBar'
 import {Field, Form, Formik, useFormik} from 'formik'
 import './css/Signin.css'
 import SignUpPage from './SignUp'
 import {useSelector, useDispatch} from 'react-redux'
 import {getSwitchToSignup} from '../../state/AuthenticationSlice'
 import NavBar from '../Navbar'
+import { redirect, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import {toast} from 'react-hot-toast'
+import { getData } from '../../state/ServerSlice'
+import { UserContext } from '../../context/userContext'
 
 export default function SignIn() {
 const isSignUp = useSelector(state => state.Authenticate.signup)
 const dispatch = useDispatch(); 
+const navigate =  useNavigate(); 
+const {user} = useContext(UserContext)
+const [signin, setsignin] = useState(null); 
 
-const formikLogin = useFormik({
-  initialValues: {
-    email:'', 
-    password: '', 
-  },
-  onSubmit: (values) => {
-   fetch('http://localhost:3005/auth/login', {
-    method: 'POST', 
-    headers: {'Content-Type' : 'application/json'},
-    body: JSON.stringify(values)
-   });
-  }, 
+const [data, setdata] = useState({
+  email: '', 
+  password:'', 
 })
 
-let FORMIK_EMAIL =  formikLogin.values.email; 
-let FORMIK_PASSWORD  = formikLogin.values.password
 
-const handledataswitchlogin = () => {
-  //getting the user data/ info.
-  //if the user data then switch to the signinpage. 
+
+
+const UserSignIn = async (e) => {
+e.preventDefault(); 
+const {email, password} = data; 
+try{
+const {data} = await axios.post('/usersignin', {
+  email, 
+  password,
+})  
+ 
+console.log(data)
+
+if(data.error) {
+  console.log('sign in did not work ')
+}else{
+  setdata({})
+  navigate('/')
+    console.log(user)
 }
+
+}catch(err){
+console.log(err)
+}
+}
+
+
+const Email = data.email; 
+const Password = data.password; 
 
   return (
   <>
   
   <NavBar></NavBar>
+  
 {isSignUp ?  <div className='signform'>
    <h1 className='signintext' >Sign In to your account</h1>
     <form
     name='form'
-    onSubmit={formikLogin.handleSubmit}
+    onSubmit={UserSignIn}
     >
    <TextField 
    required
+       id='email' //this was changed
        name='email'
       label='Email' 
       variant='outlined'
       type='Email'
-      onChange={formikLogin.handleChange}
-      value={FORMIK_EMAIL}
+      value={Email}
+      onChange={(e) => setdata({...data, email: e.target.value})}
       autoComplete='new-Email'
       sx={{
         backgroundColor:'#fdf8ff'
@@ -63,13 +83,14 @@ const handledataswitchlogin = () => {
        >
 
         <TextField 
+        id='password' //this was changed
         name='password'
         required
         label='password'
         variant='outlined'
         type='password'
-        onChange={formikLogin.handleChange}
-        value={FORMIK_PASSWORD}
+        value={Password}
+        onChange={(e) => setdata({...data, password: e.target.value})}
        autoComplete='new-password'
        sx={{
         backgroundColor:'#fdf8ff', 
@@ -123,7 +144,7 @@ const handledataswitchlogin = () => {
 
         <Button
         name='signupbutton'
-        onClick={() => dispatch(getSwitchToSignup())}
+        onClick={() => navigate('/signup')}
         sx={{
           width:'90px', 
           fontSize:'12px',
