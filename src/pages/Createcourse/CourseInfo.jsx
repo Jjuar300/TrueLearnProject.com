@@ -1,12 +1,12 @@
 
-import {Box, Typography, OutlinedInput, TextField, Button} from '@mui/material'
+import {Box, Typography, OutlinedInput, TextField, Button, InputAdornment} from '@mui/material'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const Catergories = [
   {
@@ -114,8 +114,30 @@ export default function ClassInfo() {
         </Typography>
 
         <TextField
-        placeholder='This course...' 
         multiline
+        placeholder='This course...' 
+        sx={{
+          width:'20rem',
+        }}
+        />
+      </Box>
+
+      <Box
+      >
+        <Typography
+        fontWeight='bold'
+        >
+          Price of course
+        </Typography>
+
+        <TextField
+        InputProps={{
+          startAdornment:(
+            <InputAdornment>
+            <AttachMoneyIcon/>
+            </InputAdornment>
+          )
+        }}
         sx={{
           width:'20rem',
         }}

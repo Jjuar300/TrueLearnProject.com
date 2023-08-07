@@ -1,19 +1,23 @@
-import React, { useState } from 'react'
+import React, { cloneElement, useState } from 'react'
 import {Button, Typography, Box, OutlinedInput} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import LectureSection from '../../components/LectureSection';
 import { useSelector, useDispatch } from 'react-redux';
-import { handleOpenSection } from '../../state/createcourse/AddSectionSlice';
+import { handleSection } from '../../state/createcourse/AddSectionSlice';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import { AddSection } from '../../helper/createCourse/AddSection';
 
 export default function UploadVideo() {
-  const openSection = useSelector(state => state.AddSection.isSection)
+  const LectureComponent = useSelector(state => state.AddSection.isSection)
   const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
+  const CloneLectureSection = cloneElement(<LectureSection/>)
+   const Section = <LectureSection/>
+  const [SectionElements, setSectionElements] = useState(); 
+  
 
   return (
     <>
@@ -95,6 +99,7 @@ export default function UploadVideo() {
    <Box
     sx={{
       border:'1px solid gray', 
+      borderRadius:'15px', 
       display:'flex',  
       justifyContent:'center', 
       padding:'3rem',  
@@ -111,35 +116,47 @@ sx={{
     top:'5px', 
 }}
 >
-        Upload a preview video here. 
+        Upload a preview video or picture here. 
       </Typography>
     <Box
     name='previewvideo'
     sx={{
-      border:'2px solid gray',
       width: isNotMobileScreen ? '10rem' : '5rem',
       height:'4rem', 
       padding:'.5rem',
+    }}
+    >
+    
+    <Box
+    sx={{
+      position:'absolute', 
+      border:'1px solid black', 
+      width:'30rem', 
+      height:'7rem', 
+      left:'2%', 
+      top:'35px', 
+      borderStyle: 'dashed', 
       cursor:'pointer', 
     }}
     >
-
-      <PlayArrowIcon
-      sx={{
-        position:'absolute', 
-        fontSize:'5rem', 
-        top:'55px',
-        left: isNotMobileScreen ? '40%' : '32%',  
-      }}
-      />
-
+   <AddIcon
+   sx={{
+    position:'absolute', 
+    left:'44%',
+    fontSize:'40px', 
+    top:'2rem', 
+   }}
+   />
     </Box>
     </Box>
+    </Box>
 
+    
     <Box
     name="introduction"
 sx={{
     border:'1px solid black',
+    borderRadius:'14px',
     width: isNotMobileScreen ? '500px' : '300px', 
     height:'200px',  
 }}
@@ -162,37 +179,45 @@ sx={{
     sx={{
         position:'relative', 
       border:'2px solid gray',
-      width: isNotMobileScreen ? '10rem' : '5rem',
-      height:'5rem', 
+      width: isNotMobileScreen ? '15rem' : '5rem',
+      height:'3rem', 
       padding:'.2rem',
-      left:'35%', 
+      left:'25%', 
       top:'40px',
       cursor:'pointer',   
+      textAlign:'center', 
     }}
     >
-      <PlayArrowIcon
+
+      <AddIcon
       sx={{
-        position:'relative', 
-        fontSize:'50px', 
-        top:'10px', 
-        left: isNotMobileScreen ? '30%' : '13%', 
+        position:'absolute', 
+        left:'4%'
       }}
       />
+     <Typography
+     sx={{
+      position:'absolute', 
+      top:'.5rem', 
+      left:'30%', 
+     }}
+     >
+      Add Content
+     </Typography>
 
     </Box>
 
 </Box>
 
-{openSection &&
-<LectureSection></LectureSection>
-}
+
+
+{LectureComponent}
 
 <Box
-onClick={() => dispatch(handleOpenSection()) }
+ onClick={() => dispatch(handleSection({isSection: CloneLectureSection}))}
 name='addsection'
 sx={{
   position:'relative', 
-  border:'1px solid gray', 
   padding:'.3rem', 
   top:'-15px', 
   cursor:'pointer',
@@ -204,6 +229,7 @@ sx={{
     sx={{
         position:'relative', 
         border:'1px solid black', 
+        borderRadius:'15px', 
         fontSize:'30px', 
         top:'3px',
         left:'42%',  

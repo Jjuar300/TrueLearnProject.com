@@ -11,12 +11,12 @@ import axios from 'axios'
 import {toast} from 'react-hot-toast'
 import { getData } from '../../state/ServerSlice'
 import { UserContext } from '../../context/userContext'
+import Cookies from 'js-cookie'
 
 export default function SignIn() {
 const isSignUp = useSelector(state => state.Authenticate.signup)
 const dispatch = useDispatch(); 
 const navigate =  useNavigate(); 
-const {user} = useContext(UserContext)
 const [signin, setsignin] = useState(null); 
 
 const [data, setdata] = useState({
@@ -43,7 +43,9 @@ if(data.error) {
 }else{
   setdata({})
   navigate('/')
-    console.log(user)
+  dispatch(getData({
+    data: Cookies.get('token')
+  }))
 }
 
 }catch(err){

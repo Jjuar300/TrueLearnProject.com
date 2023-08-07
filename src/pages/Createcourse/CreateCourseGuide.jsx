@@ -51,7 +51,7 @@ export default function CreateCourseGuide() {
           left:'25%',
           width:'15rem',
           height:'12rem',
-          cursor:'pointer',    
+          cursor:'pointer',   
         }}
         >
           <FeaturedVideoIcon
@@ -62,7 +62,7 @@ export default function CreateCourseGuide() {
             fontSize:'10rem',
              color:'#ccbdbe',
              padding:'1rem', 
-             backgroundColor:'#fbf9f9',  
+             borderRadius:'6px', 
              width: isNotMobileScreen ? '25rem' : 'none', 
           }}
           />
@@ -75,7 +75,7 @@ export default function CreateCourseGuide() {
                 fontFamily:'roman',  
               }}
               >
-              Upload videos
+              Create Sections
             </Typography>
         </Box>
 
@@ -88,7 +88,8 @@ export default function CreateCourseGuide() {
           left:'25%', 
           width:'12rem',
           height:'12rem',
-          cursor:'pointer',    
+          // cursor:'pointer',  
+          opacity:'.5'  
         }}
         >
           <InfoIcon
@@ -99,7 +100,7 @@ export default function CreateCourseGuide() {
             fontSize:'10rem',
              color:'#ccbdbe',
              padding:'1rem', 
-             backgroundColor:'#fbf9f9',  
+             borderRadius:'6px',  
              width: isNotMobileScreen ? '25rem' : 'none', 
           }}
           />
@@ -121,13 +122,15 @@ export default function CreateCourseGuide() {
       position:'relative', 
       border:'1px solid gray', 
       fontSize:'15px', 
-      width:'20rem',
-      height:'1.5rem',  
-      backgroundColor:'#28034c', 
+      width:'10rem',
+      height:'3rem',  
+      backgroundColor:'black', 
       color:'white', 
       top:'30px', 
-      left: isNotMobileScreen ? '25%' : '-20%', 
-      ':hover': {backgroundColor: 'gray'}, 
+      opacity:'.5', 
+      cursor:'default',
+      left: isNotMobileScreen ? '60%' : '-20%', 
+      ':hover': {backgroundColor: 'black'}, 
     }}
     >
       Create Course

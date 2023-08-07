@@ -30,6 +30,14 @@ const handleclose = () => {
 }
 
 
+//this arrow function removes the token from out browser navigates to the home page.
+const handlelogout = () => {
+  dispatch(getLogout({
+    data: Cookies.remove('token') , 
+  }))
+  navigate('/')
+}
+
   return (
     <>
     { isNotMobileScreen ? <Box
@@ -65,9 +73,7 @@ const handleclose = () => {
             >Edit Profile</MenuItem>
             <Divider/>
             <MenuItem
-            onClick={() => dispatch(getLogout({
-              data: Cookies.remove('token') , 
-            }))}
+            onClick={handlelogout}
             >Logout</MenuItem>
         </Menu>
 

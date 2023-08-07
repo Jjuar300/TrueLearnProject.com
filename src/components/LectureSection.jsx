@@ -1,31 +1,33 @@
-import {Box, OutlinedInput} from '@mui/material'
+import {Box, OutlinedInput,Typography} from '@mui/material'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import RemoveIcon from '@mui/icons-material/Remove';
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { handleCloseSection } from '../state/createcourse/AddSectionSlice';
+import { handleSection } from '../state/createcourse/AddSectionSlice';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function LectureSection() {
   const dispatch = useDispatch(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
-
-    return (
+  return (
     <>
     <Box
     name="section"
 sx={{
     border:'1px solid black',
+    borderRadius:'15px', 
     width: isNotMobileScreen ? '500px' : '300px', 
     height:'200px', 
 }}
 >
 
 <RemoveIcon
-onClick={() => dispatch(handleCloseSection())}
+onClick={() => dispatch(handleSection({isSection:false}))}
 name='removeicon'
 sx={{
     border:'1px solid black',
+    borderRadius:'15px', 
     position:'relative',  
     left:'5%', 
     top:'7px',  
@@ -44,30 +46,40 @@ sx={{
 /
 >
 
-  <Box
+
+ 
+<Box
     name='uploadvideo'
     sx={{
         position:'relative', 
       border:'2px solid gray',
-      width: isNotMobileScreen ? '10rem' : '5rem',
-      height:'5rem', 
+      width: isNotMobileScreen ? '15rem' : '5rem',
+      height:'3rem', 
       padding:'.2rem',
-      left: isNotMobileScreen ? '30%' : '35%', 
-      top:'40px', 
-      cursor:'pointer',  
+      left:'25%', 
+      top:'40px',
+      cursor:'pointer',   
+      textAlign:'center', 
     }}
     >
-      <PlayArrowIcon
+
+      <AddIcon
       sx={{
-        position:'relative', 
-        fontSize:'50px', 
-        top:'10px', 
-        left: isNotMobileScreen ? '30%' : '13%', 
+        position:'absolute', 
+        left:'4%'
       }}
       />
+     <Typography
+     sx={{
+      position:'absolute', 
+      top:'.5rem', 
+      left:'30%', 
+     }}
+     >
+      Add Content
+     </Typography>
 
     </Box>
-
 </Box>
     </>
   )

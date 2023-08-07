@@ -3,14 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 export const AddSectionSlice = createSlice({
     name:"AddSectionSlice", 
     initialState:{
-        isSection:false,
+        isSection:null,
     }, 
     reducers:{
-        handleOpenSection: state => {state.isSection = true}, 
-        handleCloseSection: state => {state.isSection = false}
+       handleSection:(state, action) => {
+         state.isSection = action.payload.isSection; 
+       }
     }
 })
 
 
-export const {handleCloseSection, handleOpenSection} = AddSectionSlice.actions; 
+export const {handleSection} = AddSectionSlice.actions; 
 export default AddSectionSlice.reducer; 

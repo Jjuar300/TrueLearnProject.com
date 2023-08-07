@@ -15,6 +15,7 @@ const isSignin = useSelector(state => state.Authenticate.signin)
 const dispatch = useDispatch(); 
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const navigate = useNavigate(); 
+
 const [data, setdata] = useState({
   firstname: '', 
   lastname:'', 

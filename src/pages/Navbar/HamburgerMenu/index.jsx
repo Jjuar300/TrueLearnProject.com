@@ -18,7 +18,10 @@ import { useNavigate } from 'react-router-dom';
 import { handleClose } from '../../../state/CancelButtonSlice';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from 'axios';
-import { gettoken } from '../../../state/ServerSlice';
+import { getLogout, gettoken } from '../../../state/ServerSlice';
+import SignUpButton from '../../../components/SignUpButton';
+import Cookies from 'js-cookie';
+import Divider from '@mui/material/Divider';
 
 export default function HamburgerMenu() {
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
@@ -26,8 +29,14 @@ export default function HamburgerMenu() {
   const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
   const userData = useSelector(state => state.ServerSlice.data)
-  
-  // console.log(userData)
+
+  const handlelogout = () => {
+    dispatch(getLogout({
+      data: Cookies.remove('token'), 
+    }))
+    dispatch(handleClose())
+    navigate('/')
+  }
 
   return (
 <>
@@ -46,7 +55,7 @@ sx={{
 }}
 >
 <Typography
-onClick={() => {navigate('/mycourses')}}
+onClick={() => {navigate('/explorecourse')}}
 name='exploreCourses'
 sx={{ 
   left: '60%', 
@@ -60,7 +69,6 @@ sx={{
 >
   Explore Courses
 </Typography>
-
 
 {
   userData ?
@@ -138,7 +146,7 @@ role='presentation'
 
 <Typography
 name='exploreCourses'
-onClick={() => {navigate('/mycourses'); dispatch(handleClose())}}
+onClick={() => {navigate('/explorecourse'); dispatch(handleClose())}}
 sx={{
   position: 'absolute', 
   top: '100px',
@@ -154,7 +162,7 @@ name='createCourse'
 onClick={()=> {navigate('/createcourse'); dispatch(handleClose())}}
 sx={{
   position: 'absolute', 
-  top:'200px',
+  top:'160px',
   fontSize: '25px', 
   left:'10%'
 }}
@@ -165,14 +173,99 @@ sx={{
 null
 }
 
+{ userData ? <Typography
+name='createCourse'
+onClick={()=> {navigate('/mylearnings'); dispatch(handleClose())}}
+sx={{
+  position: 'absolute', 
+  top:'220px',
+  fontSize: '25px', 
+  left:'10%'
+}}
+>
+  My learnings
+</Typography>
+: 
+null
+}
+
+{ userData ? <Typography
+name='createCourse'
+onClick={()=> {navigate('/mycourses'); dispatch(handleClose())}}
+sx={{
+  position: 'absolute', 
+  top:'290px',
+  fontSize: '25px', 
+  left:'10%'
+}}
+>
+  My Courses
+</Typography>
+: 
+null
+}
+
+{ userData ? <Typography
+name='createCourse'
+onClick={()=> {navigate('/userprofile'); dispatch(handleClose())}}
+sx={{
+  position: 'absolute', 
+  top:'360px',
+  fontSize: '25px', 
+  left:'10%'
+}}
+>
+  Edit Profile
+</Typography>
+: 
+null
+}
 
 <CancelButton/>
 { userData ? null : <SignUp/>}
 { userData ? null : <SignIn/>}
 
 </Box>
+
+<Divider
+sx={{
+  position:'relative', 
+  top:'200px',
+}}
+/>
+
+<Divider
+sx={{
+  position:'relative', 
+  top:'360px',
+}}
+/>
+
+{ userData ? <SignUpButton
+    onClick={handlelogout}
+    name='SignInButton'
+     sx={{
+      left: '5%',
+      top: '400px',
+      width:'200px', 
+      height: '60px', 
+      backgroundColor: '#faf6fe',
+      border: '1px solid black'
+    }}
+    >
+  <Typography
+   color='black'
+   fontSize='20px'
+  >
+    Log out
+  </Typography>
+    </SignUpButton>
+  : null  
+  }
+
 </Drawer>
 </Box>
+
 }
 </>
 
