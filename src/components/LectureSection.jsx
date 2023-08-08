@@ -10,6 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 export default function LectureSection() {
   const dispatch = useDispatch(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
+
   return (
     <>
     <Box

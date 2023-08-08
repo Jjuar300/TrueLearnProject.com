@@ -1,23 +1,20 @@
-import React, { cloneElement, useState } from 'react'
+import React, {useState } from 'react'
 import {Button, Typography, Box, OutlinedInput} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import LectureSection from '../../components/LectureSection';
-import { useSelector, useDispatch } from 'react-redux';
-import { handleSection } from '../../state/createcourse/AddSectionSlice';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { AddSection } from '../../helper/createCourse/AddSection';
+import LectureSection from '../../components/LectureSection'
 
 export default function UploadVideo() {
-  const LectureComponent = useSelector(state => state.AddSection.isSection)
-  const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
-  const CloneLectureSection = cloneElement(<LectureSection/>)
-   const Section = <LectureSection/>
-  const [SectionElements, setSectionElements] = useState(); 
-  
+  const SectionElement = <LectureSection/>
+  const [component, setComponent] = useState([SectionElement]); 
+
+  const AddingSection = () => {
+   const newComponent = [...component, SectionElement]
+    return setComponent(newComponent)
+  }
 
   return (
     <>
@@ -209,12 +206,10 @@ sx={{
 
 </Box>
 
-
-
-{LectureComponent}
+{component}
 
 <Box
- onClick={() => dispatch(handleSection({isSection: CloneLectureSection}))}
+onClick = {AddingSection}
 name='addsection'
 sx={{
   position:'relative', 
