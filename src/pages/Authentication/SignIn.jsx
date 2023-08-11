@@ -1,23 +1,18 @@
-import React, { useDebugValue, useEffect, useState, useContext } from 'react'
+import React, {useState} from 'react'
 import {Box, Card, TextField, Button, Typography} from '@mui/material'
-import {Field, Form, Formik, useFormik} from 'formik'
 import './css/Signin.css'
 import SignUpPage from './SignUp'
 import {useSelector, useDispatch} from 'react-redux'
-import {getSwitchToSignup} from '../../state/AuthenticationSlice'
 import NavBar from '../Navbar'
-import { redirect, useNavigate } from 'react-router-dom'
+import {useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import {toast} from 'react-hot-toast'
 import { getData } from '../../state/ServerSlice'
-import { UserContext } from '../../context/userContext'
 import Cookies from 'js-cookie'
 
 export default function SignIn() {
 const isSignUp = useSelector(state => state.Authenticate.signup)
 const dispatch = useDispatch(); 
 const navigate =  useNavigate(); 
-const [signin, setsignin] = useState(null); 
 
 const [data, setdata] = useState({
   email: '', 

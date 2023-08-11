@@ -1,15 +1,53 @@
 import React, {useState } from 'react'
-import {Button, Typography, Box, OutlinedInput} from '@mui/material'
+import {Button, Typography, Box, OutlinedInput, TextField} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import LectureSection from '../../components/LectureSection'
+import Dropzone from 'react-dropzone'
+import UploadContent from '../../components/UploadContent'
+
+const AddingIcon = <AddIcon
+sx={{
+ position:'absolute', 
+ left:'44%',
+ fontSize:'40px', 
+ top:'2rem', 
+}}
+/>
+
+const SectionsAddIcon = <AddIcon
+sx={{
+  position:'absolute', 
+  left:'4%'
+}}
+/>;
+
+const SectionsTextContent = <Typography
+sx={{
+ position:'absolute', 
+ top:'.5rem', 
+ left:'30%', 
+}}
+>
+ Add Content
+</Typography>; 
+
+
+const SectionItems = [SectionsAddIcon, SectionsTextContent]
 
 export default function UploadVideo() {
   const navigate = useNavigate(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const SectionElement = <LectureSection/>
   const [component, setComponent] = useState([SectionElement]); 
+  const [introductionInput, setIntroductionInput] = useState({
+    IntroductionInputValue: '', 
+  })
+ 
+function handleInputChange(event){
+ setIntroductionInput({...introductionInput, IntroductionInputValue: event.target.value})
+}
 
   const AddingSection = () => {
    const newComponent = [...component, SectionElement]
@@ -106,7 +144,6 @@ export default function UploadVideo() {
       width: isNotMobileScreen ? 'none' : '13rem', 
     }}
     >  
-
 <Typography
 sx={{
     position:'absolute', 
@@ -136,19 +173,14 @@ sx={{
       cursor:'pointer', 
     }}
     >
-   <AddIcon
-   sx={{
-    position:'absolute', 
-    left:'44%',
-    fontSize:'40px', 
-    top:'2rem', 
-   }}
-   />
+      <UploadContent
+      height={'7rem'}
+      Icons={AddingIcon}
+      />
     </Box>
     </Box>
     </Box>
-
-    
+  
     <Box
     name="introduction"
 sx={{
@@ -160,7 +192,12 @@ sx={{
 >
 
 <OutlinedInput
+variant='outlined'
+required
 placeholder='Introduction:'
+type='text'
+value={introductionInput.IntroductionInputValue}
+onChange={handleInputChange}
 sx={{
     position:'relative', 
     height:'30px', 
@@ -172,7 +209,7 @@ sx={{
 >
    
   <Box
-    name='uploadvideo'
+  name='addContent'
     sx={{
         position:'relative', 
       border:'2px solid gray',
@@ -185,22 +222,12 @@ sx={{
       textAlign:'center', 
     }}
     >
-
-      <AddIcon
-      sx={{
-        position:'absolute', 
-        left:'4%'
-      }}
-      />
-     <Typography
-     sx={{
-      position:'absolute', 
-      top:'.5rem', 
-      left:'30%', 
-     }}
-     >
-      Add Content
-     </Typography>
+      
+  
+     <UploadContent
+     height={'4rem'}
+     Icons={[...SectionItems]}
+     />
 
     </Box>
 

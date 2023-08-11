@@ -1,19 +1,55 @@
 import {Box, OutlinedInput,Typography} from '@mui/material'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import RemoveIcon from '@mui/icons-material/Remove';
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { handleSection } from '../state/createcourse/AddSectionSlice';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AddIcon from '@mui/icons-material/Add';
+import UploadContent from './UploadContent'
+
+const SectionsAddIcon = <AddIcon
+sx={{
+  position:'absolute', 
+  left:'4%'
+}}
+/>;
+
+const SectionsTextContent = <Typography
+sx={{
+ position:'absolute', 
+ top:'.5rem', 
+ left:'30%', 
+}}
+>
+ Add Content
+</Typography>; 
+
+const SectionItems = [SectionsAddIcon, SectionsTextContent]
+
 
 export default function LectureSection() {
   const dispatch = useDispatch(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
+  const [isRemovebuttonclicked, setRemoveButtonClicked] = useState(true); 
+  const [SectionInput, setSectionInput] = useState({
+    sectionInputValue: '', 
+  })
+
+  const SectionValue = SectionInput.sectionInputValue; 
+
+function handleSectionOnchange(event){
+  setSectionInput({...SectionInput, sectionInputValue: event.target.value})
+}
+
+  function getRemoveSection(){
+    setRemoveButtonClicked(false)
+  }
 
   return (
     <>
-    <Box
+    {SectionValue}
+    { isRemovebuttonclicked && <Box
     name="section"
 sx={{
     border:'1px solid black',
@@ -24,7 +60,7 @@ sx={{
 >
 
 <RemoveIcon
-onClick={() => dispatch(handleSection({isSection:false}))}
+onClick={getRemoveSection}
 name='removeicon'
 sx={{
     border:'1px solid black',
@@ -38,6 +74,9 @@ sx={{
 
 <OutlinedInput
 placeholder='Add a section title:'
+type='text'
+value={SectionValue}
+onChange={handleSectionOnchange}
 sx={{
     position:'relative', 
     height:'30px', 
@@ -63,25 +102,13 @@ sx={{
       textAlign:'center', 
     }}
     >
-
-      <AddIcon
-      sx={{
-        position:'absolute', 
-        left:'4%'
-      }}
+      <UploadContent 
+      height={'4rem'}
+      Icons={[...SectionItems]}
       />
-     <Typography
-     sx={{
-      position:'absolute', 
-      top:'.5rem', 
-      left:'30%', 
-     }}
-     >
-      Add Content
-     </Typography>
 
     </Box>
-</Box>
+</Box>}
     </>
   )
 }
