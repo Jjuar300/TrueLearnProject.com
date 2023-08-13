@@ -6,6 +6,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import LectureSection from '../../components/LectureSection'
 import Dropzone from 'react-dropzone'
 import UploadContent from '../../components/UploadContent'
+import axios from 'axios';
+import { SendUploadVideoData } from '../../helper/SendUploadVideo';
+import CourseSaveButton from '../../components/CourseSaveButton';
+import { useSelector } from 'react-redux';
 
 const AddingIcon = <AddIcon
 sx={{
@@ -41,13 +45,36 @@ export default function UploadVideo() {
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const SectionElement = <LectureSection/>
   const [component, setComponent] = useState([SectionElement]); 
+  const SectionValue = useSelector(state => state.Input.inputValue)
+
   const [introductionInput, setIntroductionInput] = useState({
     IntroductionInputValue: '', 
+    sectionInputValue: SectionValue, 
   })
- 
-function handleInputChange(event){
- setIntroductionInput({...introductionInput, IntroductionInputValue: event.target.value})
-}
+
+  
+  const UploadVideoForm = async (e) => {
+    e.preventDefault()
+    console.log('upload form was on')
+   
+   const {
+    IntroductionInputValue, 
+    sectionInputValue, 
+  } = introductionInput; 
+
+    try{
+
+    await axios.post('/uploadvideocontent', {
+      IntroductionInputValue, 
+      sectionInputValue, 
+     })
+     .then(res => console.log(res.data))
+
+   }catch(err){
+    console.log(err)
+   }
+  }
+
 
   const AddingSection = () => {
    const newComponent = [...component, SectionElement]
@@ -56,7 +83,10 @@ function handleInputChange(event){
 
   return (
     <>
-    <Box
+   <form
+   onSubmit={UploadVideoForm}
+   >
+   <Box
     name='uploadvideo'
     sx={{
       position:'absolute', 
@@ -102,23 +132,8 @@ function handleInputChange(event){
         </Typography>
     </Box>
 
-    <Button
-    onClick={() => navigate('/createcourse')}
-    sx={{
-      position:'relative', 
-      border:'1px solid gray', 
-      fontSize:'15px', 
-      width: isNotMobileScreen ? '30rem' :'20rem',
-      height:'1.5rem',  
-      backgroundColor:'black', 
-      color:'white', 
-      top:'120px', 
-      left: isNotMobileScreen ? '10%' : '4%', 
-      ':hover': {backgroundColor: 'gray'}, 
-    }}
-    >
-      Save
-    </Button>
+
+<CourseSaveButton/>
 
    <Box
    sx={{
@@ -197,7 +212,7 @@ required
 placeholder='Introduction:'
 type='text'
 value={introductionInput.IntroductionInputValue}
-onChange={handleInputChange}
+onChange={(event) => setIntroductionInput({...introductionInput, IntroductionInputValue: event.target.value})}
 sx={{
     position:'relative', 
     height:'30px', 
@@ -235,6 +250,7 @@ sx={{
 
 {component}
 
+
 <Box
 onClick = {AddingSection}
 name='addsection'
@@ -262,6 +278,7 @@ sx={{
 
    </Box>
     </Box>
+   </form>
     </>
   )
 }

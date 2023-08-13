@@ -7,6 +7,8 @@ import TrueLearnLogoSlice from './TrueLearnLogoSlice'
 import AddSectionSlice from './createcourse/AddSectionSlice'
 import indexSlice from './createcourse/indexSlice'
 import ServerSlice from './ServerSlice'
+import InputSlice from './createcourse/InputSlice'
+
 import {
     FLUSH,
     REHYDRATE, 
@@ -25,7 +27,8 @@ reducer: {
     TrueLearnLogoSlice: TrueLearnLogoSlice,
     AddSection: AddSectionSlice,
     CreatingCourse: indexSlice, 
-    ServerSlice: ServerSlice,       
+    ServerSlice: ServerSlice,
+    Input: InputSlice,        
 },  
 middleware:(getDefaultMiddleware) => {
  return  getDefaultMiddleware({

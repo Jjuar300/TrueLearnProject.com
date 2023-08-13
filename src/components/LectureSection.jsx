@@ -1,4 +1,4 @@
-import {Box, OutlinedInput,Typography} from '@mui/material'
+import {Box, Button, OutlinedInput,Typography} from '@mui/material'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import RemoveIcon from '@mui/icons-material/Remove';
 import React, { useState } from 'react'
@@ -7,6 +7,8 @@ import { handleSection } from '../state/createcourse/AddSectionSlice';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AddIcon from '@mui/icons-material/Add';
 import UploadContent from './UploadContent'
+import axios from 'axios';
+import { updateInputValue } from '../state/createcourse/InputSlice';
 
 const SectionsAddIcon = <AddIcon
 sx={{
@@ -27,20 +29,19 @@ sx={{
 
 const SectionItems = [SectionsAddIcon, SectionsTextContent]
 
-
-export default function LectureSection() {
+export default function LectureSection({
+  inputValues, 
+  onChangeFunction, 
+  handleSubmitForm
+}) {
+  const SectionValue = useSelector(state => state.Input.inputValue)
   const dispatch = useDispatch(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [isRemovebuttonclicked, setRemoveButtonClicked] = useState(true); 
-  const [SectionInput, setSectionInput] = useState({
-    sectionInputValue: '', 
-  })
-
-  const SectionValue = SectionInput.sectionInputValue; 
-
-function handleSectionOnchange(event){
-  setSectionInput({...SectionInput, sectionInputValue: event.target.value})
-}
+ 
+ const handleSectionChange = (event) => {
+  dispatch(updateInputValue(event.target.value))
+ }
 
   function getRemoveSection(){
     setRemoveButtonClicked(false)
@@ -48,8 +49,11 @@ function handleSectionOnchange(event){
 
   return (
     <>
-    {SectionValue}
-    { isRemovebuttonclicked && <Box
+       
+  <form
+  onSubmit={handleSubmitForm}
+  >
+  { isRemovebuttonclicked && <Box
     name="section"
 sx={{
     border:'1px solid black',
@@ -76,7 +80,7 @@ sx={{
 placeholder='Add a section title:'
 type='text'
 value={SectionValue}
-onChange={handleSectionOnchange}
+onChange={handleSectionChange}
 sx={{
     position:'relative', 
     height:'30px', 
@@ -109,6 +113,7 @@ sx={{
 
     </Box>
 </Box>}
+  </form>
     </>
   )
 }
