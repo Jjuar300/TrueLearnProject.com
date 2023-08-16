@@ -1,14 +1,15 @@
 import React from 'react'
 import { Button } from '@mui/material'
 import {useMediaQuery} from '@mui/material'
+import {useSelector} from 'react-redux'
 
 export default function CourseSaveButton() {
     const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
-
+    const UploadVideoForm = useSelector(state => state.Input.UploadVideoFormState) 
   return (
     <>
         <Button
-    // onClick={() => navigate('/createcourse')}
+    // onClick={UploadVideoForm}
     type='submit'
     sx={{
       position:'relative', 

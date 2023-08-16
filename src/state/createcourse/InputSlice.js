@@ -3,14 +3,28 @@ import { createSlice, isAction } from "@reduxjs/toolkit";
 const InputSlice = createSlice({
     name:'inputValues', 
     initialState:{
-        inputValue:'', 
+        SectionInputValues:'', 
+        UploadVideoFormState: null, 
+        IntroductionInputValue: '', 
     }, 
     reducers:{
-        updateInputValue: (state, action) =>{
-            state.inputValue = action.payload; 
+        updateSectionInputValue: (state, action) =>{
+            state.SectionInputValues = action.payload; 
+        }, 
+
+        getUploadVideoFormState: (state, action) => {
+            state.UploadVideoFormState = action.payload.UploadVideoFormState 
+        }, 
+
+        updateIntroductionInputValue: (state, action) => {
+            state.IntroductionInputValue = action.payload; 
         }
     }
 })
 
-export const {updateInputValue} = InputSlice.actions; 
+export const {
+    updateIntroductionInputValue, 
+    updateSectionInputValue, 
+    getUploadVideoFormState, 
+} = InputSlice.actions; 
 export default InputSlice.reducer; 

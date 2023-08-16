@@ -1,7 +1,7 @@
 import {Box, Button, OutlinedInput,Typography} from '@mui/material'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import RemoveIcon from '@mui/icons-material/Remove';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { handleSection } from '../state/createcourse/AddSectionSlice';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -27,33 +27,64 @@ sx={{
  Add Content
 </Typography>; 
 
+const SaveButton =  <Button
+type='submit'
+sx={{
+ color:'black', 
+}}
+>Save</Button>
+
 const SectionItems = [SectionsAddIcon, SectionsTextContent]
 
 export default function LectureSection({
-  inputValues, 
-  onChangeFunction, 
-  handleSubmitForm
+
 }) {
-  const SectionValue = useSelector(state => state.Input.inputValue)
-  const dispatch = useDispatch(); 
+
+  const inputValues = useSelector(state => state.Input.inputValue)
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [isRemovebuttonclicked, setRemoveButtonClicked] = useState(true); 
- 
- const handleSectionChange = (event) => {
-  dispatch(updateInputValue(event.target.value))
- }
+  const dispatch = useDispatch();
+  const [sectionInput, setSectionInput] = useState({
+    SectionInputValue: '', 
+  }); 
+
+
+  // const  UploadSectionVideo = async (e) => {
+  //   e.preventDefault()
+  //   console.log('upload form was on')
+   
+  //  const {
+  //   SectionInputValue, 
+  // } = sectionInput; 
+
+  //   try{
+
+  //   await axios.post('/uploadvideocontent', {
+  //     SectionInputValue,  
+  //    })
+  //    .then(res => console.log(res.data))
+
+  //  }catch(err){
+  //   console.log(err)
+  //  }
+  // }
+
 
   function getRemoveSection(){
     setRemoveButtonClicked(false)
+    setSectionInput('')
   }
 
   return (
     <>
-       
-  <form
-  onSubmit={handleSubmitForm}
-  >
-  { isRemovebuttonclicked && <Box
+    {sectionInput.SectionInputValue}
+   
+   { isRemovebuttonclicked &&  
+   
+   <form
+  //  onSubmit={UploadSectionVideo}
+   >
+   <Box
     name="section"
 sx={{
     border:'1px solid black',
@@ -79,8 +110,7 @@ sx={{
 <OutlinedInput
 placeholder='Add a section title:'
 type='text'
-value={SectionValue}
-onChange={handleSectionChange}
+onChange={(e) => setSectionInput({...sectionInput, SectionInputValue: e.target.value})}
 sx={{
     position:'relative', 
     height:'30px', 
@@ -90,8 +120,6 @@ sx={{
 /
 >
 
-
- 
 <Box
     name='uploadvideo'
     sx={{
@@ -110,10 +138,20 @@ sx={{
       height={'4rem'}
       Icons={[...SectionItems]}
       />
-
     </Box>
-</Box>}
-  </form>
+
+    <Button
+//  onClick={UploadSectionVideo}
+sx={{
+ color:'black', 
+}}
+>Save</Button>
+
+</Box>
+</form>
+}
+
     </>
   )
 }
+

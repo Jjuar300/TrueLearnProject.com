@@ -7,9 +7,9 @@ import LectureSection from '../../components/LectureSection'
 import Dropzone from 'react-dropzone'
 import UploadContent from '../../components/UploadContent'
 import axios from 'axios';
-import { SendUploadVideoData } from '../../helper/SendUploadVideo';
 import CourseSaveButton from '../../components/CourseSaveButton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputValue, updateIntroductionInputValue } from '../../state/createcourse/InputSlice';
 
 const AddingIcon = <AddIcon
 sx={{
@@ -41,50 +41,52 @@ sx={{
 const SectionItems = [SectionsAddIcon, SectionsTextContent]
 
 export default function UploadVideo() {
-  const navigate = useNavigate(); 
+ 
+  const dispatch = useDispatch(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
-  const SectionElement = <LectureSection/>
-  const [component, setComponent] = useState([SectionElement]); 
-  const SectionValue = useSelector(state => state.Input.inputValue)
-
+  const [component, setComponent] = useState([]);
+  const UploadVideoForm = useSelector(state => state.Input. UploadVideoFormState) 
   const [introductionInput, setIntroductionInput] = useState({
     IntroductionInputValue: '', 
-    sectionInputValue: SectionValue, 
   })
+ 
+  dispatch(updateIntroductionInputValue(introductionInput.IntroductionInputValue))
 
-  
-  const UploadVideoForm = async (e) => {
-    e.preventDefault()
-    console.log('upload form was on')
+  // const  UploadVideoForm = async (e) => {
+  //   e.preventDefault()
+  //   console.log('upload form was on')
    
-   const {
-    IntroductionInputValue, 
-    sectionInputValue, 
-  } = introductionInput; 
+  //  const {
+  //   IntroductionInputValue, 
+  // } = introductionInput; 
 
-    try{
+  //   try{
 
-    await axios.post('/uploadvideocontent', {
-      IntroductionInputValue, 
-      sectionInputValue, 
-     })
-     .then(res => console.log(res.data))
+  //   await axios.post('/uploadvideocontent', {
+  //     IntroductionInputValue,  
+  //    })
+  //    .then(res => console.log(res.data))
 
-   }catch(err){
-    console.log(err)
-   }
+  //  }catch(err){
+  //   console.log(err)
+  //  }
+  // }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    return UploadVideoForm; 
   }
 
-
   const AddingSection = () => {
-   const newComponent = [...component, SectionElement]
-    return setComponent(newComponent)
+
+    setComponent([...component, 
+      <LectureSection/>])
   }
 
   return (
     <>
    <form
-   onSubmit={UploadVideoForm}
+   onSubmit={handleSubmit}
    >
    <Box
     name='uploadvideo'
@@ -211,7 +213,6 @@ variant='outlined'
 required
 placeholder='Introduction:'
 type='text'
-value={introductionInput.IntroductionInputValue}
 onChange={(event) => setIntroductionInput({...introductionInput, IntroductionInputValue: event.target.value})}
 sx={{
     position:'relative', 
@@ -248,8 +249,7 @@ sx={{
 
 </Box>
 
-{component}
-
+{component.map(sections => [sections])}
 
 <Box
 onClick = {AddingSection}
