@@ -7,6 +7,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import NavBar from '../Navbar';
+import AddIcon from '@mui/icons-material/Add';
+import UploadContent from '../../components/UploadContent'
 
 const Catergories = [
   {
@@ -30,6 +33,15 @@ const Catergories = [
     label:'Engineering', 
   }
 ]
+
+const AddingIcon = <AddIcon
+sx={{
+ position:'absolute', 
+ left:'44%',
+ fontSize:'40px', 
+ top:'2rem', 
+}}
+/>
 
 export default function ClassInfo() {
   const dispatch = useDispatch(); 
@@ -55,8 +67,9 @@ export default function ClassInfo() {
       flexDirection:'column',
       flexWrap:'wrap',  
       gap:'1rem', 
-      top:'30px', 
+      top:'50px', 
       left:'5%', 
+      width:'15rem', 
      }}
      >
       <Typography variant='h5'>
@@ -67,7 +80,10 @@ export default function ClassInfo() {
         more about your course. 
       </Typography>
      </Box>
+     
+   
 
+      
      <Box
      name="details"
      sx={{
@@ -78,6 +94,8 @@ export default function ClassInfo() {
       left:'8%',
       gap:'2rem', 
       flexWrap:'wrap',  
+      height:'40rem', 
+      // border:'1px solid black', 
      }}
      >
       <Box
@@ -164,9 +182,49 @@ export default function ClassInfo() {
 
       </Box>
 
+      <Box
+    name='previewvideo'
+    sx={{
+      position:'absolute', 
+      width: isNotMobileScreen ? '10rem' : '5rem',
+      height:'4rem', 
+      padding:'.5rem',
+      top:'26rem', 
+      left:'-20%'
+    }}
+    >
+    
+  <Typography
+  sx={{
+    position:'relative', 
+    width:'15rem', 
+  }}
+  >
+    Upload Preview video here
+  </Typography>
+
+    <Box
+    sx={{
+      position:'absolute', 
+      border:'1px solid black', 
+      width:'30rem', 
+      height:'7rem', 
+      left:'2%', 
+      top:'39px', 
+      borderStyle: 'dashed', 
+      cursor:'pointer', 
+    }}
+    >
+      <UploadContent
+      height={'7rem'}
+      Icons={AddingIcon}
+      />
+    </Box>
+    </Box>
+
      </Box>
 
-     <Button
+     {/* <Button
      onClick={() => navigate('/createcourse')}
     sx={{
       position:'relative', 
@@ -182,7 +240,7 @@ export default function ClassInfo() {
     }}
     >
       Save
-    </Button>
+    </Button> */}
 
       </form>
      </Formik>

@@ -41,8 +41,8 @@ return (
       <Route element={<UserRoutes/>}>
 
       <Route path="/createcourse" element={ <Createcourse/>} /> 
-      <Route path="/uploadvideo" element={<UploadVideo/>} />
-      <Route path="/courseinfo" element={<CourseInfo/>} />
+      {/* <Route path="/uploadvideo" element={<UploadVideo/>} />
+      <Route path="/courseinfo" element={<CourseInfo/>} /> */}
       <Route path="/userprofile" element={<UserProfile/>} />
       <Route path="/mylearnings" element={<LearningPage/>} />
       <Route path="/mycourses" element={<Mycourses/>}/>

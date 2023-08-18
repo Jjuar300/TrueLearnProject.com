@@ -48,28 +48,6 @@ export default function LectureSection({
     SectionInputValue: '', 
   }); 
 
-
-  // const  UploadSectionVideo = async (e) => {
-  //   e.preventDefault()
-  //   console.log('upload form was on')
-   
-  //  const {
-  //   SectionInputValue, 
-  // } = sectionInput; 
-
-  //   try{
-
-  //   await axios.post('/uploadvideocontent', {
-  //     SectionInputValue,  
-  //    })
-  //    .then(res => console.log(res.data))
-
-  //  }catch(err){
-  //   console.log(err)
-  //  }
-  // }
-
-
   function getRemoveSection(){
     setRemoveButtonClicked(false)
     setSectionInput('')

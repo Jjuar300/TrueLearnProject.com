@@ -7,7 +7,6 @@ import LectureSection from '../../components/LectureSection'
 import Dropzone from 'react-dropzone'
 import UploadContent from '../../components/UploadContent'
 import axios from 'axios';
-import CourseSaveButton from '../../components/CourseSaveButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputValue, updateIntroductionInputValue } from '../../state/createcourse/InputSlice';
 
@@ -52,26 +51,6 @@ export default function UploadVideo() {
  
   dispatch(updateIntroductionInputValue(introductionInput.IntroductionInputValue))
 
-  // const  UploadVideoForm = async (e) => {
-  //   e.preventDefault()
-  //   console.log('upload form was on')
-   
-  //  const {
-  //   IntroductionInputValue, 
-  // } = introductionInput; 
-
-  //   try{
-
-  //   await axios.post('/uploadvideocontent', {
-  //     IntroductionInputValue,  
-  //    })
-  //    .then(res => console.log(res.data))
-
-  //  }catch(err){
-  //   console.log(err)
-  //  }
-  // }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     return UploadVideoForm; 
@@ -96,7 +75,7 @@ export default function UploadVideo() {
       flexDirection:'column', 
       flexWrap:'wrap', 
       left: isNotMobileScreen ? '35%' : '-1%', 
-      top: isNotMobileScreen ? '4rem' : '5rem', 
+      top: isNotMobileScreen ? '8rem' : '5rem', 
     }}
     >
       
@@ -134,9 +113,6 @@ export default function UploadVideo() {
         </Typography>
     </Box>
 
-
-<CourseSaveButton/>
-
    <Box
    sx={{
     position:'relative', 
@@ -148,7 +124,7 @@ export default function UploadVideo() {
     left:'8%',
    }}
    >
-   <Box
+   {/* <Box
     sx={{
       border:'1px solid gray', 
       borderRadius:'15px', 
@@ -196,7 +172,7 @@ sx={{
       />
     </Box>
     </Box>
-    </Box>
+    </Box> */}
   
     <Box
     name="introduction"
