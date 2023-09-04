@@ -1,18 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-// import { useState } from "react"
-// import LectureSection from "../../components/LectureSection"
-
-// export function AddSection(){
-//   const Section = <LectureSection/>
-//   const [orginalSection, setOrginalSection] = useState([Section])
-//   const newSection = [...orginalSection, Section]
-//    setOrginalSection(newSection)
-
-//    return orginalSection;
-// }
-
 export const AddSectionSlice = createSlice({
     name:"AddSectionSlice", 
     initialState:{

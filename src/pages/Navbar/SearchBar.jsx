@@ -13,7 +13,6 @@ export default function SearchBar() {
   const dispatch = useDispatch()
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
   
-
 function closeDrawer() {
   setOnclose(!onclose)
 }

@@ -1,9 +1,5 @@
 import React, { useState }  from 'react'
 import { Box, Button, Typography } from '@mui/material'
-import FeaturedVideoIcon from '@mui/icons-material/FeaturedVideo';
-import InfoIcon from '@mui/icons-material/Info';
-import { useNavigate } from 'react-router-dom';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import NavBar from '../Navbar';
 import UploadVideo from './UploadVideo';
 import ClassInfo from './CourseInfo';
@@ -21,8 +17,6 @@ sx={{
 </Typography>
 
 export default function CreateCourseGuide() {
-    const navigate = useNavigate(); 
-    const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
     const [isCurriculum, setCurriculum] = useState(false); 
     const [isCourseLandingpage, setCourselandingPage] = useState(false); 
     const [isCoursePrompt, setCoursePrompt] = useState(true)

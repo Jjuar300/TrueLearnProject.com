@@ -1,18 +1,13 @@
 import {Box, Card, TextField, Button, Typography} from '@mui/material'
-import {Field, Form, Formik, useFormik} from 'formik'
 import './css/signUp.css'
 import {useSelector, useDispatch} from 'react-redux'
-import {getSwitchToSignin} from '../../state/AuthenticationSlice' 
-import SignInPage from './SignIn'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import axios from 'axios'
 import NavBar from '../Navbar'
 
 export default function SignIn() {
-const isSignin = useSelector(state => state.Authenticate.signin)
-const dispatch = useDispatch(); 
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const navigate = useNavigate(); 
 
@@ -64,7 +59,6 @@ const getUserSignUp = async (e) => {
   <>
 
  <NavBar/> 
-
   <div className='signupform'>
   <h1 className='signUptext' >Create an account</h1>
 

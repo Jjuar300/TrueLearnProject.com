@@ -1,14 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Typography, TextField } from '@mui/material'
-import {Formik} from 'formik'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 export default function UserDetails() {
-    const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
+ 
+    const userProfileInputValues = {
+        fullname: '', 
+        email: '', 
+        aboutMe: '', 
+        companyName: '', 
+        jobTitle: '', 
+        linked: '', 
+    }
+    // onChange={(event) => setIntroductionInput({...introductionInput, IntroductionInputValue: event.target.value})}
 
-  return (
+    const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
+    const [inputValues, setinputValues] = useState({
+        ...userProfileInputValues
+    })
+
+
+    const getFirstNameInputValues = (event) =>{
+       setinputValues({inputValues, fullname: event.target.value })
+    }
+
+//send userprofile input values to the backend. 
+
+    return (
   <>
-  <Formik>
+  {inputValues.email}
     <form>
     <Box
    name='userDetails'
@@ -24,7 +44,7 @@ export default function UserDetails() {
    >
    
    <Box
-   name='firstname'
+   name='fullname'
    sx={{ 
     display:'flex',
     flexDirection:'column',
@@ -44,6 +64,7 @@ export default function UserDetails() {
     fullWidth
         placeholder='James smith'
         type='text'
+        onChange={getFirstNameInputValues}
         />
    </Box>
 
@@ -208,7 +229,6 @@ export default function UserDetails() {
 
    </Box>
     </form>
-  </Formik>
   </>
   )
 }

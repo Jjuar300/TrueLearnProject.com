@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Box, Card, TextField, Button, Typography} from '@mui/material'
+import {Box, TextField, Button, Typography} from '@mui/material'
 import './css/Signin.css'
 import SignUpPage from './SignUp'
 import {useSelector, useDispatch} from 'react-redux'

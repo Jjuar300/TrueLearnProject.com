@@ -1,23 +1,12 @@
 import React, {useState } from 'react'
-import {Button, Typography, Box, OutlinedInput, TextField} from '@mui/material'
+import {Button, Typography, Box, OutlinedInput} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
-import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import LectureSection from '../../components/LectureSection'
-import Dropzone from 'react-dropzone'
 import UploadContent from '../../components/UploadContent'
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateInputValue, updateIntroductionInputValue } from '../../state/createcourse/InputSlice';
-
-const AddingIcon = <AddIcon
-sx={{
- position:'absolute', 
- left:'44%',
- fontSize:'40px', 
- top:'2rem', 
-}}
-/>
+import { useDispatch} from 'react-redux';
+import { updateIntroductionInputValue } from '../../state/createcourse/InputSlice';
 
 const SectionsAddIcon = <AddIcon
 sx={{
@@ -44,17 +33,11 @@ export default function UploadVideo() {
   const dispatch = useDispatch(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [component, setComponent] = useState([]);
-  const UploadVideoForm = useSelector(state => state.Input. UploadVideoFormState) 
   const [introductionInput, setIntroductionInput] = useState({
     IntroductionInputValue: '', 
   })
  
   dispatch(updateIntroductionInputValue(introductionInput.IntroductionInputValue))
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    return UploadVideoForm; 
-  }
 
   const AddingSection = () => {
 
@@ -62,11 +45,18 @@ export default function UploadVideo() {
       <LectureSection/>])
   }
 
+  const UploadIntroductionInputValue = async () => {
+   try{
+     const {IntroductionInputValue} = introductionInput;
+     await axios.post('/uploadvideocontent', {IntroductionInputValue})
+   }catch(err){
+    console.log(err)
+   }
+  }
+
   return (
     <>
-   <form
-   onSubmit={handleSubmit}
-   >
+   <form>
    <Box
     name='uploadvideo'
     sx={{
@@ -124,55 +114,6 @@ export default function UploadVideo() {
     left:'8%',
    }}
    >
-   {/* <Box
-    sx={{
-      border:'1px solid gray', 
-      borderRadius:'15px', 
-      display:'flex',  
-      justifyContent:'center', 
-      padding:'3rem',  
-      backgroundColor:'#f7f6f6',
-      color:'gray', 
-      left:'12%', 
-      width: isNotMobileScreen ? 'none' : '13rem', 
-    }}
-    >  
-<Typography
-sx={{
-    position:'absolute', 
-    top:'5px', 
-}}
->
-        Upload a preview video or picture here. 
-      </Typography>
-    <Box
-    name='previewvideo'
-    sx={{
-      width: isNotMobileScreen ? '10rem' : '5rem',
-      height:'4rem', 
-      padding:'.5rem',
-    }}
-    >
-    
-    <Box
-    sx={{
-      position:'absolute', 
-      border:'1px solid black', 
-      width:'30rem', 
-      height:'7rem', 
-      left:'2%', 
-      top:'35px', 
-      borderStyle: 'dashed', 
-      cursor:'pointer', 
-    }}
-    >
-      <UploadContent
-      height={'7rem'}
-      Icons={AddingIcon}
-      />
-    </Box>
-    </Box>
-    </Box> */}
   
     <Box
     name="introduction"
@@ -215,7 +156,6 @@ sx={{
     }}
     >
       
-  
      <UploadContent
      height={'4rem'}
      Icons={[...SectionItems]}
@@ -253,6 +193,16 @@ sx={{
 </Box>
 
    </Box>
+
+   <Button
+ onClick={UploadIntroductionInputValue}
+sx={{
+  position:'absolute', 
+ color:'black', 
+ left:'10%',
+ top:'25rem',  
+}}
+>Save</Button>
     </Box>
    </form>
     </>

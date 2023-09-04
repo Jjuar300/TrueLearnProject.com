@@ -1,13 +1,11 @@
 
-import {Box, Typography, OutlinedInput, TextField, Button, InputAdornment} from '@mui/material'
-import Menu from '@mui/material/Menu';
+import {Box, Typography, OutlinedInput, TextField, InputAdornment} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem';
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import NavBar from '../Navbar';
 import AddIcon from '@mui/icons-material/Add';
 import UploadContent from '../../components/UploadContent'
 
@@ -44,8 +42,6 @@ sx={{
 />
 
 export default function ClassInfo() {
-  const dispatch = useDispatch(); 
-  const navigate = useNavigate(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
 
   return (
@@ -80,9 +76,6 @@ export default function ClassInfo() {
         more about your course. 
       </Typography>
      </Box>
-     
-   
-
       
      <Box
      name="details"
@@ -95,7 +88,6 @@ export default function ClassInfo() {
       gap:'2rem', 
       flexWrap:'wrap',  
       height:'40rem', 
-      // border:'1px solid black', 
      }}
      >
       <Box
@@ -223,24 +215,6 @@ export default function ClassInfo() {
     </Box>
 
      </Box>
-
-     {/* <Button
-     onClick={() => navigate('/createcourse')}
-    sx={{
-      position:'relative', 
-      border:'1px solid gray', 
-      fontSize:'15px', 
-      width:'20rem',
-      height:'1.5rem',  
-      backgroundColor:'black', 
-      color:'white', 
-      top:'160px', 
-      left:'4%', 
-      ':hover': {backgroundColor: 'gray'}, 
-    }}
-    >
-      Save
-    </Button> */}
 
       </form>
      </Formik>

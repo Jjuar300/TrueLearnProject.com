@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-
 export const Authentication = createSlice({
 name:'Authentication', 
 initialState: {
@@ -20,7 +18,6 @@ getSwitchToSignin: state => {
 } 
 
 })
-
 
 export const {
     getSwitchToSignin, 

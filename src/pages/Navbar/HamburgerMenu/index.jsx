@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+
 import {
   Box,
-  Button,
   Typography,
   Drawer
 } from '@mui/material'
@@ -17,8 +16,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useNavigate } from 'react-router-dom';
 import { handleClose } from '../../../state/CancelButtonSlice';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import axios from 'axios';
-import { getLogout, gettoken } from '../../../state/ServerSlice';
+import { getLogout} from '../../../state/ServerSlice';
 import SignUpButton from '../../../components/SignUpButton';
 import Cookies from 'js-cookie';
 import Divider from '@mui/material/Divider';
@@ -42,7 +40,6 @@ export default function HamburgerMenu() {
 <>
 {
   isNotMobileScreen ?
-
   
 <Box
 sx={{
@@ -159,26 +156,10 @@ sx={{
 
 { userData ? <Typography
 name='createCourse'
-onClick={()=> {navigate('/createcourse'); dispatch(handleClose())}}
-sx={{
-  position: 'absolute', 
-  top:'160px',
-  fontSize: '25px', 
-  left:'10%'
-}}
->
-  Create Course
-</Typography>
-: 
-null
-}
-
-{ userData ? <Typography
-name='createCourse'
 onClick={()=> {navigate('/mylearnings'); dispatch(handleClose())}}
 sx={{
   position: 'absolute', 
-  top:'220px',
+  top:'180px',
   fontSize: '25px', 
   left:'10%'
 }}

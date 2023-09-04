@@ -17,7 +17,6 @@ export default function UploadVideo({
    setFileName(filename)
   }, [])
 
-
   const {getRootProps, getInputProps} = useDropzone({onDrop})
 
   return (
@@ -29,9 +28,7 @@ export default function UploadVideo({
      }}
      >
         <form>
-      
        <TextField {...getInputProps()} />
-  
     { !file ? Icons : 
    fileName
    }

@@ -1,14 +1,10 @@
 import {Box, Button, OutlinedInput,Typography} from '@mui/material'
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import RemoveIcon from '@mui/icons-material/Remove';
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import { handleSection } from '../state/createcourse/AddSectionSlice';
+import React, { useState } from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AddIcon from '@mui/icons-material/Add';
 import UploadContent from './UploadContent'
 import axios from 'axios';
-import { updateInputValue } from '../state/createcourse/InputSlice';
 
 const SectionsAddIcon = <AddIcon
 sx={{
@@ -40,10 +36,8 @@ export default function LectureSection({
 
 }) {
 
-  const inputValues = useSelector(state => state.Input.inputValue)
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [isRemovebuttonclicked, setRemoveButtonClicked] = useState(true); 
-  const dispatch = useDispatch();
   const [sectionInput, setSectionInput] = useState({
     SectionInputValue: '', 
   }); 
@@ -53,6 +47,18 @@ export default function LectureSection({
     setSectionInput('')
   }
 
+  const UploadSectionInputValues = async (e) => {
+
+    const {
+      SectionInputValue
+    } = sectionInput;
+
+   e.preventDefault(); 
+   await axios.post('/uploadsectionvalues', {
+    SectionInputValue,
+   })
+  }
+
   return (
     <>
     {sectionInput.SectionInputValue}
@@ -60,7 +66,7 @@ export default function LectureSection({
    { isRemovebuttonclicked &&  
    
    <form
-  //  onSubmit={UploadSectionVideo}
+   onSubmit={UploadSectionInputValues}
    >
    <Box
     name="section"
@@ -119,7 +125,7 @@ sx={{
     </Box>
 
     <Button
-//  onClick={UploadSectionVideo}
+  onClick={UploadSectionInputValues}
 sx={{
  color:'black', 
 }}
@@ -128,7 +134,6 @@ sx={{
 </Box>
 </form>
 }
-
     </>
   )
 }

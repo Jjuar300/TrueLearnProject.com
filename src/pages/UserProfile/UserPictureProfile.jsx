@@ -11,9 +11,12 @@ export default function UserPictureProfile() {
    <Box
    classname='box'
    sx={{
+    position:'absolute', 
     display:'flex', 
     flexDirection:'column', 
-   }}
+    width: isNotMobileScreen ? '30rem' : '20rem', 
+    left: isNotMobileScreen ? '36%' : '7%', 
+}}
    >
     <Box
     sx={{
@@ -28,26 +31,13 @@ export default function UserPictureProfile() {
     }}
     >
 
-<Typography
-    sx={{
-        position:'relative', 
-        fontFamily:'roman', 
-        top:'-2rem',
-        left:'2%',  
-        fontWeight:'bold', 
-        color:'#3a2f33', 
-    }}
-    >
-        Profile Picture
-    </Typography>
-
         <PortraitIcon
         sx={{
-            position:'relative', 
+           position:'relative', 
            fontSize:'80px',
-            color:'#c7c2c8',
-            top:'4rem', 
-            left: isNotMobileScreen ? '47%' : '35%', 
+           color:'#c7c2c8',
+           top:'4rem', 
+           left: isNotMobileScreen ? '40%' : '35%',  
         }}
         />
 
@@ -56,7 +46,7 @@ export default function UserPictureProfile() {
             position:'relative', 
             fontFamily:'roman', 
             top:'5rem',
-            left: isNotMobileScreen ? '45%' : '26%', 
+            left: isNotMobileScreen ? '33%' : '26%', 
             color:'#867c88',
             fontWeight:'bold',
             width:'11rem',    

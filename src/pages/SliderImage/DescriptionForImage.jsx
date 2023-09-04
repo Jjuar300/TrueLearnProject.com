@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import {Box, Typography } from '@mui/material'
-import {motion, AnimatePresence, animate} from 'framer-motion'
+import {Box} from '@mui/material'
 import  './css/description.css'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
@@ -22,10 +21,6 @@ const description1 = <div className='description'>
   
     const descriptions = [description1, description2,description3]
     const len = descriptions.length - 1; 
-
-   const textA1 ='Gain real world experience.'; 
-   const textA2  = 'With TrueLearn you can subscribe to any course channel you want.';
-
 
 export default function DescriptionForImage() {
     const [activeindex, setActiveIndex] = useState(0); 

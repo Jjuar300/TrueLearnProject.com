@@ -30,7 +30,6 @@ const handleclose = () => {
 }
 
 
-//this arrow function removes the token from out browser navigates to the home page.
 const handlelogout = () => {
   dispatch(getLogout({
     data: Cookies.remove('token') , 
