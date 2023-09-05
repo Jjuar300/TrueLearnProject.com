@@ -1,12 +1,15 @@
 import { useCallback, useState } from "react"
 import { TextField, Box } from "@mui/material";
 import { useDropzone } from "react-dropzone";
+import { useDispatch } from "react-redux";
+import { updateFileName } from "../state/createcourse/VideoContent";
 
 export default function UploadVideo({
   height,
   Icons,  
 }) {
  
+ const dispatch = useDispatch(); 
  const [file, setFiles] = useState();
  const [fileName, setFileName] = useState();
 
@@ -17,7 +20,13 @@ export default function UploadVideo({
    setFileName(filename)
   }, [])
 
+  dispatch(updateFileName(fileName))
+
   const {getRootProps, getInputProps} = useDropzone({onDrop})
+  // const formData = new FormData(); 
+  // formData.append('video', fileName)
+
+  // axios.post('/uploadvideocontent', formData); 
 
   return (
     <>

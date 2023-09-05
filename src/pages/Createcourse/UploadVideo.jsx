@@ -5,7 +5,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import LectureSection from '../../components/LectureSection'
 import UploadContent from '../../components/UploadContent'
 import axios from 'axios';
-import { useDispatch} from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import { updateIntroductionInputValue } from '../../state/createcourse/InputSlice';
 
 const SectionsAddIcon = <AddIcon
@@ -30,11 +30,13 @@ const SectionItems = [SectionsAddIcon, SectionsTextContent]
 
 export default function UploadVideo() {
  
+  const VideoFileName = useSelector(state => state.addVideoContent.fileName)
   const dispatch = useDispatch(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [component, setComponent] = useState([]);
   const [introductionInput, setIntroductionInput] = useState({
     IntroductionInputValue: '', 
+    addcontent: VideoFileName, 
   })
  
   dispatch(updateIntroductionInputValue(introductionInput.IntroductionInputValue))
@@ -47,12 +49,16 @@ export default function UploadVideo() {
 
   const UploadIntroductionInputValue = async () => {
    try{
-     const {IntroductionInputValue} = introductionInput;
-     await axios.post('/uploadvideocontent', {IntroductionInputValue})
+     const {
+      IntroductionInputValue, 
+      addcontent,
+    } = introductionInput;
+     await axios.post('/uploadvideocontent', {IntroductionInputValue, addcontent})
    }catch(err){
     console.log(err)
    }
   }
+
 
   return (
     <>
