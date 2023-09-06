@@ -36,7 +36,7 @@ export default function UploadVideo() {
   const [component, setComponent] = useState([]);
   const [introductionInput, setIntroductionInput] = useState({
     IntroductionInputValue: '', 
-    addcontent: VideoFileName, 
+    VideoFileName: VideoFileName,
   })
  
   dispatch(updateIntroductionInputValue(introductionInput.IntroductionInputValue))
@@ -51,14 +51,13 @@ export default function UploadVideo() {
    try{
      const {
       IntroductionInputValue, 
-      addcontent,
+      VideoFileName, 
     } = introductionInput;
-     await axios.post('/uploadvideocontent', {IntroductionInputValue, addcontent})
+     await axios.post('/uploadvideocontent', {IntroductionInputValue, VideoFileName})
    }catch(err){
     console.log(err)
    }
   }
-
 
   return (
     <>

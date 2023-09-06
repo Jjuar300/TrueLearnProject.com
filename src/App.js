@@ -41,8 +41,6 @@ return (
       <Route element={<UserRoutes/>}>
 
       <Route path="/createcourse" element={ <Createcourse/>} /> 
-      {/* <Route path="/uploadvideo" element={<UploadVideo/>} />
-      <Route path="/courseinfo" element={<CourseInfo/>} /> */}
       <Route path="/userprofile" element={<UserProfile/>} />
       <Route path="/mylearnings" element={<LearningPage/>} />
       <Route path="/mycourses" element={<Mycourses/>}/>
@@ -53,7 +51,7 @@ return (
    <Route path="/explorecourse" element={<ExploreCourse/>} /> 
    <Route path="*" element={<NotFound/>} />
    <Route path="/" element={<HomePage/>} />
-     
+    
     </Routes>
     </BrowserRouter>
    </div>

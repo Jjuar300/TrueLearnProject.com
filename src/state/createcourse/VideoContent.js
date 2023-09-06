@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const addVideoContentSlice = createSlice({
     name:'addVideoContent', 
     initialState: {
-        fileName: '', 
+        fileName: null, 
     }, 
     reducers: {
         updateFileName: (state, action) => {
