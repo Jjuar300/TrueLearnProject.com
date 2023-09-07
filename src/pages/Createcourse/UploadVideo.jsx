@@ -31,6 +31,7 @@ const SectionItems = [SectionsAddIcon, SectionsTextContent]
 export default function UploadVideo() {
  
   const VideoFileName = useSelector(state => state.addVideoContent.fileName)
+  
   const dispatch = useDispatch(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [component, setComponent] = useState([]);
