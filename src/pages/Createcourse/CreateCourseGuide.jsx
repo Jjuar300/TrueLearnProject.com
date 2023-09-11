@@ -66,7 +66,8 @@ export default function CreateCourseGuide() {
    onClick={handleCourseLandingPageOnclick}
    sx={{
     color:'black', 
-    ':hover': {cursor:'pointer'},  
+    ':hover': {cursor:'pointer'},
+    opacity:'.4', 
    }}
    >
     Course Landing page
@@ -77,7 +78,9 @@ export default function CreateCourseGuide() {
     border:'1px solid black', 
     color:'white', 
     backgroundColor:'#431440', 
-    ':hover': {backgroundColor:'#80267a'},  
+   //  ':hover': {backgroundColor:'#80267a'},
+   ':hover': {backgroundColor:'#431440'},
+    opacity:'.4',   
    }}
    >
     Create Course

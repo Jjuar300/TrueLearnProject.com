@@ -1,49 +1,34 @@
-import React, {useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import {Button, Typography, Box, OutlinedInput} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import LectureSection from '../../components/LectureSection'
-import UploadContent from '../../components/UploadContent'
 import axios from 'axios';
-import { useSelector, useDispatch} from 'react-redux';
-import { updateIntroductionInputValue } from '../../state/createcourse/InputSlice';
-
-const SectionsAddIcon = <AddIcon
-sx={{
-  position:'absolute', 
-  left:'4%'
-}}
-/>;
-
-const SectionsTextContent = <Typography
-sx={{
- position:'absolute', 
- top:'.5rem', 
- left:'30%', 
-}}
->
- Add Content
-</Typography>; 
-
-
-const SectionItems = [SectionsAddIcon, SectionsTextContent]
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import CourseInfo from './CourseInfo'
 
 export default function UploadVideo() {
- 
-  const VideoFileName = useSelector(state => state.addVideoContent.fileName)
-  
-  const dispatch = useDispatch(); 
+  const styleDefault = {border:'2px solid gray'}
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [component, setComponent] = useState([]);
+  const [file, setfile] = useState();
+  const [fileName, setFileName] = useState();  
+  const [isDataSaved, setDataSaved] = useState(true); 
+  const [error, setError] = useState(); 
+  const [fileError, setFileError] = useState(styleDefault);
+
+  const uploadFiles = () => {
+    const formData = new FormData(); 
+    formData.append('file', file)
+    axios.post('/upload', formData)
+   }
+
+
   const [introductionInput, setIntroductionInput] = useState({
     IntroductionInputValue: '', 
-    VideoFileName: VideoFileName,
   })
- 
-  dispatch(updateIntroductionInputValue(introductionInput.IntroductionInputValue))
 
   const AddingSection = () => {
-
     setComponent([...component, 
       <LectureSection/>])
   }
@@ -51,18 +36,85 @@ export default function UploadVideo() {
   const UploadIntroductionInputValue = async () => {
    try{
      const {
-      IntroductionInputValue, 
-      VideoFileName, 
+      IntroductionInputValue,  
     } = introductionInput;
-     await axios.post('/uploadvideocontent', {IntroductionInputValue, VideoFileName})
-   }catch(err){
+   await axios.post('/uploadvideocontent', {IntroductionInputValue})
+    }catch(err){
     console.log(err)
    }
   }
 
+const handleInputChange = (event) => {
+  setIntroductionInput({...introductionInput, IntroductionInputValue: event.target.value})
+}
+
+const handleFileChange = (e) => {
+  const selectedFile = e.target.files[0];
+  const fileName = selectedFile.name; 
+  setfile(selectedFile);
+  setFileName(fileName)
+}
+
+const validateInputvalues = () => {
+const isSaved = false;
+const notSaved = true;  
+const Styling = {border:'1px solid red'}  
+const isValid = introductionInput.IntroductionInputValue !== ''; 
+
+if(isValid){
+  setDataSaved(isSaved);
+  setError(null);
+}else{
+  setDataSaved(notSaved);
+  setError(Styling); 
+};
+
+};
+
+const validateFile = () => {
+  const styling = {border: '1px solid red'}
+
+  if(!fileName){
+  setFileError(styling) 
+  setDataSaved(true)
+ }else{
+  setDataSaved(false)
+ }
+}; 
+
+
+const handleSaveButton = () => {
+  UploadIntroductionInputValue(); 
+  uploadFiles(); 
+  validateInputvalues(); 
+  validateFile(); 
+};
+
+const handleUploadButton = () => {
+
+}
+
   return (
     <>
    <form>
+   <Button
+   onClick={handleUploadButton}
+    sx={{
+      border:'1px solid black', 
+      position:'absolute', 
+      left:'45%',
+      fontSize:'1rem', 
+      top:'19rem', 
+      color:'white', 
+      backgroundColor:'black', 
+      width:'10rem', 
+      zIndex:'1',
+      ':hover': {backgroundColor: isDataSaved ? 'black' : '#3a3a3a'},
+      opacity: isDataSaved && '.4', 
+    }}
+    >
+      Upload
+    </Button>
    <Box
     name='uploadvideo'
     sx={{
@@ -95,7 +147,7 @@ export default function UploadVideo() {
                 color:'#22033c', 
                 fontFamily:'roman', 
             }}
-            >Upload Videos</Typography>
+            >Upload Curriculum</Typography>
 
         <Typography
         sx={{
@@ -131,27 +183,29 @@ sx={{
 }}
 >
 
-<OutlinedInput
+ { isDataSaved && <OutlinedInput
 variant='outlined'
 required
 placeholder='Introduction:'
 type='text'
-onChange={(event) => setIntroductionInput({...introductionInput, IntroductionInputValue: event.target.value})}
+onChange={handleInputChange}
+onClick={() => setError(null)}
 sx={{
     position:'relative', 
     height:'30px', 
     left:'12%', 
     top:'20px',
-    width: isNotMobileScreen ? '25rem' : 'none'  
+    width: isNotMobileScreen ? '25rem' : 'none', 
+    border: error, 
 }}
 /
 >
-   
-  <Box
+   }
+ { isDataSaved && <Box
   name='addContent'
     sx={{
         position:'relative', 
-      border:'2px solid gray',
+      border:fileError,
       width: isNotMobileScreen ? '15rem' : '5rem',
       height:'3rem', 
       padding:'.2rem',
@@ -161,13 +215,23 @@ sx={{
       textAlign:'center', 
     }}
     >
-      
-     <UploadContent
-     height={'4rem'}
-     Icons={[...SectionItems]}
-     />
+     <input
+      type="file" 
+      onChange={handleFileChange} 
+      onClick={() => setFileError(styleDefault)}
+      />
 
-    </Box>
+    </Box>}
+
+{!isDataSaved && <DoneAllIcon
+sx={{
+  position:'absolute', 
+  left:'38%', 
+  fontSize:'6rem', 
+  top:'3rem',
+  opacity:'.4', 
+}}
+/>}
 
 </Box>
 
@@ -200,15 +264,27 @@ sx={{
 
    </Box>
 
-   <Button
- onClick={UploadIntroductionInputValue}
+  { isDataSaved ? <Button
+ onClick={handleSaveButton}
 sx={{
   position:'absolute', 
  color:'black', 
  left:'10%',
  top:'25rem',  
 }}
->Save</Button>
+>Save</Button> :
+<Button
+onClick={() => setDataSaved(true)}
+sx={{
+  position:'absolute', 
+ color:'black', 
+ left:'10%',
+ top:'25rem',  
+}}
+>
+  Delete
+</Button>
+}
     </Box>
    </form>
     </>

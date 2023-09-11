@@ -4,7 +4,7 @@ const addVideoContentSlice = createSlice({
     name:'addVideoContent', 
     initialState: {
         fileName: null,  
-    }, 
+        }, 
     reducers: {
         updateFileName: (state, action) => {
             state.fileName = action.payload; 
@@ -15,4 +15,5 @@ const addVideoContentSlice = createSlice({
 export default addVideoContentSlice.reducer; 
 export const {
     updateFileName, 
+    getUploadFiles, 
 } = addVideoContentSlice.actions; 

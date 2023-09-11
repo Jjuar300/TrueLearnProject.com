@@ -1,43 +1,28 @@
-import {Box, Button, OutlinedInput,Typography} from '@mui/material'
+import {Box, Button, OutlinedInput} from '@mui/material'
 import RemoveIcon from '@mui/icons-material/Remove';
 import React, { useState } from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery';
-import AddIcon from '@mui/icons-material/Add';
-import UploadContent from './UploadContent'
 import axios from 'axios';
-
-const SectionsAddIcon = <AddIcon
-sx={{
-  position:'absolute', 
-  left:'4%'
-}}
-/>;
-
-const SectionsTextContent = <Typography
-sx={{
- position:'absolute', 
- top:'.5rem', 
- left:'30%', 
-}}
->
- Add Content
-</Typography>; 
-
-const SaveButton =  <Button
-type='submit'
-sx={{
- color:'black', 
-}}
->Save</Button>
-
-const SectionItems = [SectionsAddIcon, SectionsTextContent]
+import { useDispatch } from 'react-redux';
+import { updateFileName } from '../state/createcourse/VideoContent';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 export default function LectureSection({
 
 }) {
 
+  const styleDefault = {border:'2px solid gray'}
+  
+
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [isRemovebuttonclicked, setRemoveButtonClicked] = useState(true); 
+  const [file, setfile] = useState(); 
+  const [fileName, setFileName] = useState(); 
+  const [isDataSaved, setDataSaved] = useState(true);
+  const [error, setError] = useState(); 
+  const [FileError, setFileError] = useState(styleDefault); 
+  
+  const dispatch = useDispatch(); 
   const [sectionInput, setSectionInput] = useState({
     SectionInputValue: '', 
   }); 
@@ -47,22 +32,72 @@ export default function LectureSection({
     setSectionInput('')
   }
 
-  const UploadSectionInputValues = async (e) => {
+  const handleInputChange = (e) => {
+    setSectionInput({...sectionInput, SectionInputValue: e.target.value})
+  }
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0]; 
+    const fileName = selectedFile.name; 
+    setfile(selectedFile)
+    setFileName(fileName)
+  }
+
+  const validateInputValues = () => {
+    const isSaved = false; 
+    const notSaved = true; 
+    const Styling = {border:'1px solid red'}  
+    const isValid = sectionInput.SectionInputValue !== ''; 
+
+    
+if(isValid){
+  setDataSaved(isSaved);
+  setError(null);
+}else{
+  setDataSaved(notSaved);
+  setError(Styling); 
+};
+
+  }
+
+  const validateFile = () => {
+    const styling = {border: '1px solid red'}
+  
+    if(!fileName){
+    setFileError(styling) 
+    setDataSaved(true)
+   }else{
+    setDataSaved(false)
+   }
+  }; 
+
+  const upload = () => {
+    const formData = new FormData(); 
+    formData.append('file', file)
+    axios.post('/upload', formData)
+    dispatch(updateFileName(formData))
+   }
+
+  const UploadSectionInputValues = async () => {
 
     const {
       SectionInputValue
     } = sectionInput;
 
-   e.preventDefault(); 
    await axios.post('/uploadsectionvalues', {
     SectionInputValue,
    })
   }
 
+  const handleSaveButton = () => {
+    UploadSectionInputValues(); 
+    upload(); 
+    validateInputValues(); 
+    validateFile(); 
+  }
+
   return (
     <>
-    {sectionInput.SectionInputValue}
-   
    { isRemovebuttonclicked &&  
    
    <form
@@ -82,33 +117,36 @@ sx={{
 onClick={getRemoveSection}
 name='removeicon'
 sx={{
+    position:'absolute', 
     border:'1px solid black',
     borderRadius:'15px', 
     position:'relative',  
     left:'5%', 
-    top:'7px',  
+    top:'1rem',  
     cursor:'pointer', 
 }}
 />
 
-<OutlinedInput
+{ isDataSaved && <OutlinedInput
 placeholder='Add a section title:'
 type='text'
-onChange={(e) => setSectionInput({...sectionInput, SectionInputValue: e.target.value})}
+onChange={handleInputChange}
+onClick={() => setError(null)}
 sx={{
     position:'relative', 
     height:'30px', 
     left:'10%', 
-    width: isNotMobileScreen ? '25rem' : 'none'
+    width: isNotMobileScreen ? '25rem' : 'none', 
+    border:error, 
 }}
 /
->
+>}
 
-<Box
+{ isDataSaved && <Box
     name='uploadvideo'
     sx={{
         position:'relative', 
-      border:'2px solid gray',
+      border: FileError,
       width: isNotMobileScreen ? '15rem' : '5rem',
       height:'3rem', 
       padding:'.2rem',
@@ -118,18 +156,48 @@ sx={{
       textAlign:'center', 
     }}
     >
-      <UploadContent 
-      height={'4rem'}
-      Icons={[...SectionItems]}
-      />
-    </Box>
+     
+     <input 
+     type='file' 
+     onChange={handleFileChange}
+     onClick={() => setFileError(styleDefault)}
+     />
 
-    <Button
-  onClick={UploadSectionInputValues}
+
+    </Box>}
+
+    {!isDataSaved && <DoneAllIcon
 sx={{
- color:'black', 
+  position:'relative', 
+  left:'35%', 
+  fontSize:'6rem', 
+  top:'2rem',
+  opacity:'.4', 
 }}
+/>}
+
+{ isDataSaved ? <Button
+  onClick={handleSaveButton}
+  sx={{
+    position:'relative', 
+   color:'black', 
+   left:'2%',
+   top:'3rem',  
+  }}
 >Save</Button>
+:
+<Button
+onClick={() => setDataSaved(true)}
+sx={{
+  position:'relative', 
+ color:'black', 
+ left:'-22%',
+ top:'3rem',  
+}}
+>
+  Delete
+</Button>
+}
 
 </Box>
 </form>
