@@ -8,7 +8,7 @@ import AddSectionSlice from './createcourse/AddSectionSlice'
 import indexSlice from './createcourse/indexSlice'
 import ServerSlice from './ServerSlice'
 import InputSlice from './createcourse/InputSlice'
-import VideoContent from './createcourse/VideoContent'
+import upload from './createcourse/upload'
 
 import {
     FLUSH,
@@ -30,7 +30,7 @@ reducer: {
     CreatingCourse: indexSlice, 
     ServerSlice: ServerSlice,
     Input: InputSlice, 
-    addVideoContent: VideoContent,        
+    upload: upload,       
 },  
 middleware:(getDefaultMiddleware) => {
  return  getDefaultMiddleware({

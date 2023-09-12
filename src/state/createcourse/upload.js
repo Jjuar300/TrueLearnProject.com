@@ -3,17 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const addVideoContentSlice = createSlice({
     name:'addVideoContent', 
     initialState: {
-        fileName: null,  
+       navigateCourseLandingPage: 'Curriculum', 
         }, 
     reducers: {
-        updateFileName: (state, action) => {
-            state.fileName = action.payload; 
-        }, 
+       getCourseLandingPage: (state, action) => {
+        state.navigateCourseLandingPage = action.payload; 
+       }
     }
 })
 
 export default addVideoContentSlice.reducer; 
 export const {
-    updateFileName, 
-    getUploadFiles, 
+   getCourseLandingPage, 
 } = addVideoContentSlice.actions; 

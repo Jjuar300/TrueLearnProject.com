@@ -5,7 +5,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import LectureSection from '../../components/LectureSection'
 import axios from 'axios';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import CourseInfo from './CourseInfo'
+import { useDispatch } from 'react-redux';
+import { getCourseLandingPage } from '../../state/createcourse/upload';
 
 export default function UploadVideo() {
   const styleDefault = {border:'2px solid gray'}
@@ -16,13 +17,13 @@ export default function UploadVideo() {
   const [isDataSaved, setDataSaved] = useState(true); 
   const [error, setError] = useState(); 
   const [fileError, setFileError] = useState(styleDefault);
+  const dispatch = useDispatch(); 
 
   const uploadFiles = () => {
     const formData = new FormData(); 
     formData.append('file', file)
     axios.post('/upload', formData)
    }
-
 
   const [introductionInput, setIntroductionInput] = useState({
     IntroductionInputValue: '', 
@@ -91,7 +92,7 @@ const handleSaveButton = () => {
 };
 
 const handleUploadButton = () => {
-
+dispatch(getCourseLandingPage('LandingPage'))
 }
 
   return (

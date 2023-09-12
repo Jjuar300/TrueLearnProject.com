@@ -2,7 +2,10 @@ import React, { useState }  from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import NavBar from '../Navbar';
 import UploadVideo from './UploadVideo';
-import ClassInfo from './CourseInfo';
+import CourseInfo from './CourseLandingPage';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getCourseLandingPage } from '../../state/createcourse/upload';
 
 const CoursePrompt =   <Typography
 sx={{
@@ -17,28 +20,19 @@ sx={{
 </Typography>
 
 export default function CreateCourseGuide() {
-    const [isCurriculum, setCurriculum] = useState(false); 
-    const [isCourseLandingpage, setCourselandingPage] = useState(false); 
-    const [isCoursePrompt, setCoursePrompt] = useState(true)
-
-  const handleCurriculumOclick = () => {
-   setCurriculum(true)
-   setCourselandingPage(false)
-   setCoursePrompt(false)
-}
-  const handleCourseLandingPageOnclick = () => {
-   setCourselandingPage(true)
-   setCurriculum(false)
-   setCoursePrompt(false)
-}
+    
+   const dispatch = useDispatch(); 
+   const navigateLandingPage= useSelector(state => state.upload.navigateCourseLandingPage)
+   const isCourseLandingPage = navigateLandingPage === 'LandingPage'; 
+   const isCurriculum = navigateLandingPage === 'Curriculum';
 
     return (
    <>
 
 <NavBar/>
-{isCurriculum && <UploadVideo/>}
-{isCourseLandingpage && <ClassInfo/> }
-{ isCoursePrompt && CoursePrompt}
+{ isCurriculum && <UploadVideo/>}
+
+{isCourseLandingPage && <CourseInfo/> }
 
    <Box
    sx={{
@@ -52,10 +46,11 @@ export default function CreateCourseGuide() {
    >
  
   <Typography
-  onClick={handleCurriculumOclick}
    sx={{
     color:'black',
     ':hover': {cursor:'pointer'},  
+    opacity: isCurriculum ? null : '.4', 
+
    }}
    >
    Curriculum
@@ -63,11 +58,10 @@ export default function CreateCourseGuide() {
  
 
    <Typography
-   onClick={handleCourseLandingPageOnclick}
    sx={{
     color:'black', 
     ':hover': {cursor:'pointer'},
-    opacity:'.4', 
+    opacity: isCourseLandingPage ? null : '.4', 
    }}
    >
     Course Landing page

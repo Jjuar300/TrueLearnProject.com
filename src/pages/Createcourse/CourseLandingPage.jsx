@@ -5,7 +5,9 @@ import { Formik } from 'formik';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AddIcon from '@mui/icons-material/Add';
-import UploadContent from '../../components/UploadContent'
+import { useState } from 'react';
+import axios from 'axios';
+
 
 const Catergories = [
   {
@@ -41,6 +43,36 @@ sx={{
 
 export default function ClassInfo() {
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
+  const [file, setfile] = useState(); 
+  const [fileName, setFileName] = useState(); 
+  const [isDataSaved, setDateSaved] = useState(true); 
+  const [error, setError] = useState(); 
+  const [fileError, setFileError] = useState(); 
+  const [courseInput, setCourseInput] = useState({
+    title: '', 
+    description: '', 
+    price: '',
+    catergory: '',  
+  }) 
+
+ const upladFiles = () => {
+    const formData = new FormData(); 
+    formData.append('file', file)
+    axios.post('/upload', formData)
+ }
+
+ const uploadCourseInputValues = async () => {
+  try{
+    const {
+      title, 
+      description, 
+      price, 
+      catergory, 
+    } = courseInput; 
+  }catch(error){
+    console.log(error); 
+  }
+ }
 
   return (
    <>
@@ -205,10 +237,7 @@ export default function ClassInfo() {
       cursor:'pointer', 
     }}
     >
-      <UploadContent
-      height={'7rem'}
-      Icons={AddingIcon}
-      />
+   
     </Box>
     </Box>
 

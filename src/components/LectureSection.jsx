@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { updateFileName } from '../state/createcourse/VideoContent';
+import { updateFileName } from '../state/createcourse/upload';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 export default function LectureSection({
@@ -75,7 +75,6 @@ if(isValid){
     const formData = new FormData(); 
     formData.append('file', file)
     axios.post('/upload', formData)
-    dispatch(updateFileName(formData))
    }
 
   const UploadSectionInputValues = async () => {
