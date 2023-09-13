@@ -1,10 +1,9 @@
 
-import {Box, Typography, OutlinedInput, TextField, InputAdornment} from '@mui/material'
+import {Box,Button, Typography, OutlinedInput, TextField, InputAdornment} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem';
 import { Formik } from 'formik';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -32,14 +31,6 @@ const Catergories = [
   }
 ]
 
-const AddingIcon = <AddIcon
-sx={{
- position:'absolute', 
- left:'44%',
- fontSize:'40px', 
- top:'2rem', 
-}}
-/>
 
 export default function ClassInfo() {
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
@@ -51,11 +42,10 @@ export default function ClassInfo() {
   const [courseInput, setCourseInput] = useState({
     title: '', 
     description: '', 
-    price: '',
-    catergory: '',  
+    price: Number,
   }) 
 
- const upladFiles = () => {
+ const uploadFiles = () => {
     const formData = new FormData(); 
     formData.append('file', file)
     axios.post('/upload', formData)
@@ -69,10 +59,28 @@ export default function ClassInfo() {
       price, 
       catergory, 
     } = courseInput; 
+    await axios.post('/uploadcourselandingpage', {
+      title, 
+      description, 
+      price, 
+      catergory, 
+    })
   }catch(error){
     console.log(error); 
   }
  }
+
+const handleFileChange = (e) => {
+  const selectedFile = e.target.files[0]; 
+  const filename = selectedFile.name; 
+  setfile(selectedFile)
+  setFileName(filename)
+}
+
+const handleCreateCourseButton = () => {
+  uploadCourseInputValues(); 
+  uploadFiles(); 
+}
 
   return (
    <>
@@ -83,7 +91,7 @@ export default function ClassInfo() {
       top: isNotMobileScreen ? '10rem' :'none'
     }}
     >
-    <Formik>
+    
       <form>
       <Box
      name='courseoverview'
@@ -137,6 +145,7 @@ export default function ClassInfo() {
 
         <OutlinedInput
         placeholder='My course'
+        onChange={(event) =>  setCourseInput({...courseInput, title: event.target.value})}
         sx={{
           width:'20rem', 
           height:'2rem', 
@@ -156,6 +165,7 @@ export default function ClassInfo() {
         <TextField
         multiline
         placeholder='This course...' 
+        onChange={(event) =>  setCourseInput({...courseInput, description: event.target.value})}
         sx={{
           width:'20rem',
         }}
@@ -171,6 +181,8 @@ export default function ClassInfo() {
         </Typography>
 
         <TextField
+        type='number'
+        onChange={(event) =>  setCourseInput({...courseInput, price: event.target.value})}
         InputProps={{
           startAdornment:(
             <InputAdornment>
@@ -238,13 +250,34 @@ export default function ClassInfo() {
     }}
     >
    
+   <input 
+   type='file'
+   onChange={handleFileChange}
+   />
+
     </Box>
     </Box>
 
      </Box>
 
+     <Button
+     onClick={handleCreateCourseButton}
+   sx={{
+    position:'absolute', 
+    top:'12rem', 
+    left:'-20rem', 
+    border:'1px solid black', 
+    color:'white', 
+    backgroundColor:'#431440', 
+   //  ':hover': {backgroundColor:'#80267a'},
+   ':hover': {backgroundColor:'#431440'},
+    opacity:'.4',   
+   }}
+   >
+    Create Course
+   </Button>
+
       </form>
-     </Formik>
     </Box>
 
    </>

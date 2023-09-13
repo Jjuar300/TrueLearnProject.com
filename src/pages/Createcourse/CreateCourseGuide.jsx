@@ -66,19 +66,6 @@ export default function CreateCourseGuide() {
    >
     Course Landing page
    </Typography>
-
-   <Button
-   sx={{
-    border:'1px solid black', 
-    color:'white', 
-    backgroundColor:'#431440', 
-   //  ':hover': {backgroundColor:'#80267a'},
-   ':hover': {backgroundColor:'#431440'},
-    opacity:'.4',   
-   }}
-   >
-    Create Course
-   </Button>
    </Box>
 
    </>
