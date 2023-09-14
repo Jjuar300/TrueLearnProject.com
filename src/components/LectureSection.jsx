@@ -3,8 +3,6 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import React, { useState } from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { updateFileName } from '../state/createcourse/upload';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 export default function LectureSection({
@@ -22,7 +20,6 @@ export default function LectureSection({
   const [error, setError] = useState(); 
   const [FileError, setFileError] = useState(styleDefault); 
   
-  const dispatch = useDispatch(); 
   const [sectionInput, setSectionInput] = useState({
     SectionInputValue: '', 
   }); 

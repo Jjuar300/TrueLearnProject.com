@@ -7,7 +7,6 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useState } from 'react';
 import axios from 'axios';
 
-
 const Catergories = [
   {
     value:'Artificial Inteligence',
@@ -39,10 +38,12 @@ export default function ClassInfo() {
   const [isDataSaved, setDateSaved] = useState(true); 
   const [error, setError] = useState(); 
   const [fileError, setFileError] = useState(); 
+  const [catergory, setCategory] = useState(); 
   const [courseInput, setCourseInput] = useState({
     title: '', 
     description: '', 
     price: Number,
+    catergory: '', 
   }) 
 
  const uploadFiles = () => {
@@ -207,7 +208,11 @@ const handleCreateCourseButton = () => {
         }}
         >
       {Catergories.map((option) =>(
-        <MenuItem key={option.value} value={option.value} > 
+        <MenuItem 
+        key={option.value} 
+        value={option.value}
+        onClick={() => setCourseInput({...courseInput, catergory: option.value})}
+        > 
         {option.label}
         </MenuItem>
       ))}
