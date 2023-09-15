@@ -56,6 +56,17 @@ const handleFileChange = (e) => {
   setFileName(fileName)
 }
 
+const validateFile = () => {
+
+  const styling = {border: '1px solid red'}
+  if(!file){
+  setFileError(styling) 
+  setDataSaved(true)
+ }else{
+  setDataSaved(false)
+ }
+}; 
+
 const validateInputvalues = () => {
 const isSaved = false;
 const notSaved = true;  
@@ -70,25 +81,23 @@ if(isValid){
   setError(Styling); 
 };
 
+validateFile(); 
+
 };
 
-const validateFile = () => {
-  const styling = {border: '1px solid red'}
-
-  if(!fileName){
-  setFileError(styling) 
-  setDataSaved(true)
- }else{
-  setDataSaved(false)
- }
-}; 
 
 const handleSaveButton = () => {
   UploadIntroductionInputValue(); 
   uploadFiles(); 
   validateInputvalues(); 
-  validateFile(); 
+  // validateFile(); 
 };
+
+const handleDeleteButton = () => {
+  setDataSaved(true)
+  setFileName(null)
+  setIntroductionInput(''); 
+}
 
 const handleUploadButton = () => {
 dispatch(getCourseLandingPage('LandingPage'))
@@ -274,7 +283,7 @@ sx={{
 }}
 >Save</Button> :
 <Button
-onClick={() => setDataSaved(true)}
+onClick={handleDeleteButton}
 sx={{
   position:'absolute', 
  color:'black', 
