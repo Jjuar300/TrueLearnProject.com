@@ -10,13 +10,11 @@ export default function LectureSection({
 }) {
 
   const styleDefault = {border:'2px solid gray'}
-  
-
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [isRemovebuttonclicked, setRemoveButtonClicked] = useState(true); 
   const [file, setfile] = useState(); 
   const [fileName, setFileName] = useState(); 
-  const [isDataSaved, setDataSaved] = useState(true);
+  const [isDataSaved, setDataSaved] = useState();
   const [error, setError] = useState(); 
   const [FileError, setFileError] = useState(styleDefault); 
   
@@ -40,34 +38,6 @@ export default function LectureSection({
     setFileName(fileName)
   }
 
-  const validateInputValues = () => {
-    const isSaved = false; 
-    const notSaved = true; 
-    const Styling = {border:'1px solid red'}  
-    const isValid = sectionInput.SectionInputValue !== ''; 
-
-    
-if(isValid){
-  setDataSaved(isSaved);
-  setError(null);
-}else{
-  setDataSaved(notSaved);
-  setError(Styling); 
-};
-
-  }
-
-  const validateFile = () => {
-    const styling = {border: '1px solid red'}
-  
-    if(!fileName){
-    setFileError(styling) 
-    setDataSaved(true)
-   }else{
-    setDataSaved(false)
-   }
-  }; 
-
   const upload = () => {
     const formData = new FormData(); 
     formData.append('file', file)
@@ -85,11 +55,35 @@ if(isValid){
    })
   }
 
+  const validateFile = () => {
+    const fileStyling = {border: '1px solid red'}
+  
+    if(!file){
+      setDataSaved(false); 
+      setError(null); 
+      setFileError(fileStyling); 
+   }else{
+    setDataSaved(true)
+    setFileError(null)
+   }
+  }; 
+  
+
+const handleCurriculum = () => {
+  const inputStyling = {border:'1px solid red'} 
+  const isValid = sectionInput.SectionInputValue.trim() === ''; 
+
+  if(isValid){
+    setError(inputStyling)
+  }else{
+    validateFile(); 
+  }
+}
+
   const handleSaveButton = () => {
     UploadSectionInputValues(); 
     upload(); 
-    validateInputValues(); 
-    validateFile(); 
+    handleCurriculum(); 
   }
 
   return (
@@ -123,7 +117,7 @@ sx={{
 }}
 />
 
-{ isDataSaved && <OutlinedInput
+{ !isDataSaved && <OutlinedInput
 placeholder='Add a section title:'
 type='text'
 onChange={handleInputChange}
@@ -138,7 +132,7 @@ sx={{
 /
 >}
 
-{ isDataSaved && <Box
+{ !isDataSaved && <Box
     name='uploadvideo'
     sx={{
         position:'relative', 
@@ -162,7 +156,7 @@ sx={{
 
     </Box>}
 
-    {!isDataSaved && <DoneAllIcon
+    {isDataSaved && <DoneAllIcon
 sx={{
   position:'relative', 
   left:'35%', 
@@ -172,7 +166,7 @@ sx={{
 }}
 />}
 
-{ isDataSaved ? <Button
+{ !isDataSaved ? <Button
   onClick={handleSaveButton}
   sx={{
     position:'relative', 

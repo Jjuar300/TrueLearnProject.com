@@ -13,8 +13,7 @@ export default function UploadVideo() {
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [component, setComponent] = useState([]);
   const [file, setfile] = useState();
-  const [fileName, setFileName] = useState();  
-  const [isDataSaved, setDataSaved] = useState(true); 
+  const [isDataSaved, setDataSaved] = useState(); 
   const [error, setError] = useState(); 
   const [fileError, setFileError] = useState(styleDefault);
   const dispatch = useDispatch(); 
@@ -51,53 +50,49 @@ const handleInputChange = (event) => {
 
 const handleFileChange = (e) => {
   const selectedFile = e.target.files[0];
-  const fileName = selectedFile.name; 
   setfile(selectedFile);
-  setFileName(fileName)
+}
+
+const ValidateCurriculum = () => {
+  const inputStyling = {border:'1px solid red'} 
+  const isValid = introductionInput.IntroductionInputValue === ''; 
+
+  if(isValid){
+    setError(inputStyling)
+  }else{
+    validateFile(); 
+  }
+
 }
 
 const validateFile = () => {
-
-  const styling = {border: '1px solid red'}
+  const fileStyling = {border: '1px solid red'}
+try{
   if(!file){
-  setFileError(styling) 
-  setDataSaved(true)
+    setDataSaved(false); 
+    setError(null); 
+    setFileError(fileStyling); 
  }else{
-  setDataSaved(false)
+  setDataSaved(true)
+  setFileError(null)
  }
+}catch(error){
+  console.log(error)
+}
 }; 
-
-const validateInputvalues = () => {
-const isSaved = false;
-const notSaved = true;  
-const Styling = {border:'1px solid red'}  
-const isValid = introductionInput.IntroductionInputValue !== ''; 
-
-if(isValid){
-  setDataSaved(isSaved);
-  setError(null);
-}else{
-  setDataSaved(notSaved);
-  setError(Styling); 
-};
-
-validateFile(); 
-
-};
-
 
 const handleSaveButton = () => {
   UploadIntroductionInputValue(); 
   uploadFiles(); 
-  validateInputvalues(); 
-  // validateFile(); 
+  ValidateCurriculum(); 
+  setIntroductionInput('')
+  setfile(null)
 };
 
 const handleDeleteButton = () => {
-  setDataSaved(true)
-  setFileName(null)
-  setIntroductionInput(''); 
-}
+   setDataSaved(false)
+    setFileError(styleDefault)
+};
 
 const handleUploadButton = () => {
 dispatch(getCourseLandingPage('LandingPage'))
@@ -118,8 +113,8 @@ dispatch(getCourseLandingPage('LandingPage'))
       backgroundColor:'black', 
       width:'10rem', 
       zIndex:'1',
-      ':hover': {backgroundColor: isDataSaved ? 'black' : '#3a3a3a'},
-      opacity: isDataSaved && '.4', 
+      ':hover': {backgroundColor: !isDataSaved ? 'black' : '#3a3a3a'},
+      opacity: !isDataSaved && '.4', 
     }}
     >
       Upload
@@ -192,7 +187,7 @@ sx={{
 }}
 >
 
- { isDataSaved && <OutlinedInput
+ { !isDataSaved && <OutlinedInput
 variant='outlined'
 required
 placeholder='Introduction:'
@@ -210,7 +205,7 @@ sx={{
 /
 >
    }
- { isDataSaved && <Box
+ { !isDataSaved && <Box
   name='addContent'
     sx={{
         position:'relative', 
@@ -232,7 +227,7 @@ sx={{
 
     </Box>}
 
-{!isDataSaved && <DoneAllIcon
+{isDataSaved && <DoneAllIcon
 sx={{
   position:'absolute', 
   left:'38%', 
@@ -273,7 +268,7 @@ sx={{
 
    </Box>
 
-  { isDataSaved ? <Button
+  { !isDataSaved ? <Button
  onClick={handleSaveButton}
 sx={{
   position:'absolute', 
