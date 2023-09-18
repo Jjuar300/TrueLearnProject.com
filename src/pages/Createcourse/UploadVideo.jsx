@@ -48,50 +48,36 @@ const handleInputChange = (event) => {
   setIntroductionInput({...introductionInput, IntroductionInputValue: event.target.value})
 }
 
-const handleFileChange = (e) => {
-  const selectedFile = e.target.files[0];
-  setfile(selectedFile);
-}
-
 const ValidateCurriculum = () => {
   const inputStyling = {border:'1px solid red'} 
   const isValid = introductionInput.IntroductionInputValue === ''; 
+  const fileStyling = {border: '1px solid red'}
 
   if(isValid){
     setError(inputStyling)
+  }else if(!file){
+      setDataSaved(false); 
+      setError(null); 
+      setFileError(fileStyling); 
   }else{
-    validateFile(); 
+    setDataSaved(true)
+    setFileError(null)
   }
 
 }
 
-const validateFile = () => {
-  const fileStyling = {border: '1px solid red'}
-try{
-  if(!file){
-    setDataSaved(false); 
-    setError(null); 
-    setFileError(fileStyling); 
- }else{
-  setDataSaved(true)
-  setFileError(null)
- }
-}catch(error){
-  console.log(error)
-}
-}; 
-
 const handleSaveButton = () => {
+  setfile(file)
   UploadIntroductionInputValue(); 
   uploadFiles(); 
   ValidateCurriculum(); 
-  setIntroductionInput('')
-  setfile(null)
 };
 
 const handleDeleteButton = () => {
-   setDataSaved(false)
+   setDataSaved(null); 
     setFileError(styleDefault)
+    setfile(false)
+    setIntroductionInput({IntroductionInputValue: ''})
 };
 
 const handleUploadButton = () => {
@@ -100,9 +86,11 @@ dispatch(getCourseLandingPage('LandingPage'))
 
   return (
     <>
-   <form>
+   <form
+   encType='multipart/form-data'
+   >
    <Button
-   onClick={handleUploadButton}
+   onClick={ isDataSaved && handleUploadButton}
     sx={{
       border:'1px solid black', 
       position:'absolute', 
@@ -221,7 +209,7 @@ sx={{
     >
      <input
       type="file" 
-      onChange={handleFileChange} 
+      onChange={(e) => setfile(e.target.files[0])} 
       onClick={() => setFileError(styleDefault)}
       />
 

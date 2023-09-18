@@ -5,18 +5,6 @@ import UploadVideo from './UploadVideo';
 import CourseInfo from './CourseLandingPage';
 import { useSelector } from 'react-redux';
 
-const CoursePrompt =   <Typography
-sx={{
-   position:'absolute', 
-   left:'45%',
-   top:'23rem',  
-   fontSize:'2rem', 
-   fontFamily:'roman'
-}}
->
-   Create with TrueLearn!
-</Typography>
-
 export default function CreateCourseGuide() {
     
    const navigateLandingPage= useSelector(state => state.upload.navigateCourseLandingPage)

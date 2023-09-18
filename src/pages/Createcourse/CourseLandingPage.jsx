@@ -6,6 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Catergories = [
   {
@@ -32,17 +33,15 @@ const Catergories = [
 
 
 export default function ClassInfo() {
+  const navigate = useNavigate(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
   const [file, setfile] = useState(); 
+  const [error, setError] = useState(false); 
   const [fileName, setFileName] = useState(); 
-  const [isDataSaved, setDateSaved] = useState(true); 
-  const [error, setError] = useState(); 
-  const [fileError, setFileError] = useState(); 
-  const [catergory, setCategory] = useState(); 
   const [courseInput, setCourseInput] = useState({
     title: '', 
     description: '', 
-    price: Number,
+    price: '',
     catergory: '', 
   }) 
 
@@ -73,14 +72,31 @@ export default function ClassInfo() {
 
 const handleFileChange = (e) => {
   const selectedFile = e.target.files[0]; 
-  const filename = selectedFile.name; 
+  const fileName = selectedFile.name; 
+  setFileName(fileName)
   setfile(selectedFile)
-  setFileName(filename)
 }
+
+const ValidateCourseLandingPage = () => {
+ const isTitle = courseInput.title === ''; 
+ const isDescription = courseInput.description === ''; 
+ const isPrice = courseInput.price === ''; 
+ const isCategory = courseInput.catergory == '';  
+
+isTitle ? setError(true) : setError(false)
+isDescription ? setError(true) : setError(false)
+isPrice ? setError(true) : setError(false)
+isCategory ? setError(true) : setError(false)
+!file ? setError(true) : setError(false)
+
+}
+
 
 const handleCreateCourseButton = () => {
   uploadCourseInputValues(); 
   uploadFiles(); 
+  ValidateCourseLandingPage(); 
+  navigate('/course')
 }
 
   return (
@@ -146,10 +162,12 @@ const handleCreateCourseButton = () => {
 
         <OutlinedInput
         placeholder='My course'
+        onClick={() => setError(false)}
         onChange={(event) =>  setCourseInput({...courseInput, title: event.target.value})}
         sx={{
           width:'20rem', 
           height:'2rem', 
+          border: error ? '1px solid red' : null, 
         }}
         />
 
@@ -165,10 +183,12 @@ const handleCreateCourseButton = () => {
 
         <TextField
         multiline
+        onClick={() => setError(false)}
         placeholder='This course...' 
         onChange={(event) =>  setCourseInput({...courseInput, description: event.target.value})}
         sx={{
           width:'20rem',
+          border: error ? '1px solid red' : null, 
         }}
         />
       </Box>
@@ -183,6 +203,7 @@ const handleCreateCourseButton = () => {
 
         <TextField
         type='number'
+        onClick={() => setError(false)}
         onChange={(event) =>  setCourseInput({...courseInput, price: event.target.value})}
         InputProps={{
           startAdornment:(
@@ -193,6 +214,7 @@ const handleCreateCourseButton = () => {
         }}
         sx={{
           width:'20rem',
+          border: error ? '1px solid red' : null, 
         }}
         />
       </Box>
@@ -203,8 +225,10 @@ const handleCreateCourseButton = () => {
         select
         label='Catergory'
         defaultValue='Artificial Inteligence'
+        onClick={() => setError(false)}
         sx={{
           width:'20rem', 
+          border: error ? '1px solid red' : null, 
         }}
         >
       {Catergories.map((option) =>(
@@ -245,7 +269,7 @@ const handleCreateCourseButton = () => {
     <Box
     sx={{
       position:'absolute', 
-      border:'1px solid black', 
+      border: error ? '2px solid red' : '2px solid black', 
       width:'30rem', 
       height:'7rem', 
       left:'2%', 
@@ -274,9 +298,7 @@ const handleCreateCourseButton = () => {
     border:'1px solid black', 
     color:'white', 
     backgroundColor:'#431440', 
-   //  ':hover': {backgroundColor:'#80267a'},
-   ':hover': {backgroundColor:'#431440'},
-    opacity:'.4',   
+    ':hover': {backgroundColor:'#80267a'},
    }}
    >
     Create Course

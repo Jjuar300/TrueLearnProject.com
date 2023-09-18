@@ -55,35 +55,35 @@ export default function LectureSection({
    })
   }
 
-  const validateFile = () => {
+  const ValidateCurriculum = () => {
+    const inputStyling = {border:'1px solid red'} 
+    const isValid = sectionInput.SectionInputValue === ''; 
     const fileStyling = {border: '1px solid red'}
   
-    if(!file){
-      setDataSaved(false); 
-      setError(null); 
-      setFileError(fileStyling); 
-   }else{
-    setDataSaved(true)
-    setFileError(null)
-   }
-  }; 
+    if(isValid){
+      setError(inputStyling)
+    }else if(!file){
+        setDataSaved(false); 
+        setError(null); 
+        setFileError(fileStyling); 
+    }else{
+      setDataSaved(true)
+      setFileError(null)
+    }
   
-
-const handleCurriculum = () => {
-  const inputStyling = {border:'1px solid red'} 
-  const isValid = sectionInput.SectionInputValue.trim() === ''; 
-
-  if(isValid){
-    setError(inputStyling)
-  }else{
-    validateFile(); 
   }
-}
 
   const handleSaveButton = () => {
     UploadSectionInputValues(); 
     upload(); 
-    handleCurriculum(); 
+    ValidateCurriculum(); 
+  }
+ 
+  const handleDeleteButton = () => {
+    setDataSaved(null); 
+    setFileError(styleDefault)
+    setfile(false)
+   setSectionInput({SectionInputValue: ''})
   }
 
   return (
@@ -177,7 +177,7 @@ sx={{
 >Save</Button>
 :
 <Button
-onClick={() => setDataSaved(true)}
+onClick={handleDeleteButton}
 sx={{
   position:'relative', 
  color:'black', 
