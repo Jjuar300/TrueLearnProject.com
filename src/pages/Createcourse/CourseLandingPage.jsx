@@ -7,6 +7,8 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getVideoUrl } from '../../state/createcourse/VideoUrl';
 
 const Catergories = [
   {
@@ -33,11 +35,13 @@ const Catergories = [
 
 
 export default function ClassInfo() {
+  const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
   const [file, setfile] = useState(); 
   const [error, setError] = useState(false); 
   const [fileName, setFileName] = useState(); 
+  const [videoURL, setVideoURL] = useState(); 
   const [courseInput, setCourseInput] = useState({
     title: '', 
     description: '', 
@@ -48,7 +52,7 @@ export default function ClassInfo() {
  const uploadFiles = () => {
     const formData = new FormData(); 
     formData.append('file', file)
-    axios.post('/upload', formData)
+    axios.post('/upload', formData, fileName)
  }
 
  const uploadCourseInputValues = async () => {
@@ -72,8 +76,9 @@ export default function ClassInfo() {
 
 const handleFileChange = (e) => {
   const selectedFile = e.target.files[0]; 
+  setVideoURL(videoURL)
   const fileName = selectedFile.name; 
-  setFileName(fileName)
+  setFileName(...fileName)
   setfile(selectedFile)
 }
 
@@ -96,11 +101,15 @@ const handleCreateCourseButton = () => {
   uploadCourseInputValues(); 
   uploadFiles(); 
   ValidateCourseLandingPage(); 
-  navigate('/course')
+  navigate('/course'); 
+  dispatch(getVideoUrl(videoURL)); 
 }
+
+console.log(videoURL)
 
   return (
    <>
+   {fileName}
     <Box
     sx={{
       position:'absolute', 

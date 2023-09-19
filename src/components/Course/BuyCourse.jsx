@@ -4,18 +4,11 @@ import { Box, Button } from '@mui/material'
 import axios from 'axios';
 import {Player}from 'video-react'
 import 'video-react/dist/video-react.css'
+import { useSelector } from 'react-redux';
 
 export default function BuyCourse() {
-  const [fileSource, setFileSource] = useState(); 
+ 
   
-  useEffect(() => {
-  axios.get('/upload')
-  .then((response) => {setFileSource(response.config.url)})
-  .catch(error => {console.error('Error fetching file: ', error)})
-  },[])
-
-  console.log(fileSource)
-
   return (
     <>
     <NavBar/>
@@ -55,9 +48,10 @@ export default function BuyCourse() {
        top:'15rem', 
     }}
     >
-    
-    <Player>
-      <source src={fileSource} />
+  
+    <Player
+    >
+      <source src={require('../../assets/pexels-black-bird-17671672 (2160p).mp4')} type='video/mp4' />
     </Player>
 
     </Box>
