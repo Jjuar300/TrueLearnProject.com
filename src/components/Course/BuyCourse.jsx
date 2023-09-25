@@ -7,8 +7,18 @@ import 'video-react/dist/video-react.css'
 import { useSelector } from 'react-redux';
 
 export default function BuyCourse() {
- 
-  
+const [video, setVideo] = useState(); 
+
+// useEffect(() => {
+//   axios.get('/videos')
+//   .then((response) => {
+//     setVideo(response.data)
+//   })
+//   .catch((error) => console.log(error))
+// },[])
+
+// console.log(video)
+
   return (
     <>
     <NavBar/>
@@ -51,7 +61,7 @@ export default function BuyCourse() {
   
     <Player
     >
-      <source src={require('../../assets/pexels-black-bird-17671672 (2160p).mp4')} type='video/mp4' />
+      <source src={`http://localhost:3002/videos`} type='video/mp4' />
     </Player>
 
     </Box>
