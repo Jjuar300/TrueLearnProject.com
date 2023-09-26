@@ -282,7 +282,7 @@ const handleCreateCourseButton = () => {
    
    <input 
    type="file"
-   accept='video/*'
+   accept='video/*, image/*'
    id='video'
    onChange={(e) => setfile(e.target.files[0])}
    />
