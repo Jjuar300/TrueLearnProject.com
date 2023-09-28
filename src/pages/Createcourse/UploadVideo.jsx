@@ -19,10 +19,13 @@ export default function UploadVideo() {
   const dispatch = useDispatch(); 
 
   const uploadFiles = () => {
+    
     const formData = new FormData(); 
     formData.append('file', file)
     axios.post('/upload', formData)
    }
+
+   console.log(file)
 
   const [introductionInput, setIntroductionInput] = useState({
     IntroductionInputValue: '', 

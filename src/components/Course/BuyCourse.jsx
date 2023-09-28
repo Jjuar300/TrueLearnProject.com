@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import NavBar from '../../pages/Navbar'
 import { Box, Button } from '@mui/material'
 import axios from 'axios';
@@ -7,20 +7,12 @@ import 'video-react/dist/video-react.css'
 import { useSelector } from 'react-redux';
 
 export default function BuyCourse() {
-const [video, setVideo] = useState(); 
 
-// useEffect(() => {
-//   axios.get('/videos')
-//   .then((response) => {
-//     setVideo(response.data)
-//   })
-//   .catch((error) => console.log(error))
-// },[])
-
-// console.log(video)
+const fileName = useSelector(state => state.videoUrl.VideoUrl)
 
   return (
     <>
+    {fileName}
     <NavBar/>
     <Box
     name = 'courseTitle'
@@ -58,11 +50,13 @@ const [video, setVideo] = useState();
        top:'15rem', 
     }}
     >
-  
+
     <Player
     >
-      <source src={`http://localhost:3002/videos`} type='video/mp4' />
+      <source  src={`https://res.cloudinary.com/duswtno8e/video/upload/${fileName}.mp4`} type='video/mp4' />
     </Player>
+
+ 
 
     </Box>
 

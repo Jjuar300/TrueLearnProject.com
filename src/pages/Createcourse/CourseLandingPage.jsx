@@ -8,6 +8,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { getVideoUrl } from '../../state/createcourse/VideoUrl';
 
 const Catergories = [
   {
@@ -49,8 +50,12 @@ export default function ClassInfo() {
   const uploadFiles = () => {
     const formData = new FormData(); 
     formData.append('file', file)
-    formData.append('upload_preset', 'video_preset')
-    axios.post('/displayvideo', formData)
+    axios.post('/displayvideo', formData,{
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    dispatch(getVideoUrl(file.name))
    }
 
  const uploadCourseInputValues = async () => {
@@ -95,11 +100,11 @@ const handleCreateCourseButton = () => {
   navigate('/course'); 
 }
 
+console.log(file)
 
 
   return (
    <>
-
     <Box
     sx={{
       position:'absolute', 
@@ -283,7 +288,7 @@ const handleCreateCourseButton = () => {
    <input 
    type="file"
    accept='video/*, image/*'
-   id='video'
+  //  id='video'
    onChange={(e) => setfile(e.target.files[0])}
    />
 
