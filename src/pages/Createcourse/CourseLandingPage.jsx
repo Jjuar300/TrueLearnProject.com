@@ -56,6 +56,7 @@ export default function ClassInfo() {
       },
     })
     dispatch(getVideoUrl(file.name))
+    console.log(file.name)
    }
 
  const uploadCourseInputValues = async () => {
@@ -72,11 +73,13 @@ export default function ClassInfo() {
       price, 
       catergory, 
     })
+   
   }catch(error){
     console.log(error); 
   }
  }
 
+ 
 
 const ValidateCourseLandingPage = () => {
  const isTitle = courseInput.title === ''; 
@@ -97,7 +100,7 @@ const handleCreateCourseButton = () => {
   uploadCourseInputValues(); 
   uploadFiles(); 
   ValidateCourseLandingPage(); 
-  navigate('/course'); 
+  navigate('/'); 
 }
 
 console.log(file)

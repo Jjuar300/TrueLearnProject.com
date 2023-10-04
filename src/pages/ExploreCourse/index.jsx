@@ -2,6 +2,8 @@ import React from 'react'
 import {Box} from '@mui/material'
 import NavBar from '../Navbar'
 import Explore from './Explore'
+import CourseCard from '../../components/Course/CourseCard'
+import DummyCourses from './DummyCourses'
 
 export default function ChanelPage() {
   return (
@@ -16,6 +18,8 @@ export default function ChanelPage() {
     >
         <NavBar/>
         <Explore/>
+        <CourseCard/>
+        <DummyCourses/>
     </Box>
     </>
   )

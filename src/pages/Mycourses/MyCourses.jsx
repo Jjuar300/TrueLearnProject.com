@@ -17,7 +17,7 @@ export default function Courses() {
       fontSize:'30px', 
       fontFamily:'roman', 
       fontWeight:'bold', 
-      left: isNotMobileScreen ? '20%' : 'none',  
+      left: isNotMobileScreen ? '13%' : 'none',  
      }}
      >
         My courses

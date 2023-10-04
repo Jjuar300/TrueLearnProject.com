@@ -8,37 +8,56 @@ import { useSelector } from 'react-redux';
 
 export default function BuyCourse() {
 
-const fileName = useSelector(state => state.videoUrl.VideoUrl)
+const videoFile = useSelector(state => state.videoUrl.VideoUrl)
+const [data, setData] = useState([]); 
+
+useEffect(() => {
+   axios.get('/uploadCourseLandingInputValues')
+  .then((response) => setData(response.data))
+  .catch((error) => console.log(error))
+},[]);
+
+console.log(data)
 
   return (
     <>
-    {fileName}
     <NavBar/>
-    <Box
-    name = 'courseTitle'
-    sx={{
-        position:'absolute', 
-        left:'10rem',
-        top:'10rem', 
-        fontSize:'1.5rem', 
-    }}
-    >
-    <h1>Learn Machine learning.</h1>
-    </Box>
 
-    <Box
-    name = 'courseDescription'
-    sx={{
-        position:'absolute', 
-        fontSize:'2rem', 
-        top:'20rem', 
-        left:'10rem', 
-    }}
-    >
-        <p>Create cutom models to the public,<br/>
-            know the ins and out of machine learning. 
-        </p>
-    </Box>
+   {
+    data.map((data) => (
+      <Box
+      name = 'courseTitle'
+      sx={{
+          position:'absolute', 
+          left:'5rem',
+          top:'10rem', 
+          fontSize:'1.5rem', 
+      }}
+      >
+      <h1 key={data._id} >{data.title}</h1>
+      </Box>
+      
+    ))
+   }
+
+   {
+    data.map((data) => (
+      <Box
+      name = 'courseDescription'
+      sx={{
+          position:'absolute', 
+          fontSize:'2rem', 
+          top:'20rem', 
+          left:'5rem', 
+          whiteSpace:'nowrap', 
+      }}
+      >
+          <p>{data.description}</p>
+
+      </Box>
+    ))
+   }
+  
 
     <Box
     name = 'coursePreviewVideo'
@@ -53,7 +72,7 @@ const fileName = useSelector(state => state.videoUrl.VideoUrl)
 
     <Player
     >
-      <source  src={`https://res.cloudinary.com/duswtno8e/video/upload/${fileName}.mp4`} type='video/mp4' />
+      <source  src={`https://res.cloudinary.com/duswtno8e/video/upload/${videoFile}.mp4`} type='video/mp4' />
     </Player>
 
  
@@ -73,7 +92,7 @@ const fileName = useSelector(state => state.videoUrl.VideoUrl)
       ':hover': {backgroundColor:'#560687'},
     }}
     >
-      Buy Course
+      Access course
     </Button>
     </>
   )
