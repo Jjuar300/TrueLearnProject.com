@@ -18,7 +18,6 @@ export default function ChanelPage() {
     >
         <NavBar/>
         <Explore/>
-        <CourseCard/>
         <DummyCourses/>
     </Box>
     </>

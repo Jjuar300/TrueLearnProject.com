@@ -5,6 +5,7 @@ import axios from 'axios';
 import {Player}from 'video-react'
 import 'video-react/dist/video-react.css'
 import { useSelector } from 'react-redux';
+import {CardMedia} from '@mui/material';
 
 export default function BuyCourse() {
 
@@ -69,13 +70,17 @@ console.log(data)
        top:'15rem', 
     }}
     >
-
+{/* 
     <Player
     >
-      <source  src={`https://res.cloudinary.com/duswtno8e/video/upload/${videoFile}.mp4`} type='video/mp4' />
-    </Player>
+      <source  src={`https://res.cloudinary.com/duswtno8e/video/upload/${videoFile}`} />
+    </Player> */}
 
- 
+   <CardMedia
+   component='img'
+   image={`https://res.cloudinary.com/duswtno8e/video/upload/${videoFile}`} 
+   />
+
 
     </Box>
 

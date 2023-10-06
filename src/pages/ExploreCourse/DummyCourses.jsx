@@ -7,20 +7,39 @@ import {
     Typography, 
     CardActionArea, 
 } from "@mui/material";
-import AIimage from '../../assets/userCourses/AI Images/andrea-de-santis-zwd435-ewb4-unsplash.jpg'
+import { useNavigate, useRouteError } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getCourseData } from "../../state/DummyCourses/index.js";
+import CourseCard from "../../components/Course/CourseCard.jsx";
 
 export default function DummyCourses() {
+
+    const dispatch = useDispatch(); 
+    const navigate = useNavigate(); 
+    const handleCardClick = (index) => {
+      
+        userCourses.forEach((course) => {
+            index === course.id && dispatch(getCourseData({
+                title: course.title, 
+                description: course.description,
+                price: course.price, 
+                image: course.image, 
+            }))
+        })
+     
+        navigate('/dummybuycourse')
+    }
   return (
    <>
   <Box
   sx={{
-    position:'absolute', 
+        position:'absolute', 
         display:'flex',
         flexWrap:'wrap', 
         gap:'2rem', 
         width:'100rem', 
-        left:'14rem',
         top:'16rem',  
+        justifyContent:'center', 
   }}
   >
   {
@@ -28,18 +47,21 @@ export default function DummyCourses() {
     
    
         <Card
-    sx={{
-        width:'20rem', 
+        onClick={() => handleCardClick(data.id)}
+        key={data.id}
+        sx={{
+        width:'20rem',
+        height:'auto', 
         left:'15rem',
         top:'20rem',   
     }}
     >
         <CardActionArea>
-            <CardMedia 
-            component='img'
-            height={140}
-            image={data.image}
-            />
+           <CardMedia 
+                component='img'
+                style={{objectFit:'cover'}}
+                image={data.image}
+                />
             <CardContent>
                 <Typography
                 gutterBottom
@@ -51,12 +73,16 @@ export default function DummyCourses() {
                 <Typography>
                    {data.description}
                 </Typography>
+                <Typography>
+                   $ {data.price}
+                </Typography>
             </CardContent>
         </CardActionArea>
     </Card>
     
     ))
    }
+    <CourseCard/>
   </Box>
    </>
   )

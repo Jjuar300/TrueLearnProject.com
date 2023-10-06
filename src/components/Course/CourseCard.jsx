@@ -34,7 +34,6 @@ console.log(videoFile)
         <Card
         onClick={() => navigate('/buycourse')}
         sx={{
-            position:'absolute', 
             width:'20rem', 
             left:'15rem',
             top:'20rem',  

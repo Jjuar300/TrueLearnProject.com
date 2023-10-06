@@ -17,7 +17,20 @@ export default function ChanelPage() {
     >
         <NavBar/>
         <Courses/>
+        <Box
+        sx={{
+          position:'absolute', 
+          display:'flex',
+          flexWrap:'wrap', 
+          gap:'2rem', 
+          width:'100rem', 
+          top:'16rem',  
+          left:'-26rem', 
+          justifyContent:'center', 
+        }}
+        >
         <CourseCard/>
+        </Box>
     </Box>
     </>
   )
