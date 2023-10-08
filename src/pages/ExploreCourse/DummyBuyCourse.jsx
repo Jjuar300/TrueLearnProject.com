@@ -1,5 +1,5 @@
 import NavBar from '../../pages/Navbar'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import {Player}from 'video-react'
 import 'video-react/dist/video-react.css'
 import { userCourses } from '../../data/courses';
@@ -59,13 +59,6 @@ console.log(courseTitle)
        top:'15rem', 
     }}
     >
-
-    {/* <Player
-    poster={courseImage}
-    >
-    
-    </Player> */}
- 
   
  <Card>
  <CardMedia
@@ -91,8 +84,19 @@ console.log(courseTitle)
       ':hover': {backgroundColor:'#560687'},
     }}
     >
-      Buy Course
+    Buy course
     </Button>
+
+    <Typography
+    sx={{
+      position:'absolute', 
+      top:'35rem',
+      fontSize:'2rem',
+      left:'7rem',  
+    }}
+    >
+      ${coursePrice}
+    </Typography>
     </>
   )
 }

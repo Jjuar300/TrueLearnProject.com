@@ -41,9 +41,10 @@ console.log(videoFile)
         >
             <CardActionArea>
                 <CardMedia
-               component="video"
-               src={`https://res.cloudinary.com/duswtno8e/video/upload/${videoFile}.mp4`}
-                />
+               component="img"
+            //    image={`https://res.cloudinary.com/duswtno8e/image/upload/${decodeURIComponent(videoFile)}.jpg`}    
+                image={`https://res.cloudinary.com/duswtno8e/image/upload/v1696645141/${decodeURIComponent(videoFile)}.jpg`}
+            />
                 <CardContent>
                     <Typography
                     gutterBottom

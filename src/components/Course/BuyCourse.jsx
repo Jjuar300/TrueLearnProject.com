@@ -2,10 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import NavBar from '../../pages/Navbar'
 import { Box, Button } from '@mui/material'
 import axios from 'axios';
-import {Player}from 'video-react'
 import 'video-react/dist/video-react.css'
 import { useSelector } from 'react-redux';
-import {CardMedia} from '@mui/material';
+import { Card, CardMedia} from '@mui/material';
 
 export default function BuyCourse() {
 
@@ -18,8 +17,7 @@ useEffect(() => {
   .catch((error) => console.log(error))
 },[]);
 
-console.log(data)
-
+console.log(videoFile)
   return (
     <>
     <NavBar/>
@@ -70,17 +68,16 @@ console.log(data)
        top:'15rem', 
     }}
     >
-{/* 
-    <Player
-    >
-      <source  src={`https://res.cloudinary.com/duswtno8e/video/upload/${videoFile}`} />
-    </Player> */}
 
-   <CardMedia
-   component='img'
-   image={`https://res.cloudinary.com/duswtno8e/video/upload/${videoFile}`} 
-   />
-
+<Card>
+<CardMedia
+           component='img'
+           height={400
+          }
+           image={`https://res.cloudinary.com/duswtno8e/image/upload/${decodeURIComponent(videoFile)}.jpg`}
+           style={{objectFit:'cover'}}
+           /> 
+</Card>
 
     </Box>
 
