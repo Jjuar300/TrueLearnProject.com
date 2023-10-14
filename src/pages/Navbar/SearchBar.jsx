@@ -1,21 +1,74 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TextField, InputAdornment, IconButton, Box } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import Drawer from '@mui/material/Drawer';
 import {useSelector, useDispatch} from 'react-redux'
 import { handleClose, handleOpen } from '../../state/SearchbarSlice'; 
-import { Form, Formik } from 'formik';
+import { Formik } from 'formik';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function SearchBar() {
-  const open = useSelector(state => state.SearchBarDrawer.open)
-  const [onclose, setOnclose] = useState(false)
+  const navigate = useNavigate(); 
+  const open = useSelector(state => state.SearchBar.open)
+  // const [isUpdated, setUpdated] = useState(true);
+  const [searchInputData, setSearchInputData] = useState();
+  const [searchInput, setSearchInput] = useState();  
+  const [search, setSearch] = useState({
+    searchInput: '', 
+    isUpdated: true, 
+  });
   const dispatch = useDispatch()
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
+
+  useEffect(() => {
+    axios.get('/getsearchinputs')
+    .then((response) => setSearchInputData(response.data[0].updateInput))
+    .catch((error) => console.log(error))
   
-function closeDrawer() {
-  setOnclose(!onclose)
+  },[])
+
+ const handleSearchInput = async (e) => {
+    e.preventDefault()
+    const {
+      searchInput, 
+      isUpdated, 
+    } = search; 
+
+    try{
+    await axios.post('/searchinputs', {
+        searchInput,
+        isUpdated,  
+      })
+    
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+  const upadateSearchInputs = async (e) => {
+    // e.preventDefault(); 
+    const {
+      searchInput, 
+    } = search;
+  try{
+   await axios.put('/upadatesearchinputs',{
+    searchInput, 
+   } )
+  }catch(error){
+    console.log(error)
+  }
+  }
+
+  const handleInputs = (e) => {
+    !searchInputData && handleSearchInput(e)
+    upadateSearchInputs();
+  navigate('/searchresult');
 }
+
+console.log(searchInputData)
+// console.log(isUpdated)
 
   return (
 <>
@@ -23,8 +76,9 @@ function closeDrawer() {
   
   isNotMobileScreen ?
 
-  <Formik>
-<form>
+<form
+onSubmit={handleInputs}
+>
   
 <Box
     sx={{
@@ -36,17 +90,20 @@ function closeDrawer() {
     >
       
     <TextField
+    onChange={(event) => setSearch({ ...search, searchInput: event.target.value})}
     name='SearchBar'
     type='search'
     placeholder='what do you want to learn?'
     variant='outlined'
     fullWidth
-
+     
     InputProps={{
     startAdornment:(
       <InputAdornment>
       <IconButton>
-        <SearchIcon></SearchIcon>
+        <SearchIcon
+        onClick={handleInputs}
+        ></SearchIcon>
       </IconButton>
       </InputAdornment>
     )
@@ -56,7 +113,6 @@ function closeDrawer() {
     </TextField>
     </Box>
 </form>
-</Formik>
   
   : <Box>
   <Drawer

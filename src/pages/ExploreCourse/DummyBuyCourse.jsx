@@ -1,21 +1,39 @@
 import NavBar from '../../pages/Navbar'
 import { Box, Button, Typography } from '@mui/material'
-import {Player}from 'video-react'
 import 'video-react/dist/video-react.css'
-import { userCourses } from '../../data/courses';
-import { useSelector } from 'react-redux';
 import {
   Card, 
   CardMedia
 } from '@mui/material';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function BuyCourse() {
 const courseTitle = useSelector(state => state.DummyCourse.title); 
 const courseDescription = useSelector(state => state.DummyCourse.description); 
 const coursePrice = useSelector(state => state.DummyCourse.price); 
 const courseImage = useSelector(state => state.DummyCourse.image); 
+const userData = Boolean(useSelector(state => state.ServerSlice.data))
+const navigate = useNavigate(); 
 
 console.log(courseTitle)
+
+
+const handleCheckoutButton = () => {
+  axios.post('/stripe/create-checkout-session', {
+    ProductName: courseTitle, 
+    ProductPrice: coursePrice,
+    ProductImage: courseImage,  
+  })
+  .then((res) => {
+    if(res.data.url){
+      window.location.href = res.data.url
+    }
+  })
+  .catch((error) => console.log(error))
+ }
+
 
   return (
     <>
@@ -72,6 +90,7 @@ console.log(courseTitle)
     </Box>
 
     <Button
+    onClick={() => !userData ? navigate('/signin') : handleCheckoutButton()}
     sx={{
       position:'absolute', 
       border:'1px solid black', 

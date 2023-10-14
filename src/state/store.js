@@ -1,7 +1,7 @@
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
 import Slice from './CancelButtonSlice'
 import PromoSlice from './PromoSlice'
-import  SearchBarDrawer  from './SearchbarSlice'
+import  SearchBar  from './SearchbarSlice'
 import AuthenticationSlice from './AuthenticationSlice'
 import TrueLearnLogoSlice from './TrueLearnLogoSlice'
 import AddSectionSlice from './createcourse/AddSectionSlice'
@@ -25,7 +25,7 @@ export default configureStore({
 reducer: {
     handleDrawer: Slice,
     Promo: PromoSlice,
-    SearchBarDrawer: SearchBarDrawer,
+    SearchBar: SearchBar,
     Authenticate: AuthenticationSlice,
     TrueLearnLogoSlice: TrueLearnLogoSlice,
     AddSection: AddSectionSlice,

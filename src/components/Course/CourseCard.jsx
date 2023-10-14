@@ -16,6 +16,7 @@ export default function CourseCard() {
 const [data, setData] = useState([]); 
 const videoFile = useSelector(state => state.videoUrl.VideoUrl);
 const navigate = useNavigate(); 
+const [searchInput, setSearchInput] = useState(''); 
 
 useEffect(() => {
     axios.get('/uploadCourseLandingInputValues')
@@ -23,14 +24,31 @@ useEffect(() => {
    .catch((error) => console.log(error))
  },[]);
  
+ useEffect(() => {
+    axios.get('/getsearchinputs')
+    .then((response) => setSearchInput(response.data[0].inputResult))
+    .catch((error) => console.log(error))
+   },[])
 
 console.log(videoFile)
+const filterData = data.filter((data) => {
+    return searchInput === ''
+    ? data 
+    : data.title.includes(searchInput)
+   })
 
     return (
     <>
-   {
-    data.map((data) => (
+  {/* {
+    data.filter((data) => {
+        return searchInput === ''
+        ? data 
+        : data.title.includes(searchInput)
+       })
+  } */}
 
+   {
+   filterData.map((data) => (
         <Card
         onClick={() => navigate('/buycourse')}
         sx={{
@@ -42,7 +60,6 @@ console.log(videoFile)
             <CardActionArea>
                 <CardMedia
                component="img"
-            //    image={`https://res.cloudinary.com/duswtno8e/image/upload/${decodeURIComponent(videoFile)}.jpg`}    
                 image={`https://res.cloudinary.com/duswtno8e/image/upload/v1696645141/${decodeURIComponent(videoFile)}.jpg`}
             />
                 <CardContent>

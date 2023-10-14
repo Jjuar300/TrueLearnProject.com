@@ -17,6 +17,7 @@ import Course from './components/Course/index'
 import BuyCourse from "./components/Course/BuyCourse";
 import CourseCard from "./components/Course/CourseCard";
 import DummyBuyCourse from './pages/ExploreCourse/DummyBuyCourse'
+import SearchResult from "./components/SearchResult";
 
 axios.defaults.baseURL = 'http://localhost:3002'; // passing the home url and add the next credentials all around our components
 
@@ -54,6 +55,7 @@ return (
    <Route path="/" element={<HomePage/>} />
    <Route path="/buycourse" element={<BuyCourse/>} />
    <Route path="/dummybuycourse" element={<DummyBuyCourse/>} />
+   <Route path="/searchresult" element={<SearchResult/>} />
     </Routes>
     </BrowserRouter>
    </div>
