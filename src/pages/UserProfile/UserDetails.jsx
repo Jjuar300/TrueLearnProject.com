@@ -1,34 +1,68 @@
 import React, { useState } from 'react'
-import { Box, Typography, TextField } from '@mui/material'
+import { Box, Typography, TextField, Button, Input } from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import axios from 'axios';
+import UserTitle from './UserTitle'
+import { useNavigate } from 'react-router-dom';
 
 export default function UserDetails() {
- 
-    const userProfileInputValues = {
+    const navigate = useNavigate();
+    const [file, setfile] = useState(); 
+    const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
+    const [inputValues, setinputValues] = useState({
         fullname: '', 
         email: '', 
         aboutMe: '', 
         companyName: '', 
         jobTitle: '', 
         linked: '', 
-    }
-    // onChange={(event) => setIntroductionInput({...introductionInput, IntroductionInputValue: event.target.value})}
-
-    const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
-    const [inputValues, setinputValues] = useState({
-        ...userProfileInputValues
     })
 
+  const uploadUserDetailInputValues = async () => {
+    try{
+        const{
+            fullname, 
+            email, 
+            aboutMe, 
+            companyName, 
+            jobTitle, 
+            linked, 
+        } = inputValues; 
 
-    const getFirstNameInputValues = (event) =>{
-       setinputValues({inputValues, fullname: event.target.value })
+       await axios.post('/uploadusereditdetails', {
+        fullname, 
+        email, 
+        aboutMe, 
+        companyName, 
+        jobTitle, 
+        linked, 
+       })
+    }catch(error){
+        console.log(error)
     }
+  }
 
-//send userprofile input values to the backend. 
+  const uploadFiles = () => {
+    const formData = new FormData(); 
+    formData.append('file', file)
+    axios.post('/displayvideo', formData,{
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    // dispatch(getVideoUrl(file.name))
+    // console.log(file.name)
+   }
+
+  const handleSaveButton = (e) => {
+    e.preventDefault(); 
+    uploadUserDetailInputValues();
+    uploadFiles(); 
+    navigate('/');
+  }
 
     return (
   <>
-  {inputValues.email}
     <form>
     <Box
    name='userDetails'
@@ -64,7 +98,7 @@ export default function UserDetails() {
     fullWidth
         placeholder='James smith'
         type='text'
-        onChange={getFirstNameInputValues}
+        onChange={(e) => setinputValues({...inputValues, fullname: e.target.value})}
         />
    </Box>
 
@@ -86,6 +120,7 @@ export default function UserDetails() {
     </Typography>
 
     <TextField
+    onChange={(e) => setinputValues({...inputValues, email: e.target.value})}
     fullWidth
         placeholder='James205@gmail.com'
         type='email'
@@ -110,6 +145,7 @@ export default function UserDetails() {
     </Typography>
 
     <TextField
+     onChange={(e) => setinputValues({...inputValues, aboutMe: e.target.value})}
     multiline
         placeholder='Hi im James and...'
         type='text'
@@ -147,6 +183,7 @@ export default function UserDetails() {
     </Typography>
 
     <TextField
+     onChange={(e) => setinputValues({...inputValues, companyName: e.target.value})}
         placeholder='ex://Google'
         type='text'
         fullWidth
@@ -183,6 +220,7 @@ export default function UserDetails() {
     </Typography>
 
     <TextField
+     onChange={(e) => setinputValues({...inputValues, jobTitle: e.target.value})}
         placeholder='ex:// Product manager'
         type='text'
         fullWidth
@@ -220,15 +258,62 @@ export default function UserDetails() {
     </Typography>
 
     <TextField
+     onChange={(e) => setinputValues({...inputValues, linked: e.target.value})}
         placeholder='www.linked.com/in/'
         type='text'
         fullWidth
         />
    </Box>
 
-
    </Box>
     </form>
+
+    
+   <Box
+   classname='box'
+   sx={{
+    position:'absolute', 
+    display:'flex', 
+    flexDirection:'column', 
+    width: isNotMobileScreen ? '30rem' : '20rem', 
+    left: isNotMobileScreen ? '36%' : '7%', 
+}}
+   >
+    <Box
+    sx={{
+        position:'relative', 
+        border:'1px solid #e5dfe1', 
+        height:'14rem', 
+        top:'5rem', 
+        borderRadius:'10px', 
+        display:'flex', 
+        flexDirection:'column', 
+        cursor:'pointer', 
+    }}
+    >
+
+<Input 
+   type="file"
+   accept='video/*, image/*'
+   onChange={(e) => setfile(e.target.files[0])}
+   />
+
+        <Typography
+        sx={{
+            position:'relative', 
+            fontFamily:'roman', 
+            top:'5rem',
+            left: isNotMobileScreen ? '33%' : '26%', 
+            color:'#867c88',
+            fontWeight:'bold',
+            width:'11rem',    
+        }}
+        >
+            Upload a profile picture
+        </Typography>
+    </Box>
+   </Box>
+    <UserTitle handleSaveButton={handleSaveButton} />
   </>
   )
 }

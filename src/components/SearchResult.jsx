@@ -4,7 +4,8 @@ import {
   CardContent, 
   CardMedia, 
   CardActionArea, 
-  Card, 
+  Card,
+  Button, 
 } from '@mui/material'
 
 import {useEffect, useState} from 'react'
@@ -28,6 +29,10 @@ export default function SearchResult() {
    .then((response) => setSearchInput(response.data[0].inputResult))
    .catch((error) => console.log(error))
   },[])
+  
+ const isResult = userCourses.map((data) => (
+    data.title.includes(searchInput) 
+  ))
 
   const handleCardClick = (index) => {
       
@@ -42,12 +47,10 @@ export default function SearchResult() {
  
     navigate('/dummybuycourse')
 }
- 
+
   return (
     <>
     <NavBar/>
-    
-   
           <Box
           sx={{
               position:'absolute', 
@@ -55,7 +58,8 @@ export default function SearchResult() {
               top:'8rem',  
           }}
           >
-         <h1>Result: {`' ${searchInput} '`} </h1>
+            {isResult.includes(true) ? <h1>  Results: {`' ${searchInput} '`}</h1>  : <h1> No Results Found: {`' ${searchInput} '`} </h1> }
+
           </Box>
 
 <Box
@@ -70,11 +74,11 @@ export default function SearchResult() {
   }}
   >
   {
-      userCourses.filter((data) => {
-        return searchInput === '' 
-        ? data 
+      userCourses.filter((data) => (
+        searchInput === '' 
+        ? data
         : data.title.includes(searchInput)
-      }).map((data) =>(
+      )).map((data) =>(
    
         <Card
         onClick={() => handleCardClick(data.id)}
@@ -109,11 +113,10 @@ export default function SearchResult() {
             </CardContent>
         </CardActionArea>
     </Card>
-    
     ))
    }
     <CourseCard/>
   </Box>
-    </>
+      </>
   )
 }

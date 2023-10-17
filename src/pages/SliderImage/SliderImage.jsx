@@ -5,7 +5,6 @@ import LearnImage3  from '../../assets/emmanuel-ikwuegbu-MSX3O-Sqa8U-unsplash.jp
 import SimpleImageSlider from 'react-simple-image-slider'
 import Descriptions from './DescriptionForImage'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import Categories from './Categories'
 
 export default function SliderImage() {
     const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
@@ -33,7 +32,6 @@ export default function SliderImage() {
         />  
           <Descriptions></Descriptions>
     </Box>
-     <Categories></Categories>
     </>
   )
 }

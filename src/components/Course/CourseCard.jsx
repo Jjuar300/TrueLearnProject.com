@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import video from '../../assets'
 
 export default function CourseCard() {
 const [data, setData] = useState([]); 
@@ -39,14 +38,6 @@ const filterData = data.filter((data) => {
 
     return (
     <>
-  {/* {
-    data.filter((data) => {
-        return searchInput === ''
-        ? data 
-        : data.title.includes(searchInput)
-       })
-  } */}
-
    {
    filterData.map((data) => (
         <Card

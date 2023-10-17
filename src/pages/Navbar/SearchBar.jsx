@@ -12,9 +12,7 @@ import { useNavigate } from 'react-router-dom';
 export default function SearchBar() {
   const navigate = useNavigate(); 
   const open = useSelector(state => state.SearchBar.open)
-  // const [isUpdated, setUpdated] = useState(true);
   const [searchInputData, setSearchInputData] = useState();
-  const [searchInput, setSearchInput] = useState();  
   const [search, setSearch] = useState({
     searchInput: '', 
     isUpdated: true, 
@@ -48,7 +46,6 @@ export default function SearchBar() {
   }
 
   const upadateSearchInputs = async (e) => {
-    // e.preventDefault(); 
     const {
       searchInput, 
     } = search;
@@ -68,7 +65,6 @@ export default function SearchBar() {
 }
 
 console.log(searchInputData)
-// console.log(isUpdated)
 
   return (
 <>

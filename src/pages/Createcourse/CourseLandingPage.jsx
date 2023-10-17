@@ -1,7 +1,6 @@
 
 import {Box,Button, Typography, OutlinedInput, TextField, InputAdornment} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem';
-import { Formik } from 'formik';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useState } from 'react';
@@ -291,7 +290,6 @@ console.log(file)
    <input 
    type="file"
    accept='video/*, image/*'
-  //  id='video'
    onChange={(e) => setfile(e.target.files[0])}
    />
 

@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import {useMediaQuery }from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { getLogout } from '../../state/ServerSlice';
-import { getData } from '../../state/ServerSlice';
 import Cookies from 'js-cookie'
 
 export default function UserMenu() {
