@@ -2,7 +2,10 @@ import React from 'react'
 import {Box, Typography, Button} from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-export default function UserInfo({handleSaveButton}) {
+export default function UserInfo({
+    handleSaveButton, 
+    isInput, 
+}) {
     const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
 
   return (
@@ -46,6 +49,7 @@ export default function UserInfo({handleSaveButton}) {
         </Typography>
 
         <Button
+        disabled={isInput}
         onClick={handleSaveButton}
         sx={{
             border:'1px solid gray', 

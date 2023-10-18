@@ -19,9 +19,6 @@ const [data, setdata] = useState({
   password:'', 
 })
 
-
-
-
 const UserSignIn = async (e) => {
 e.preventDefault(); 
 const {email, password} = data; 

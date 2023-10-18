@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Typography, TextField, Button, Input } from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import axios from 'axios';
@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export default function UserDetails() {
     const navigate = useNavigate();
     const [file, setfile] = useState(); 
+    const [isInput, setInput] = useState(true); 
     const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
     const [inputValues, setinputValues] = useState({
         fullname: '', 
@@ -50,9 +51,22 @@ export default function UserDetails() {
         'Content-Type': 'multipart/form-data',
       },
     })
-    // dispatch(getVideoUrl(file.name))
-    // console.log(file.name)
    }
+
+   const validInputs = [{
+    fullname: inputValues.fullname, 
+    email: inputValues.email, 
+}]
+
+  useEffect(() => {
+    validInputs.map((inputs) => {
+        if(inputs.fullname !== '' && inputs.email !== ''){
+            return setInput(false)
+        }else{
+            return setInput(true)
+        }
+      })
+  },[validInputs])
 
   const handleSaveButton = (e) => {
     e.preventDefault(); 
@@ -144,6 +158,15 @@ export default function UserDetails() {
         About me 
     </Typography>
 
+    <Typography
+    sx={{ 
+        position:'relative', 
+        left:'77%', 
+        width:'5rem', 
+    }}
+    >
+        (Optional)
+    </Typography>
     <TextField
      onChange={(e) => setinputValues({...inputValues, aboutMe: e.target.value})}
     multiline
@@ -276,7 +299,7 @@ export default function UserDetails() {
     display:'flex', 
     flexDirection:'column', 
     width: isNotMobileScreen ? '30rem' : '20rem', 
-    left: isNotMobileScreen ? '36%' : '7%', 
+    left: isNotMobileScreen ? '36%' : '7%',  
 }}
    >
     <Box
@@ -284,25 +307,18 @@ export default function UserDetails() {
         position:'relative', 
         border:'1px solid #e5dfe1', 
         height:'14rem', 
-        top:'5rem', 
+        top:'8rem', 
         borderRadius:'10px', 
         display:'flex', 
         flexDirection:'column', 
         cursor:'pointer', 
     }}
     >
-
-<Input 
-   type="file"
-   accept='video/*, image/*'
-   onChange={(e) => setfile(e.target.files[0])}
-   />
-
         <Typography
         sx={{
             position:'relative', 
             fontFamily:'roman', 
-            top:'5rem',
+            top:'10rem',
             left: isNotMobileScreen ? '33%' : '26%', 
             color:'#867c88',
             fontWeight:'bold',
@@ -313,7 +329,20 @@ export default function UserDetails() {
         </Typography>
     </Box>
    </Box>
-    <UserTitle handleSaveButton={handleSaveButton} />
+   <TextField
+   sx={{
+    position:'absolute',  
+    height:'4rem', 
+    top:'11rem', 
+    left:'45rem', 
+    ':hover': {cursor:'pointer'}
+   }}
+   type="file"
+   accept='video/*, image/*'
+   onChange={(e) => setfile(e.target.files[0])}
+   />
+
+    {<UserTitle handleSaveButton={handleSaveButton} isInput={isInput} />}
   </>
   )
 }

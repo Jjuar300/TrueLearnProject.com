@@ -104,7 +104,6 @@ const handleCreateCourseButton = () => {
 
 console.log(file)
 
-
   return (
    <>
     <Box
