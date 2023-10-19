@@ -6,10 +6,13 @@ import { useNavigate } from 'react-router-dom'
 import { useState} from 'react'
 import axios from 'axios'
 import NavBar from '../Navbar'
+import { getImageUrl } from '../../state/createcourse/VideoUrl'
 
 export default function SignIn() {
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const navigate = useNavigate(); 
+const dispatch = useDispatch(); 
+const [file, setfile] = useState(); 
 
 const [data, setdata] = useState({
   firstname: '', 
@@ -24,6 +27,17 @@ const lastName = data.lastname;
 const Email = data.email; 
 const Password = data.password; 
 
+
+const uploadFiles = () => {
+  const formData = new FormData(); 
+  formData.append('file', file)
+  axios.post('/displayvideo', formData,{
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  dispatch(getImageUrl(file.name))
+ }
 
 const getUserSignUp = async (e) => {
   e.preventDefault();
@@ -53,7 +67,6 @@ const getUserSignUp = async (e) => {
     console.log(err)
   }
 }
-
 
   return (
   <>
@@ -105,20 +118,21 @@ const getUserSignUp = async (e) => {
       color:'gray'
     }}
     >  
-    <Box
-    name='uploadphoto'
-    sx={{
-      border:'2px dashed gray',
-      width: '10rem',
-      height:'4rem', 
-      padding:'.5rem', 
-    }}
-    >
-      <Typography>
-        Upload photo
-      </Typography>
+   
+      <TextField
+   sx={{
+    position:'absolute',  
+    height:'4rem',
+    width:'15rem',  
+    top:'11.5rem', 
+    left:'1.5rem', 
+    ':hover': {cursor:'pointer'}
+   }}
+   type="file"
+   accept='video/*, image/*'
+   onChange={(e) => setfile(e.target.files[0])}
+   />
 
-    </Box>
     </Box>
 
   <TextField
@@ -151,6 +165,7 @@ const getUserSignUp = async (e) => {
       />
 
       <Button
+      onClick={uploadFiles}
       name='signupbutton'
       type='submit'
       sx={{

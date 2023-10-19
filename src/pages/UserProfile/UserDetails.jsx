@@ -4,11 +4,16 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import axios from 'axios';
 import UserTitle from './UserTitle'
 import { useNavigate } from 'react-router-dom';
+import {getImageUrl} from '../../state/createcourse/VideoUrl'
+import { useDispatch } from 'react-redux';
 
 export default function UserDetails() {
     const navigate = useNavigate();
+    const dipatch = useDispatch(); 
     const [file, setfile] = useState(); 
     const [isInput, setInput] = useState(true); 
+    const [isFullname, setisFullname] = useState(); 
+    console.log(isFullname)
     const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
     const [inputValues, setinputValues] = useState({
         fullname: '', 
@@ -17,6 +22,7 @@ export default function UserDetails() {
         companyName: '', 
         jobTitle: '', 
         linked: '', 
+        isInput:isFullname, 
     })
 
   const uploadUserDetailInputValues = async () => {
@@ -38,6 +44,7 @@ export default function UserDetails() {
         jobTitle, 
         linked, 
        })
+
     }catch(error){
         console.log(error)
     }
@@ -51,6 +58,7 @@ export default function UserDetails() {
         'Content-Type': 'multipart/form-data',
       },
     })
+    dipatch(getImageUrl(file.name))
    }
 
    const validInputs = [{
@@ -68,9 +76,17 @@ export default function UserDetails() {
       })
   },[validInputs])
 
+
+const validateFullnameUpdate = () => {
+    validInputs.filter((inputs) => {
+        inputs.fullname !== '' ?  setisFullname(true) : setisFullname(false)
+      })
+}
+
   const handleSaveButton = (e) => {
     e.preventDefault(); 
     uploadUserDetailInputValues();
+    validateFullnameUpdate(); 
     uploadFiles(); 
     navigate('/');
   }
@@ -137,7 +153,7 @@ export default function UserDetails() {
     onChange={(e) => setinputValues({...inputValues, email: e.target.value})}
     fullWidth
         placeholder='James205@gmail.com'
-        type='email'
+        type='Email'
         />
    </Box>
 

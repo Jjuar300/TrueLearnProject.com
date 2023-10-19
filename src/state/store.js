@@ -12,15 +12,6 @@ import upload from './createcourse/upload'
 import VideoUrl from './createcourse/VideoUrl'
 import DummyCourses from './DummyCourses'
 
-import {
-    FLUSH,
-    REHYDRATE, 
-    PAUSE, 
-    PERSIST, 
-    PURGE, 
-    REGISTER
-} from 'redux-persist'
-
 export default configureStore({
 reducer: {
     handleDrawer: Slice,

@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux';
 import { getLogout } from '../../state/ServerSlice';
 import Cookies from 'js-cookie'
 import axios from 'axios';
-import userImage from  '../../assets/emmanuel-ikwuegbu-MSX3O-Sqa8U-unsplash.jpg'
 import Avatar from '@mui/material/Avatar';
 
 export default function UserMenu() {
@@ -20,7 +19,7 @@ const navigate = useNavigate();
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const dispatch = useDispatch(); 
 const [userEditData, setUserEditData] = useState([]);   
-const videoFile = useSelector(state => state.videoUrl.VideoUrl)
+const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
 
 const handleClick = (event) => {
  setAnchor(event.currentTarget)
@@ -58,8 +57,7 @@ useEffect(() => {
         cursor:'pointer', 
         fontSize:'35px',
        }}
-      // src={userImage}
-      src={`https://res.cloudinary.com/duswtno8e/image/upload/${decodeURIComponent(videoFile)}.jpg`}
+      src={`https://res.cloudinary.com/duswtno8e/image/upload/${decodeURIComponent(imageFileUrl)}.jpg`}
       />
 
       {
