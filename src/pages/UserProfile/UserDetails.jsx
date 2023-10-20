@@ -12,20 +12,22 @@ export default function UserDetails() {
     const dipatch = useDispatch(); 
     const [file, setfile] = useState(); 
     const [isInput, setInput] = useState(true); 
-    const [isFullname, setisFullname] = useState(); 
-    console.log(isFullname)
     const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
+    const [userEditData, setUserEditData] = useState([]);   
+
     const [inputValues, setinputValues] = useState({
         fullname: '', 
         email: '', 
+        password: '', 
         aboutMe: '', 
         companyName: '', 
         jobTitle: '', 
         linked: '', 
-        isInput:isFullname, 
+        isUpdated: true, 
     })
 
   const uploadUserDetailInputValues = async () => {
+
     try{
         const{
             fullname, 
@@ -33,7 +35,7 @@ export default function UserDetails() {
             aboutMe, 
             companyName, 
             jobTitle, 
-            linked, 
+            linked,  
         } = inputValues; 
 
        await axios.post('/uploadusereditdetails', {
@@ -44,6 +46,25 @@ export default function UserDetails() {
         jobTitle, 
         linked, 
        })
+
+    }catch(error){
+        console.log(error)
+    }
+  }
+
+  const updateUserProfileFullName = async () => {
+    try{
+     const {
+      fullname, 
+      email, 
+      password, 
+     }= inputValues
+
+     await axios.put('/updatefullname', {
+        fullname,
+        email, 
+        password,  
+    })
 
     }catch(error){
         console.log(error)
@@ -68,25 +89,26 @@ export default function UserDetails() {
 
   useEffect(() => {
     validInputs.map((inputs) => {
-        if(inputs.fullname !== '' && inputs.email !== ''){
-            return setInput(false)
-        }else{
-            return setInput(true)
-        }
-      })
+         setInput(
+            inputs.fullname === '' 
+            &&
+            inputs.email === ''
+            &&
+            !file)
+    })
   },[validInputs])
 
+  console.log(isInput)
 
-const validateFullnameUpdate = () => {
-    validInputs.filter((inputs) => {
-        inputs.fullname !== '' ?  setisFullname(true) : setisFullname(false)
-      })
-}
+  useEffect(() => {
+    axios.get('/userData')
+   .then((res) => setUserEditData(res.data))
+  },[])
 
   const handleSaveButton = (e) => {
     e.preventDefault(); 
     uploadUserDetailInputValues();
-    validateFullnameUpdate(); 
+    updateUserProfileFullName(); 
     uploadFiles(); 
     navigate('/');
   }
@@ -107,8 +129,9 @@ const validateFullnameUpdate = () => {
    }}
    >
    
-   <Box
-   name='fullname'
+  { 
+  userEditData.map((input) => (
+    <Box
    sx={{ 
     display:'flex',
     flexDirection:'column',
@@ -126,36 +149,67 @@ const validateFullnameUpdate = () => {
 
     <TextField
     fullWidth
-        placeholder='James smith'
+        placeholder={input.firstname}
         type='text'
         onChange={(e) => setinputValues({...inputValues, fullname: e.target.value})}
         />
    </Box>
+  ))
+   }
 
-   <Box
-   name='email'
-   sx={{
-    display:'flex',
-    flexDirection:'column',
-    top:'30rem',
-    width:'22rem',  
-   }}
-   >
-   <Typography
-    sx={{
-        top:'30rem', 
-    }}
-    >
-        Email
-    </Typography>
+  {
+    userEditData.map((input) => (
+        <Box
+        name='email'
+        sx={{
+         display:'flex',
+         flexDirection:'column',
+         top:'30rem',
+         width:'22rem',  
+        }}
+        >
+        <Typography
+         sx={{
+             top:'30rem', 
+         }}
+         >
+             Email
+         </Typography>
+     
+         <TextField
+         onChange={(e) => setinputValues({...inputValues, email: e.target.value})}
+         fullWidth
+             placeholder={input.email}
+             type='Email'
+             />
+        </Box>
+    ))
+  }
 
-    <TextField
-    onChange={(e) => setinputValues({...inputValues, email: e.target.value})}
-    fullWidth
-        placeholder='James205@gmail.com'
-        type='Email'
-        />
-   </Box>
+<Box
+        name='email'
+        sx={{
+         display:'flex',
+         flexDirection:'column',
+         top:'30rem',
+         width:'22rem',  
+        }}
+        >
+        <Typography
+         sx={{
+             top:'30rem', 
+         }}
+         >
+             password
+         </Typography>
+     
+         <TextField
+         onChange={(e) => setinputValues({...inputValues, password: e.target.value})}
+         fullWidth
+             placeholder='password'
+             type='password'
+             />
+        </Box>
 
    <Box
    name='About me'

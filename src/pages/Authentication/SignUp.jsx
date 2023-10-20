@@ -15,8 +15,7 @@ const dispatch = useDispatch();
 const [file, setfile] = useState(); 
 
 const [data, setdata] = useState({
-  firstname: '', 
-  lastname:'', 
+  firstname: '',  
   picturePhoto:null, 
   email:'', 
   password:'', 
@@ -43,7 +42,6 @@ const getUserSignUp = async (e) => {
   e.preventDefault();
   const {
     firstname,
-    lastname,
     email, 
     password 
   } = data;
@@ -51,7 +49,6 @@ const getUserSignUp = async (e) => {
   try{
  const {data} = await axios.post('/usersignup', {
   firstname, 
-  lastname, 
   email,
   password, 
  })
@@ -78,26 +75,11 @@ const getUserSignUp = async (e) => {
   <form onSubmit={getUserSignUp} >
 
     <TextField 
-    name='firstname'
     autoComplete='new-text'
-    label='First Name'
+    label='Full Name'
     variant='outlined'
     value={firstName}
     onChange={(e) => setdata({...data, firstname: e.target.value})}
-    type='text'
-    required
-    sx={{
-      backgroundColor:'#fdf8ff'
-    }}
-    />
-
-    <TextField 
-    name='lastname'
-    autoComplete='new-text'
-    label='Last Name'
-    variant='outlined'
-    value={lastName}
-    onChange={(e) => setdata({...data, lastname: e.target.value})}
     type='text'
     required
     sx={{
@@ -124,7 +106,7 @@ const getUserSignUp = async (e) => {
     position:'absolute',  
     height:'4rem',
     width:'15rem',  
-    top:'11.5rem', 
+    top:'6.5rem', 
     left:'1.5rem', 
     ':hover': {cursor:'pointer'}
    }}

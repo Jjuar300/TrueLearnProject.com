@@ -37,9 +37,11 @@ const handlelogout = () => {
 }
 
 useEffect(() => {
- axios.get('/userData')
+  axios.get('/userData')
  .then((res) => setUserEditData(res.data))
 },[])
+
+console.log(userEditData)
 
   return (
     <>
@@ -70,7 +72,7 @@ useEffect(() => {
            top:'0.5rem',  
           }}
           >
-           {input.firstname} {input.lastname}
+           {input.firstname} 
           </Typography>
         ))
       }
