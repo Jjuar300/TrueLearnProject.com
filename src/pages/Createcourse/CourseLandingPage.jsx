@@ -77,7 +77,6 @@ export default function ClassInfo() {
     console.log(error); 
   }
  }
-
  
 
 const ValidateCourseLandingPage = () => {

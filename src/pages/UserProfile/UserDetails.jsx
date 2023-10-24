@@ -6,6 +6,9 @@ import UserTitle from './UserTitle'
 import { useNavigate } from 'react-router-dom';
 import {getImageUrl} from '../../state/createcourse/VideoUrl'
 import { useDispatch } from 'react-redux';
+import Navbar from '../Navbar'
+import Cookies from 'js-cookie'
+import Modal from '@mui/material/Modal';
 
 export default function UserDetails() {
     const navigate = useNavigate();
@@ -14,6 +17,9 @@ export default function UserDetails() {
     const [isInput, setInput] = useState(true); 
     const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
     const [userEditData, setUserEditData] = useState([]);   
+    const [isOpen, setOpen] = useState(false);
+    const handleOpenModal = () => {setOpen(true)}
+    const handleCloseModal = () => {setOpen(false)}
 
     const [inputValues, setinputValues] = useState({
         fullname: '', 
@@ -113,8 +119,93 @@ export default function UserDetails() {
     navigate('/');
   }
 
+  const handleDeleteButton =  async () => {
+    try{
+        const userId = userEditData[0]._id; 
+        await axios.post('/deleteacount', {userId})
+        console.log(userId)
+    }catch(error){
+        console.log(error)
+    }
+    Cookies.remove('token')
+    window.location.reload(); 
+  }
+
     return (
   <>
+  <Navbar/>
+  <Modal
+  open={isOpen}
+  onClose={handleCloseModal}
+  >
+    <Box
+    sx={{
+        position:'absolute', 
+        width:'40rem', 
+        height:'20rem', 
+        left:'38rem', 
+        top:'20rem', 
+        backgroundColor:'white',
+        color:'black',  
+        border:'1px solid black', 
+    }}
+    >
+        <Typography
+        sx={{
+            position:'relative', 
+            top:'2rem',
+            left:'2rem', 
+            fontFamily:'roman', 
+            fontSize:'1.7rem', 
+        }}
+        >
+            Delete Account
+        </Typography>
+        <Typography
+        sx={{
+            position:'relative', 
+            top:'2rem',
+            left:'2rem', 
+            fontFamily:'roman', 
+            fontSize:'1.3rem', 
+            color:'#535454', 
+        }}
+        >
+            Once Deleting your account you won't be able 
+            to gain any access to <br/>  your data anymore. 
+        </Typography>
+
+        <Button
+        onClick={handleDeleteButton}
+        sx={{
+            width:'10rem', 
+            border:'1px solid gray', 
+            borderRadius:'0',
+            position:'absolute', 
+            left:'9rem', 
+            top:'12rem', 
+            backgroundColor:'#b80d18', 
+            color:'white',
+            ':hover':{backgroundColor:'#930a13'}   
+        }}
+        >Delete</Button>
+
+<Button
+onClick={handleCloseModal}
+        sx={{
+            width:'10rem', 
+            border:'1px solid gray', 
+            borderRadius:'0',
+            position:'absolute', 
+            left:'21rem', 
+            top:'12rem', 
+            backgroundColor:'gray', 
+            color:'white',
+            ':hover':{backgroundColor:'#3d3e3e'}   
+        }}
+        >Cancel</Button>
+    </Box>
+  </Modal>
     <form>
     <Box
    name='userDetails'
@@ -125,7 +216,7 @@ export default function UserDetails() {
     gap:'2rem', 
     top:'30rem',
     left: isNotMobileScreen ? '40%' : '5%', 
-    height:'1rem',   
+    height:'60rem',   
    }}
    >
    
@@ -398,12 +489,27 @@ export default function UserDetails() {
             Upload a profile picture
         </Typography>
     </Box>
+
+    <Button
+    onClick={handleOpenModal}
+        sx={{
+            border:'1px solid gray', 
+            position:'absolute', 
+            left:'35%',
+            top:'79rem', 
+            backgroundColor:'#b80d18', 
+            color:'white',
+            ':hover':{backgroundColor:'#930a13'}   
+        }}
+        >
+            Delete Account
+        </Button>
    </Box>
    <TextField
    sx={{
     position:'absolute',  
     height:'4rem', 
-    top:'11rem', 
+    top:'16.5rem', 
     left:'45rem', 
     ':hover': {cursor:'pointer'}
    }}
@@ -411,7 +517,6 @@ export default function UserDetails() {
    accept='video/*, image/*'
    onChange={(e) => setfile(e.target.files[0])}
    />
-
     {<UserTitle handleSaveButton={handleSaveButton} isInput={isInput} />}
   </>
   )

@@ -60,8 +60,9 @@ export default function SearchBar() {
 
   const handleInputs = (e) => {
     !searchInputData && handleSearchInput(e)
-    upadateSearchInputs();
-  navigate('/searchresult');
+   search.searchInput !== '' && upadateSearchInputs();
+   search.searchInput !== '' && navigate('/searchresult');
+   search.searchInput === '' && navigate('/')
 }
 
 console.log(searchInputData)
@@ -73,7 +74,7 @@ console.log(searchInputData)
   isNotMobileScreen ?
 
 <form
-onSubmit={handleInputs}
+ onSubmit={handleInputs}
 >
   
 <Box

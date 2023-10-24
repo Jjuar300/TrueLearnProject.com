@@ -44,8 +44,6 @@ export default function DummyCourses() {
   >
   {
     userCourses.map((data) =>(
-    
-   
         <Card
         onClick={() => handleCardClick(data.id)}
         key={data.id}

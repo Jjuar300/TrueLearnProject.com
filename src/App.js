@@ -23,7 +23,6 @@ axios.defaults.baseURL = 'http://localhost:3002'; // passing the home url and ad
 
 axios.defaults.withCredentials = true; 
 
-
 function App() {
 const userData = Boolean(useSelector(state => state.ServerSlice.data))
 console.log(userData)

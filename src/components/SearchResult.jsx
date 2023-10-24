@@ -13,7 +13,7 @@ import NavBar from '../pages/Navbar'
 import axios from 'axios'
 import { userCourses } from "../data/courses";
 import CourseCard from "../components/Course/CourseCard";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getCourseData } from '../state/DummyCourses';
 
@@ -21,6 +21,7 @@ export default function SearchResult() {
     const [searchInput, setSearchInput] = useState('');  
     const dispatch = useDispatch(); 
     const navigate = useNavigate(); 
+    const isCourseInputTitle = useSelector(state => state.ImportValue.isCourseCardTitle)
 
     console.log(searchInput.toLowerCase())
 
@@ -58,7 +59,7 @@ export default function SearchResult() {
               top:'8rem',  
           }}
           >
-            {isResult.includes(true) ? <h1>  Results: {`' ${searchInput} '`}</h1>  : <h1> No Results Found: {`' ${searchInput} '`} </h1> }
+            {isResult.includes(true) || isCourseInputTitle ? <h1>  Results: {`' ${searchInput} '`}</h1>  : <h1> No Results Found: {`' ${searchInput} '`} </h1> }
 
           </Box>
 
@@ -76,7 +77,7 @@ export default function SearchResult() {
   {
       userCourses.filter((data) => (
         searchInput === '' 
-        ? data
+        ? console.log('sending search result data')
         : data.title.includes(searchInput)
       )).map((data) =>(
    
@@ -115,7 +116,7 @@ export default function SearchResult() {
     </Card>
     ))
    }
-    <CourseCard/>
+    {isCourseInputTitle && <CourseCard/>}
   </Box>
       </>
   )
