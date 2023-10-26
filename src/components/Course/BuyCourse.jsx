@@ -5,11 +5,13 @@ import axios from 'axios';
 import 'video-react/dist/video-react.css'
 import { useSelector } from 'react-redux';
 import { Card, CardMedia} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function BuyCourse() {
 
 const videoFile = useSelector(state => state.videoUrl.VideoUrl)
 const [data, setData] = useState([]); 
+const navigate = useNavigate(); 
 
 useEffect(() => {
    axios.get('/uploadCourseLandingInputValues')
@@ -82,6 +84,7 @@ console.log(videoFile)
     </Box>
 
     <Button
+    onClick={() => navigate('/accesslecture')}
     sx={{
       position:'absolute', 
       border:'1px solid black', 

@@ -7,11 +7,13 @@ import axios from 'axios';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useDispatch } from 'react-redux';
 import { getCourseLandingPage } from '../../state/createcourse/upload';
+import Section from '../../components/AccessCourse/Section';
 
 export default function UploadVideo() {
   const styleDefault = {border:'2px solid gray'}
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [component, setComponent] = useState([]);
+  const [accessSection, setAccessSection] = useState([]); 
   const [file, setfile] = useState();
   const [isDataSaved, setDataSaved] = useState(); 
   const [error, setError] = useState(); 
@@ -32,8 +34,8 @@ export default function UploadVideo() {
   })
 
   const AddingSection = () => {
-    setComponent([...component, 
-      <LectureSection/>])
+    setComponent([...component, <LectureSection/>])
+    setAccessSection([...accessSection, <Section/>])
   }
 
   const UploadIntroductionInputValue = async () => {
@@ -231,6 +233,7 @@ sx={{
 </Box>
 
 {component.map(sections => [sections])}
+{accessSection.map(section => [section])}
 
 <Box
 onClick = {AddingSection}
