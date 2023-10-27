@@ -8,7 +8,10 @@ import {
 } from '@mui/material'
 import axios from 'axios';
 
-export default function Section() {
+export default function Section({
+  borderStyle, 
+  setSelectedSection, 
+}) {
   const [sectionTitle, setSectionTitle] = useState([]); 
 
   useEffect(() => {
@@ -22,10 +25,10 @@ export default function Section() {
     {sectionTitle.map((data) => (
     
     <Card
+    onClick={() => setSelectedSection(data.section)}
     sx={{
         position:'relative', 
-        // top:'20rem',
-        border:'2px solid black', 
+        border:borderStyle, 
         borderRadius:'0', 
         left:'80rem',  
         width:'25rem', 
@@ -46,7 +49,6 @@ export default function Section() {
         </Typography>
     </Card>
    ))}
-
    </>
   )
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import {Button, Typography, Box, OutlinedInput} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -8,6 +8,7 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useDispatch } from 'react-redux';
 import { getCourseLandingPage } from '../../state/createcourse/upload';
 import Section from '../../components/AccessCourse/Section';
+import { addSection } from '../../state/AccessCourse';
 
 export default function UploadVideo() {
   const styleDefault = {border:'2px solid gray'}
@@ -19,6 +20,7 @@ export default function UploadVideo() {
   const [error, setError] = useState(); 
   const [fileError, setFileError] = useState(styleDefault);
   const dispatch = useDispatch(); 
+  const DisplaySection = accessSection.map(section => [section])
 
   const uploadFiles = () => {
     
@@ -36,6 +38,7 @@ export default function UploadVideo() {
   const AddingSection = () => {
     setComponent([...component, <LectureSection/>])
     setAccessSection([...accessSection, <Section/>])
+    dispatch(addSection(DisplaySection))
   }
 
   const UploadIntroductionInputValue = async () => {
@@ -233,7 +236,6 @@ sx={{
 </Box>
 
 {component.map(sections => [sections])}
-{accessSection.map(section => [section])}
 
 <Box
 onClick = {AddingSection}

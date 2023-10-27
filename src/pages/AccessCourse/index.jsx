@@ -4,6 +4,7 @@ import {
   Typography, 
   Divider, 
   CardMedia,
+  Button,
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import TrueLearnLogo from '../../assets/Logo.png'
@@ -16,9 +17,28 @@ export default function Lecture() {
   const navigate = useNavigate();
   const [introductionTitle, setIntroductionTitle] = useState([]); 
   const [sectionTitle, setSectionTitle] = useState([]); 
+  const [selectedSection, setSelectedSection] = useState('')
+ 
+
   const videoFile = useSelector(state => state.videoUrl.VideoUrl)
 
+  const updateSectionBorder= () => {
+    const IntroductionStyle = selectedSection === 'Introduction' && {border: '1px solid black'}
+    const sectionStyle = selectedSection === 'Neural Network ' && {border: '1px solid black'}
+    console.log(selectedSection)
 
+    const sectionStyles = sectionTitle.forEach((data) => {
+     return selectedSection === data.section && {border: '1px solid black'} 
+  })
+
+    console.log(sectionStyle)
+
+    return {
+  IntroductionStyle, 
+  sectionStyles,  
+  sectionStyle, 
+ }
+  }
   useEffect(() => {
     axios.get('/createcoursedata')
     .then((response) => setIntroductionTitle(response.data))
@@ -36,6 +56,15 @@ export default function Lecture() {
 
     return (
     <>
+    {/* <Button
+    onClick={() => setSelectedSection('test')}
+    sx={{
+      border: updateSectionBorder().sectionStyle, 
+    }}
+    >
+      section 3: test
+    </Button> */}
+
      <img
       style={{
         cursor:'pointer', 
@@ -56,10 +85,10 @@ export default function Lecture() {
      >
      {introductionTitle.map((data) => (
       <Card
+      onClick={() => setSelectedSection('Introduction')}
       sx={{
           position:'relative', 
-          // top:'5rem',
-          // border:'2px solid #d5d5d5', 
+          border: updateSectionBorder().IntroductionStyle, 
           borderRadius:'0', 
           left:'80rem',  
           width:'25rem', 
@@ -81,35 +110,10 @@ export default function Lecture() {
       </Card>
      ))}
 
-   {sectionTitle.map((data) => (
-    
-    <Card
-    sx={{
-        position:'relative', 
-        // top:'12rem',
-        border:'2px solid black', 
-        borderRadius:'0', 
-        left:'80rem',  
-        width:'25rem', 
-        height:'5rem',
-        cursor:'pointer',  
-    }}
-    >
-        <Typography
-        sx={{
-          position:'relative', 
-          fontFamily:'roman', 
-          fontSize:'1.5rem', 
-          left:'1rem',  
-          top:'1rem', 
-        }}
-        > 
-            Section 1: {data.section}
-        </Typography>
-    </Card>
-   ))}
-
-   <Section/>
+   <Section
+   borderStyle={updateSectionBorder().sectionStyle}
+   setSelectedSection={setSelectedSection}
+   />
 
      </Box>
 

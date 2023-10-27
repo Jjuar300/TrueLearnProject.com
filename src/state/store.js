@@ -12,6 +12,7 @@ import upload from './createcourse/upload'
 import VideoUrl from './createcourse/VideoUrl'
 import DummyCourses from './DummyCourses'
 import InputResults from './InputResults'
+import AccessCourse from './AccessCourse'
 
 export default configureStore({
 reducer: {
@@ -27,7 +28,8 @@ reducer: {
     upload: upload, 
     videoUrl: VideoUrl,
     DummyCourse: DummyCourses, 
-    ImportValue: InputResults,        
+    ImportValue: InputResults, 
+    AccessCourse: AccessCourse,        
 },  
 middleware:(getDefaultMiddleware) => {
  return  getDefaultMiddleware({
