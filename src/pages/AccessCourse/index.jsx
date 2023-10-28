@@ -27,15 +27,8 @@ export default function Lecture() {
     const sectionStyle = selectedSection === 'Neural Network ' && {border: '1px solid black'}
     console.log(selectedSection)
 
-    const sectionStyles = sectionTitle.forEach((data) => {
-     return selectedSection === data.section && {border: '1px solid black'} 
-  })
-
-    console.log(sectionStyle)
-
     return {
   IntroductionStyle, 
-  sectionStyles,  
   sectionStyle, 
  }
   }
@@ -51,19 +44,17 @@ export default function Lecture() {
   .catch((error) => console.log(error))
  },[])
 
+ const sectionStyles = sectionTitle.map((data) => {
+  return selectedSection === data.section && {border: '1px solid black'} 
+})
+
+ console.log(sectionStyles)
+
   console.log(introductionTitle)
   console.log(sectionTitle)
 
     return (
     <>
-    {/* <Button
-    onClick={() => setSelectedSection('test')}
-    sx={{
-      border: updateSectionBorder().sectionStyle, 
-    }}
-    >
-      section 3: test
-    </Button> */}
 
      <img
       style={{
@@ -111,8 +102,9 @@ export default function Lecture() {
      ))}
 
    <Section
-   borderStyle={updateSectionBorder().sectionStyle}
+   borderStyle={sectionStyles}
    setSelectedSection={setSelectedSection}
+   selectSection = {selectedSection}
    />
 
      </Box>

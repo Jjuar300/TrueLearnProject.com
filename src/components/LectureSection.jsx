@@ -1,13 +1,17 @@
 import {Box, Button, OutlinedInput} from '@mui/material'
 import RemoveIcon from '@mui/icons-material/Remove';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from 'axios';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import { useDispatch } from 'react-redux';
+import { addSectionNumber } from '../state/AccessCourse';
 
 export default function LectureSection({
 
 }) {
+
+  const dispatch = useDispatch(); 
 
   const styleDefault = {border:'2px solid gray'}
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
@@ -17,10 +21,20 @@ export default function LectureSection({
   const [isDataSaved, setDataSaved] = useState();
   const [error, setError] = useState(); 
   const [FileError, setFileError] = useState(styleDefault); 
-  
+  const [inputNumber, setInputNumber] = useState(1); 
+
+  const handleIncrementNumber = () => {
+    setInputNumber(1 + 1); 
+    return dispatch(addSectionNumber(inputNumber))
+  }
+
   const [sectionInput, setSectionInput] = useState({
     SectionInputValue: '', 
+    sectionCount: 0, 
   }); 
+
+console.log(inputNumber)
+console.log(sectionInput.sectionCount)
 
   function getRemoveSection(){
     setRemoveButtonClicked(false)
@@ -47,11 +61,13 @@ export default function LectureSection({
   const UploadSectionInputValues = async () => {
 
     const {
-      SectionInputValue
+      SectionInputValue,
+      sectionCount, 
     } = sectionInput;
 
    await axios.post('/uploadsectionvalues', {
     SectionInputValue,
+    sectionCount,
    })
   }
 
@@ -77,6 +93,7 @@ export default function LectureSection({
     UploadSectionInputValues(); 
     upload(); 
     ValidateCurriculum(); 
+    handleIncrementNumber(); 
   }
  
   const handleDeleteButton = () => {
@@ -85,6 +102,12 @@ export default function LectureSection({
     setfile(false)
    setSectionInput({SectionInputValue: ''})
   }
+
+ useEffect(() => {
+   axios.get('/sectioninput')
+   .then((response) => setInputNumber(response.data[0].sectionNumber))
+   .catch((error) => console.log(error))
+ })
 
   return (
     <>

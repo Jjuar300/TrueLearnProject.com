@@ -3,32 +3,35 @@ import {
   useEffect
 } from 'react'
 import { 
+  Button,
     Card,
     Typography, 
 } from '@mui/material'
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
-export default function Section({
-  borderStyle, 
+export default function Section({ 
   setSelectedSection, 
+  selectSection, 
 }) {
-  const [sectionTitle, setSectionTitle] = useState([]); 
+  const [sectionData, setSectionData] = useState([]); 
+  const sectionNumber = useSelector(state => state.AccessCourse.sectionNumber)
 
   useEffect(() => {
     axios.get('/sectioninput')
-    .then((response) => setSectionTitle(response.data))
+    .then((response) => setSectionData(response.data))
     .catch((error) => console.log(error))
    },[])
 
   return (
    <>
-    {sectionTitle.map((data) => (
-    
+
+    {sectionData.map((data) => (
     <Card
     onClick={() => setSelectedSection(data.section)}
     sx={{
         position:'relative', 
-        border:borderStyle, 
+        border: selectSection === data.section && '1px solid black', 
         borderRadius:'0', 
         left:'80rem',  
         width:'25rem', 
@@ -45,7 +48,7 @@ export default function Section({
           top:'1rem', 
         }}
         > 
-            Section 2: {data.section}
+            Section {sectionNumber}: {data.section}
         </Typography>
     </Card>
    ))}
