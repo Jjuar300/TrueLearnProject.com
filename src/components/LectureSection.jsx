@@ -1,10 +1,10 @@
 import {Box, Button, OutlinedInput} from '@mui/material'
 import RemoveIcon from '@mui/icons-material/Remove';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from 'axios';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addSectionNumber } from '../state/AccessCourse';
 
 export default function LectureSection({
@@ -21,20 +21,10 @@ export default function LectureSection({
   const [isDataSaved, setDataSaved] = useState();
   const [error, setError] = useState(); 
   const [FileError, setFileError] = useState(styleDefault); 
-  const [inputNumber, setInputNumber] = useState(1); 
-
-  const handleIncrementNumber = () => {
-    setInputNumber(1 + 1); 
-    return dispatch(addSectionNumber(inputNumber))
-  }
 
   const [sectionInput, setSectionInput] = useState({
     SectionInputValue: '', 
-    sectionCount: 0, 
   }); 
-
-console.log(inputNumber)
-console.log(sectionInput.sectionCount)
 
   function getRemoveSection(){
     setRemoveButtonClicked(false)
@@ -55,19 +45,17 @@ console.log(sectionInput.sectionCount)
   const upload = () => {
     const formData = new FormData(); 
     formData.append('file', file)
-    axios.post('/upload', formData)
+    axios.post('/displayvideo', formData)
    }
 
   const UploadSectionInputValues = async () => {
 
     const {
-      SectionInputValue,
-      sectionCount, 
+      SectionInputValue, 
     } = sectionInput;
 
    await axios.post('/uploadsectionvalues', {
     SectionInputValue,
-    sectionCount,
    })
   }
 
@@ -92,8 +80,7 @@ console.log(sectionInput.sectionCount)
   const handleSaveButton = () => {
     UploadSectionInputValues(); 
     upload(); 
-    ValidateCurriculum(); 
-    handleIncrementNumber(); 
+    ValidateCurriculum();  
   }
  
   const handleDeleteButton = () => {
@@ -102,12 +89,6 @@ console.log(sectionInput.sectionCount)
     setfile(false)
    setSectionInput({SectionInputValue: ''})
   }
-
- useEffect(() => {
-   axios.get('/sectioninput')
-   .then((response) => setInputNumber(response.data[0].sectionNumber))
-   .catch((error) => console.log(error))
- })
 
   return (
     <>

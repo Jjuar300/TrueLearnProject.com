@@ -18,20 +18,16 @@ export default function Lecture() {
   const [introductionTitle, setIntroductionTitle] = useState([]); 
   const [sectionTitle, setSectionTitle] = useState([]); 
   const [selectedSection, setSelectedSection] = useState('')
- 
 
   const videoFile = useSelector(state => state.videoUrl.VideoUrl)
 
   const updateSectionBorder= () => {
     const IntroductionStyle = selectedSection === 'Introduction' && {border: '1px solid black'}
-    const sectionStyle = selectedSection === 'Neural Network ' && {border: '1px solid black'}
-    console.log(selectedSection)
-
     return {
-  IntroductionStyle, 
-  sectionStyle, 
+  IntroductionStyle,  
  }
   }
+  
   useEffect(() => {
     axios.get('/createcoursedata')
     .then((response) => setIntroductionTitle(response.data))
@@ -96,7 +92,7 @@ export default function Lecture() {
             top:'1rem', 
           }}
           > 
-              Introduction: {data.introduction}
+             {data.introduction}
           </Typography>
       </Card>
      ))}
@@ -122,16 +118,17 @@ export default function Lecture() {
      sx={{
       position:'absolute', 
       width:'70rem',  
-      left:'3rem', 
+      left:'5rem', 
       top:'10rem', 
      }}
      >
-     <CardMedia
-           component='img'
-           height={650}
-           image={`https://res.cloudinary.com/duswtno8e/image/upload/${decodeURIComponent(videoFile)}.jpg`}
-           style={{objectFit:'cover'}}
-           /> 
+      <video 
+   width={1000}
+   height={660}
+   controls
+   >
+    <source src={`https://res.cloudinary.com/duswtno8e/video/upload/v1698714286/${videoFile}.mp4`} type='video/mp4' />
+   </video>
      </Box>
     </>
   )

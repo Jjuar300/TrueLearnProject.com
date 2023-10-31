@@ -6,6 +6,7 @@ import 'video-react/dist/video-react.css'
 import { useSelector } from 'react-redux';
 import { Card, CardMedia} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Player } from 'video-react';
 
 export default function BuyCourse() {
 
@@ -71,15 +72,13 @@ console.log(videoFile)
     }}
     >
 
-<Card>
-<CardMedia
-           component='img'
-           height={400
-          }
-           image={`https://res.cloudinary.com/duswtno8e/image/upload/${decodeURIComponent(videoFile)}.jpg`}
-           style={{objectFit:'cover'}}
-           /> 
-</Card>
+   <video 
+   width={640}
+   height={360}
+   controls
+   >
+    <source src={`https://res.cloudinary.com/duswtno8e/video/upload/v1698714286/${videoFile}.mp4`} type='video/mp4' />
+   </video>
 
     </Box>
 

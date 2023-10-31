@@ -5,7 +5,7 @@ const AccessCourseSlice = createSlice({
     name:'AccessCourse', 
     initialState:{
         section: [], 
-        sectionNumber: Number, 
+        sectionNumber: 0, 
     }, 
     reducers:{
         addSection: (state, action) => {
@@ -13,7 +13,7 @@ const AccessCourseSlice = createSlice({
         }, 
 
         addSectionNumber: (state, action) => {
-            state.sectionNumber = action.payload; 
+            state.sectionNumber = action.payload.sectionNumber; 
         }
     }
 }); 

@@ -15,7 +15,9 @@ export default function Section({
   selectSection, 
 }) {
   const [sectionData, setSectionData] = useState([]); 
-  const sectionNumber = useSelector(state => state.AccessCourse.sectionNumber)
+  // const sectionNumber = useSelector(state => state.AccessCourse.sectionNumber)
+
+  // console.log(sectionNumber)
 
   useEffect(() => {
     axios.get('/sectioninput')
@@ -48,7 +50,7 @@ export default function Section({
           top:'1rem', 
         }}
         > 
-            Section {sectionNumber}: {data.section}
+         {data.section}
         </Typography>
     </Card>
    ))}

@@ -52,8 +52,8 @@ data.filter((data) => {
         >
             <CardActionArea>
                 <CardMedia
-               component="img"
-                image={`https://res.cloudinary.com/duswtno8e/image/upload/v1696645141/${decodeURIComponent(videoFile)}.jpg`}
+               component="video"
+                src={`https://res.cloudinary.com/duswtno8e/video/upload/v1696645141/${videoFile}.mp4`}
             />
                 <CardContent>
                     <Typography
