@@ -6,7 +6,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getVideoUrl } from '../../state/createcourse/VideoUrl';
 
 const Catergories = [
@@ -39,24 +39,35 @@ export default function ClassInfo() {
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
   const [file, setfile] = useState(); 
   const [error, setError] = useState(false); 
+  const videoFile = useSelector(state => state.videoUrl.VideoUrl);
+
+  // const [fileName, setFileName] = useState('')
   const [courseInput, setCourseInput] = useState({
     title: '', 
     description: '', 
     price: '',
     catergory: '', 
+    fileName: videoFile, 
   }) 
 
-  const uploadFiles = () => {
-    const formData = new FormData(); 
-    formData.append('file', file)
-    axios.post('/displayvideo', formData,{
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    dispatch(getVideoUrl(file.name))
-    console.log(file.name)
+  const uploadFiles = async () => {
+    try{
+      const formData = new FormData(); 
+      formData.append('file', file)
+      await axios.post('/displayvideo', formData,{
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      dispatch(getVideoUrl(file.name))
+      // setFileName(filename)
+    }catch(error){
+      console.log(error)
+    }
+
    }
+
+  //  console.log(fileName)
 
  const uploadCourseInputValues = async () => {
   try{
@@ -65,12 +76,14 @@ export default function ClassInfo() {
       description, 
       price, 
       catergory, 
+      fileName, 
     } = courseInput; 
     await axios.post('/uploadcourselandingpage', {
       title, 
       description, 
       price, 
       catergory, 
+      fileName, 
     })
    
   }catch(error){

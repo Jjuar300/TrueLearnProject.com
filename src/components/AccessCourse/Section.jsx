@@ -3,21 +3,16 @@ import {
   useEffect
 } from 'react'
 import { 
-  Button,
     Card,
     Typography, 
 } from '@mui/material'
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 export default function Section({ 
   setSelectedSection, 
   selectSection, 
 }) {
   const [sectionData, setSectionData] = useState([]); 
-  // const sectionNumber = useSelector(state => state.AccessCourse.sectionNumber)
-
-  // console.log(sectionNumber)
 
   useEffect(() => {
     axios.get('/sectioninput')
