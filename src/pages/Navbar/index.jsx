@@ -25,7 +25,6 @@ export default function NavBar() {
       position:'relative', 
       top:'-10px', 
       height:'500px',
-      border: isNotMobileScreen ? '1px solid #a0a4a6' : 'none', 
       height:'5.4rem', 
       borderTop:'none', 
       borderRight:'none', 

@@ -50,24 +50,19 @@ export default function ClassInfo() {
     fileName: videoFile, 
   }) 
 
-  const uploadFiles = async () => {
-    try{
+  const uploadFiles = () => {
+
       const formData = new FormData(); 
       formData.append('file', file)
-      await axios.post('/displayvideo', formData,{
+       axios.post('/displayvideo', formData,{
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
       dispatch(getVideoUrl(file.name))
       // setFileName(filename)
-    }catch(error){
-      console.log(error)
-    }
 
    }
-
-  //  console.log(fileName)
 
  const uploadCourseInputValues = async () => {
   try{

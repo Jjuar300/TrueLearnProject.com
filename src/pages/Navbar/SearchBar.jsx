@@ -14,7 +14,7 @@ export default function SearchBar() {
   const open = useSelector(state => state.SearchBar.open)
   const [searchInputData, setSearchInputData] = useState();
   const [search, setSearch] = useState({
-    searchInput: '', 
+    searchInput: '',  
     isUpdated: true, 
   });
   const dispatch = useDispatch()
@@ -22,7 +22,7 @@ export default function SearchBar() {
 
   useEffect(() => {
     axios.get('/getsearchinputs')
-    .then((response) => setSearchInputData(response.data[0].updateInput))
+    .then((response) => setSearchInputData(response.data[0].isInput))
     .catch((error) => console.log(error))
   
   },[])
