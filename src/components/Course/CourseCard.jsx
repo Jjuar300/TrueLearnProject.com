@@ -18,6 +18,13 @@ const videoFile = useSelector(state => state.videoUrl.VideoUrl);
 const navigate = useNavigate(); 
 const [searchInput, setSearchInput] = useState(''); 
 const dispatch = useDispatch(); 
+const [fileName,setFileName] = useState(); 
+
+useEffect(() => {
+ axios.get('/getvideofilename')
+ .then((response) => setFileName(response.data[0].fileName))
+ .catch((error) => console.log(error))
+},[])
 
 useEffect(() => {
     axios.get('/uploadCourseLandingInputValues')
@@ -31,9 +38,8 @@ useEffect(() => {
     .catch((error) => console.log(error))
    },[])
 
-   const CourseLandingPageData = data; 
-
 console.log(videoFile)
+
 data.filter((data) => {
     dispatch(handleCourseCardTitle(data.title.includes(searchInput)))  
 })

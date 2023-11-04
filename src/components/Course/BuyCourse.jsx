@@ -3,16 +3,23 @@ import NavBar from '../../pages/Navbar'
 import { Box, Button } from '@mui/material'
 import axios from 'axios';
 import 'video-react/dist/video-react.css'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Card, CardMedia} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { Player } from 'video-react';
+import { getVideoUrl } from '../../state/createcourse/VideoUrl';
 
 export default function BuyCourse() {
 
+const dispatch = useDispatch(); 
 const videoFile = useSelector(state => state.videoUrl.VideoUrl)
 const [data, setData] = useState([]); 
 const navigate = useNavigate(); 
+
+useEffect(() => {
+  axios.get('/getvideofilename')
+  .then((response) => dispatch(getVideoUrl(response.data[0].fileName)))
+  .catch((error) => console.log(error))
+ },[]) 
 
 useEffect(() => {
    axios.get('/uploadCourseLandingInputValues')
@@ -21,6 +28,7 @@ useEffect(() => {
 },[]);
 
 console.log(videoFile)
+
   return (
     <>
     <NavBar/>

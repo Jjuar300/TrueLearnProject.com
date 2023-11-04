@@ -59,9 +59,7 @@ export default function ClassInfo() {
           'Content-Type': 'multipart/form-data',
         },
       })
-      dispatch(getVideoUrl(file.name))
-      // setFileName(filename)
-
+      // dispatch(getVideoUrl(file.name))
    }
 
  const uploadCourseInputValues = async () => {

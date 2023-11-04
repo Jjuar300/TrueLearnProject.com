@@ -80,12 +80,12 @@ export default function UserDetails() {
   const uploadFiles = () => {
     const formData = new FormData(); 
     formData.append('file', file)
-    axios.post('/displayvideo', formData,{
+    axios.post('/upload', formData,{
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     })
-    dipatch(getImageUrl(file.name))
+    dipatch(getImageUrl(file.name));  
    }
 
    const validInputs = [{

@@ -18,8 +18,14 @@ export default function Lecture() {
   const [introductionTitle, setIntroductionTitle] = useState([]); 
   const [sectionTitle, setSectionTitle] = useState([]); 
   const [selectedSection, setSelectedSection] = useState('')
+  const [fileName,setFileName] = useState();
+  const videoFile = useSelector(state => state.videoUrl.VideoUrl) 
 
-  const videoFile = useSelector(state => state.videoUrl.VideoUrl)
+useEffect(() => {
+ axios.get('/getvideofilename')
+ .then((response) => setFileName(response.data[0].fileName))
+ .catch((error) => console.log(error))
+},[])
 
   const updateSectionBorder= () => {
     const IntroductionStyle = selectedSection === 'Introduction' && {border: '1px solid black'}
@@ -127,7 +133,7 @@ export default function Lecture() {
    height={660}
    controls
    >
-    <source src={`https://res.cloudinary.com/duswtno8e/video/upload/v1698714286/${videoFile}.mp4`} type='video/mp4' />
+    <source src={`https://res.cloudinary.com/duswtno8e/video/upload/v1698714286/${fileName}.mp4`} type='video/mp4' />
    </video>
      </Box>
     </>
