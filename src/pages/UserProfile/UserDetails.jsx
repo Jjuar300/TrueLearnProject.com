@@ -111,8 +111,7 @@ export default function UserDetails() {
    .then((res) => setUserEditData(res.data))
   },[])
 
-  const handleSaveButton = (e) => {
-    e.preventDefault(); 
+  const handleSaveButton = () => {
     uploadUserDetailInputValues();
     updateUserProfileFullName(); 
     uploadFiles(); 

@@ -4,7 +4,6 @@ import { Box, Button } from '@mui/material'
 import axios from 'axios';
 import 'video-react/dist/video-react.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { Card, CardMedia} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { getVideoUrl } from '../../state/createcourse/VideoUrl';
 
@@ -14,12 +13,18 @@ const dispatch = useDispatch();
 const videoFile = useSelector(state => state.videoUrl.VideoUrl)
 const [data, setData] = useState([]); 
 const navigate = useNavigate(); 
+const [videoFileName, setVideoFileName] = useState([]); 
+const [fileName, setFileName] = useState(); 
+
+console.log(fileName ? true : false)
 
 useEffect(() => {
   axios.get('/getvideofilename')
-  .then((response) => dispatch(getVideoUrl(response.data[0].fileName)))
+  .then((response) => setFileName(response.data[0].fileName))
   .catch((error) => console.log(error))
  },[]) 
+
+ console.log(fileName)
 
 useEffect(() => {
    axios.get('/uploadCourseLandingInputValues')
@@ -80,14 +85,14 @@ console.log(videoFile)
     }}
     >
 
-   <video 
-   width={640}
-   height={360}
-   controls
-   >
-    <source src={`https://res.cloudinary.com/duswtno8e/video/upload/v1698714286/${videoFile}.mp4`} type='video/mp4' />
-   </video>
-
+      <video 
+      width={640}
+      height={360}
+      controls
+      >
+       <source src={`https://d3n6kitjvdjlm1.cloudfront.net/${fileName}.mp4`} />
+      </video>
+    
     </Box>
 
     <Button
