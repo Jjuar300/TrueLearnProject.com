@@ -13,18 +13,12 @@ const dispatch = useDispatch();
 const videoFile = useSelector(state => state.videoUrl.VideoUrl)
 const [data, setData] = useState([]); 
 const navigate = useNavigate(); 
-const [videoFileName, setVideoFileName] = useState([]); 
-const [fileName, setFileName] = useState(); 
 
-console.log(fileName ? true : false)
-
-useEffect(() => {
-  axios.get('/getvideofilename')
-  .then((response) => setFileName(response.data[0].fileName))
-  .catch((error) => console.log(error))
- },[]) 
-
- console.log(fileName)
+//  useEffect(() => {
+//   axios.get('/getvideofilename')
+//   .then((response) => dispatch(getVideoUrl(response.data[0].fileName)))
+//   .catch((error) => console.log(error))
+//  },[]) 
 
 useEffect(() => {
    axios.get('/uploadCourseLandingInputValues')
@@ -89,10 +83,10 @@ console.log(videoFile)
       width={640}
       height={360}
       controls
-      >
-       <source src={`https://d3n6kitjvdjlm1.cloudfront.net/${fileName}.mp4`} />
+      onError={(e) => console.error('video Error: ', e)}
+      >                                                   
+       <source src={`https://d3n6kitjvdjlm1.cloudfront.net/${videoFile}`} type='video/mp4' />
       </video>
-    
     </Box>
 
     <Button

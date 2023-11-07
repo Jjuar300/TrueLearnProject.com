@@ -43,11 +43,6 @@ export default function Lecture() {
   return selectedSection === data.section && {border: '1px solid black'} 
 })
 
- console.log(sectionStyles)
-
-  console.log(introductionTitle)
-  console.log(sectionTitle)
-
     return (
     <>
 

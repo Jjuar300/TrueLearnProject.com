@@ -26,8 +26,12 @@ console.log(imageFileUrl)
 console.log(fileName)
 
 useEffect(() => {
- axios.get('/getuploadimage')
- .then((response) => setFileName(response.data[0].filename))
+ 
+  const getFileImage = async () => {
+   await axios.get('/getuploadimage')
+   .then((response) => setFileName(response.data[0].filename))
+  }
+ getFileImage();
 },[])
 
 const handleClick = (event) => {
@@ -68,8 +72,7 @@ console.log(userEditData)
         cursor:'pointer', 
         fontSize:'35px',
        }}
-      src={`https://res.cloudinary.com/duswtno8e/image/upload/${decodeURIComponent(fileName)}.jpg`}
-      />
+      src={`https://d3n6kitjvdjlm1.cloudfront.net/${fileName}`}/>
 
       {
         userEditData.map((input) => (

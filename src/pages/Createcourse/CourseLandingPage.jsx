@@ -3,10 +3,11 @@ import {Box,Button, Typography, OutlinedInput, TextField, InputAdornment} from '
 import MenuItem from '@mui/material/MenuItem';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { getVideoUrl } from '../../state/createcourse/VideoUrl';
 
 const Catergories = [
   {
@@ -51,7 +52,8 @@ export default function ClassInfo() {
   const uploadFiles = () => {
       const formData = new FormData(); 
       formData.append('file', file)
-       axios.post('/displayvideo', formData)
+       axios.post('/uploadvideo', formData)
+      //  dispatch(getVideoUrl(file.name))
    }
 
  const uploadCourseInputValues = async () => {
