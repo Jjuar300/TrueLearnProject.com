@@ -9,8 +9,10 @@ import { useDispatch } from 'react-redux';
 import { getCourseLandingPage } from '../../state/createcourse/upload';
 import Section from '../../components/AccessCourse/Section';
 import { addSection } from '../../state/AccessCourse';
+import { getAccessVideo } from '../../state/createcourse/VideoUrl';
 
-export default function UploadVideo() {
+export default function UploadVideo({setSegment}) {
+  
   const styleDefault = {border:'2px solid gray'}
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [component, setComponent] = useState([]);
@@ -27,6 +29,7 @@ export default function UploadVideo() {
     const formData = new FormData(); 
     formData.append('file', file)
     axios.post('/upload', formData)
+    dispatch(getAccessVideo(file.name))
    }
 
    console.log(file)
@@ -89,7 +92,8 @@ const handleDeleteButton = () => {
 };
 
 const handleUploadButton = () => {
-dispatch(getCourseLandingPage('LandingPage'))
+// dispatch(getCourseLandingPage('LandingPage'))
+setSegment('LandingPage')
 }
 
   return (

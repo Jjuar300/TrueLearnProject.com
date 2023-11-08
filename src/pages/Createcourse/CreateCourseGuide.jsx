@@ -5,17 +5,20 @@ import UploadVideo from './UploadVideo';
 import CourseInfo from './CourseLandingPage';
 import { useSelector } from 'react-redux';
 
-export default function CreateCourseGuide() {
-    
-   const navigateLandingPage= useSelector(state => state.upload.navigateCourseLandingPage)
-   const isCourseLandingPage = navigateLandingPage === 'LandingPage'; 
-   const isCurriculum = navigateLandingPage === 'Curriculum';
+export default function CreateCourseGuide() { 
+
+   const [segment, setSegment] = useState('Curriculum'); 
+   
+   const isCourseLandingPage = segment === 'LandingPage'; 
+   const isCurriculum = segment === 'Curriculum';
+
+   console.log(segment)
 
     return (
    <>
 
 <NavBar/>
-{ isCurriculum && <UploadVideo/>}
+{ isCurriculum && <UploadVideo setSegment={setSegment} />}
 
 {isCourseLandingPage && <CourseInfo/> }
 

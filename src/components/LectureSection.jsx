@@ -45,7 +45,7 @@ export default function LectureSection({
   const upload = () => {
     const formData = new FormData(); 
     formData.append('file', file)
-    axios.post('/displayvideo', formData)
+    axios.post('/upload', formData)
    }
 
   const UploadSectionInputValues = async () => {

@@ -14,12 +14,6 @@ const videoFile = useSelector(state => state.videoUrl.VideoUrl)
 const [data, setData] = useState([]); 
 const navigate = useNavigate(); 
 
-//  useEffect(() => {
-//   axios.get('/getvideofilename')
-//   .then((response) => dispatch(getVideoUrl(response.data[0].fileName)))
-//   .catch((error) => console.log(error))
-//  },[]) 
-
 useEffect(() => {
    axios.get('/uploadCourseLandingInputValues')
   .then((response) => setData(response.data))

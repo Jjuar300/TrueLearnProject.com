@@ -5,6 +5,7 @@ const AddVideoUrl = createSlice({
     initialState: {
         VideoUrl: '',  
         imageUrl: '', 
+        accessVideo: '', 
     }, 
     reducers: {
         getVideoUrl: (state, action) => {
@@ -12,6 +13,9 @@ const AddVideoUrl = createSlice({
         }, 
         getImageUrl: (state, action) => {
             state.imageUrl = action.payload; 
+        }, 
+        getAccessVideo: (state, action) => {
+            state.accessVideo = action.payload; 
         }
     }
 })
@@ -20,4 +24,5 @@ export default AddVideoUrl.reducer;
 export const {
 getVideoUrl, 
 getImageUrl, 
+getAccessVideo, 
 } = AddVideoUrl.actions;

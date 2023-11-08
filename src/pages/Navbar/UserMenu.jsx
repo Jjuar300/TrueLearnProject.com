@@ -20,19 +20,8 @@ const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const dispatch = useDispatch(); 
 const [userEditData, setUserEditData] = useState([]);   
 const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
-const [fileName, setFileName] = useState(); 
 
 console.log(imageFileUrl)
-console.log(fileName)
-
-useEffect(() => {
- 
-  const getFileImage = async () => {
-   await axios.get('/getuploadimage')
-   .then((response) => setFileName(response.data[0].filename))
-  }
- getFileImage();
-},[])
 
 const handleClick = (event) => {
  setAnchor(event.currentTarget)
@@ -72,7 +61,7 @@ console.log(userEditData)
         cursor:'pointer', 
         fontSize:'35px',
        }}
-      src={`https://d3n6kitjvdjlm1.cloudfront.net/${fileName}`}/>
+      src={`https://d3n6kitjvdjlm1.cloudfront.net/${imageFileUrl}`}/>
 
       {
         userEditData.map((input) => (

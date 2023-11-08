@@ -30,7 +30,7 @@ const Password = data.password;
 const uploadFiles = () => {
   const formData = new FormData(); 
   formData.append('file', file)
-  axios.post('/displayvideo', formData,{
+  axios.post('/upload', formData,{
     headers: {
       'Content-Type': 'multipart/form-data',
     },

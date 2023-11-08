@@ -22,19 +22,6 @@ const dispatch = useDispatch();
 const [fileName, setFileName] = useState(); 
 
 useEffect(() => {
-  axios.get('/getvideofilename')
-  .then((response) => setFileName(response.data[0].fileName))
-  .catch((error) => console.log(error))
- },[]) 
-
-const handleCard = () => {
-    axios.get('/getvideofilename')
-    .then((response) => dispatch(getVideoUrl(response.data[0].fileName)))
-    .catch((error) => console.log(error))
-    navigate('/buycourse')
-}
-
-useEffect(() => {
     axios.get('/uploadCourseLandingInputValues')
    .then((response) => setData(response.data))
    .catch((error) => console.log(error))
@@ -59,7 +46,7 @@ data.filter((data) => {
    {
    data.map((data) => (
         <Card
-        onClick={handleCard}
+        onClick={ () =>  navigate('/buycourse')}
         sx={{
             width:'20rem', 
             left:'15rem',
@@ -69,7 +56,7 @@ data.filter((data) => {
             <CardActionArea>
                 <CardMedia
                component="video"
-                src={`https://res.cloudinary.com/duswtno8e/video/upload/v1696645141/${fileName}.mp4`}
+                src={`https://d3n6kitjvdjlm1.cloudfront.net/${videoFile}`}
             />
                 <CardContent>
                     <Typography

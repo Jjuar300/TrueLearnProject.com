@@ -13,9 +13,17 @@ import VideoUrl from './createcourse/VideoUrl'
 import DummyCourses from './DummyCourses'
 import InputResults from './InputResults'
 import AccessCourse from './AccessCourse'
+import storage from 'redux-persist/lib/storage'
+import persistReducer from 'redux-persist/es/persistReducer'
+import { combineReducers } from '@reduxjs/toolkit'
 
-export default configureStore({
-reducer: {
+const persistConfig = {
+    key:'root', 
+    version: 1, 
+    storage, 
+}
+
+const reducer = combineReducers({
     handleDrawer: Slice,
     Promo: PromoSlice,
     SearchBar: SearchBar,
@@ -29,8 +37,13 @@ reducer: {
     videoUrl: VideoUrl,
     DummyCourse: DummyCourses, 
     ImportValue: InputResults, 
-    AccessCourse: AccessCourse,        
-},  
+    AccessCourse: AccessCourse,  
+});
+
+const persistedReducer = persistReducer(persistConfig, reducer)
+
+export default configureStore({
+reducer: persistedReducer, 
 middleware:(getDefaultMiddleware) => {
  return  getDefaultMiddleware({
         serializableCheck: false, 
