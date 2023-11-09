@@ -32,6 +32,8 @@ export default function UploadVideo({setSegment}) {
     dispatch(getAccessVideo(file.name))
    }
 
+   dispatch(getAccessVideo('new video'))
+
    console.log(file)
 
   const [introductionInput, setIntroductionInput] = useState({
@@ -92,7 +94,6 @@ const handleDeleteButton = () => {
 };
 
 const handleUploadButton = () => {
-// dispatch(getCourseLandingPage('LandingPage'))
 setSegment('LandingPage')
 }
 

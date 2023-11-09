@@ -12,13 +12,18 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Section from '../../components/AccessCourse/Section';
+import { useDispatch } from 'react-redux';
+import { getAccessVideo } from '../../state/createcourse/VideoUrl';
 
 export default function Lecture() {
+  const dispatch = useDispatch(); 
   const navigate = useNavigate();
   const [introductionTitle, setIntroductionTitle] = useState([]); 
   const [sectionTitle, setSectionTitle] = useState([]); 
   const [selectedSection, setSelectedSection] = useState('')
   const videoFile = useSelector(state => state.videoUrl.accessVideo) 
+
+ console.log(videoFile)
 
   const updateSectionBorder= () => {
     const IntroductionStyle = selectedSection === 'Introduction' && {border: '1px solid black'}
@@ -45,7 +50,6 @@ export default function Lecture() {
 
     return (
     <>
-
      <img
       style={{
         cursor:'pointer', 

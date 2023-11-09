@@ -5,14 +5,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from 'axios';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useDispatch, useSelector } from 'react-redux';
-import { addSectionNumber } from '../state/AccessCourse';
+import { getAccessVideo } from '../state/createcourse/VideoUrl';
 
 export default function LectureSection({
 
 }) {
 
   const dispatch = useDispatch(); 
-
   const styleDefault = {border:'2px solid gray'}
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [isRemovebuttonclicked, setRemoveButtonClicked] = useState(true); 
@@ -46,6 +45,7 @@ export default function LectureSection({
     const formData = new FormData(); 
     formData.append('file', file)
     axios.post('/upload', formData)
+    dispatch(getAccessVideo(file.name))
    }
 
   const UploadSectionInputValues = async () => {
