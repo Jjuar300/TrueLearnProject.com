@@ -58,6 +58,7 @@ export default function CreateCourseGuide() {
 
 
   { isCurriculum && <Button
+  onClick={() => window.location.reload()}
    sx={{
     position:'absolute', 
     top:'22rem', 

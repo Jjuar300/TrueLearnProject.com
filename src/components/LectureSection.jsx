@@ -16,7 +16,6 @@ export default function LectureSection({
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)')
   const [isRemovebuttonclicked, setRemoveButtonClicked] = useState(true); 
   const [file, setfile] = useState(); 
-  const [fileName, setFileName] = useState(); 
   const [isDataSaved, setDataSaved] = useState();
   const [error, setError] = useState(); 
   const [FileError, setFileError] = useState(styleDefault); 
@@ -36,28 +35,19 @@ export default function LectureSection({
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0]; 
-    const fileName = selectedFile.name; 
     setfile(selectedFile)
-    setFileName(fileName)
   }
 
+  
+  //orginal endpoint is '/upload'
   const upload = () => {
+    const inputValue = sectionInput.SectionInputValue; 
     const formData = new FormData(); 
+    formData.append('inputValue', inputValue)
     formData.append('file', file)
-    axios.post('/upload', formData)
+    axios.post('/uploadsectiondata',formData)      
     dispatch(getAccessVideo(file.name))
    }
-
-  const UploadSectionInputValues = async () => {
-
-    const {
-      SectionInputValue, 
-    } = sectionInput;
-
-   await axios.post('/uploadsectionvalues', {
-    SectionInputValue,
-   })
-  }
 
   const ValidateCurriculum = () => {
     const inputStyling = {border:'1px solid red'} 
@@ -78,7 +68,6 @@ export default function LectureSection({
   }
 
   const handleSaveButton = () => {
-    UploadSectionInputValues(); 
     upload(); 
     ValidateCurriculum();  
   }
@@ -94,9 +83,7 @@ export default function LectureSection({
     <>
    { isRemovebuttonclicked &&  
    
-   <form
-   onSubmit={UploadSectionInputValues}
-   >
+   <form>
    <Box
     name="section"
 sx={{
