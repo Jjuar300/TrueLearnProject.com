@@ -24,37 +24,23 @@ export default function UploadVideo({setSegment}) {
   const dispatch = useDispatch(); 
   const DisplaySection = accessSection.map(section => [section])
 
+  const [introductionInput, setIntroductionInput] = useState({
+    IntroductionInputValue: '', 
+  })
+
   const uploadFiles = () => {
-    
-    const formData = new FormData(); 
+    const introduction = introductionInput.IntroductionInputValue; 
+    const formData = new FormData();
+    formData.append('introduction', introduction) 
     formData.append('file', file)
     axios.post('/upload', formData)
     dispatch(getAccessVideo(file.name))
    }
 
-   dispatch(getAccessVideo('new video'))
-
-   console.log(file)
-
-  const [introductionInput, setIntroductionInput] = useState({
-    IntroductionInputValue: '', 
-  })
-
   const AddingSection = () => {
     setComponent([...component, <LectureSection/>])
     setAccessSection([...accessSection, <Section/>])
     dispatch(addSection(DisplaySection))
-  }
-
-  const UploadIntroductionInputValue = async () => {
-   try{
-     const {
-      IntroductionInputValue,  
-    } = introductionInput;
-   await axios.post('/uploadvideocontent', {IntroductionInputValue})
-    }catch(err){
-    console.log(err)
-   }
   }
 
 const handleInputChange = (event) => {
@@ -81,7 +67,7 @@ const ValidateCurriculum = () => {
 
 const handleSaveButton = () => {
   setfile(file)
-  UploadIntroductionInputValue(); 
+  // UploadIntroductionInputValue(); 
   uploadFiles(); 
   ValidateCurriculum(); 
 };

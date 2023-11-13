@@ -1,22 +1,26 @@
 import {
   useState, 
-  useEffect
+  useEffect,
+  useMemo,
 } from 'react'
 import { 
     Card,
     Typography, 
 } from '@mui/material'
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { getAccessVideo } from '../../state/createcourse/VideoUrl';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAccessVideo, getBorderStyle } from '../../state/createcourse/VideoUrl';
+import { getSectionName } from '../../state/createcourse/VideoUrl';
 
 export default function Section({ 
   setSelectedSection, 
   selectSection, 
 }) {
   const [sectionData, setSectionData] = useState([]); 
-  const dispatch = useDispatch(); 
-
+  const dispatch = useDispatch();
+  const videoFile = useSelector(state => state.videoUrl.accessVideo) 
+  const [videoFileName, setVideoFileName] = useState(); 
+  const borderStyle = useSelector(state => state.videoUrl.borderStyle)
 
   useEffect(() => {
     axios.get('/sectioninput')
@@ -24,13 +28,14 @@ export default function Section({
     .catch((error) => console.log(error))
    },[])
 
-sectionData.map((data) => {
-  if(selectSection === data.section){
-    dispatch(getAccessVideo(data.sectionVideoFile))
-    window.location.reload()
-  }
-})
-
+    sectionData.map((data) => {
+      if(selectSection === data.section){
+         dispatch(getAccessVideo(data.sectionVideoFile))
+         dispatch(getBorderStyle(borderStyle))
+        window.location.reload()
+       }
+    })
+  
   return (
    <>
     {sectionData.map((data) => (
@@ -38,7 +43,7 @@ sectionData.map((data) => {
     onClick={() => setSelectedSection(data.section)}
     sx={{
         position:'relative', 
-        border: selectSection === data.section && '1px solid black', 
+        border: selectSection === data.section && borderStyle, 
         borderRadius:'0', 
         left:'80rem',  
         width:'25rem', 

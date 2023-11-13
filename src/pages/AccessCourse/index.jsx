@@ -6,31 +6,24 @@ import {
   CardMedia,
   Button,
 } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import TrueLearnLogo from '../../assets/Logo.png'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 import Section from '../../components/AccessCourse/Section';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAccessVideo } from '../../state/createcourse/VideoUrl';
+import { getBorderStyle } from '../../state/createcourse/VideoUrl';
 
 export default function Lecture() {
   const dispatch = useDispatch(); 
   const navigate = useNavigate();
   const [introductionTitle, setIntroductionTitle] = useState([]); 
-  const [sectionTitle, setSectionTitle] = useState([]); 
   const [selectedSection, setSelectedSection] = useState('')
   const videoFile = useSelector(state => state.videoUrl.accessVideo) 
+  const borderStyle = useSelector(state => state.videoUrl.borderStyle)
 
  console.log(videoFile)
-
-  const updateSectionBorder= () => {
-    const IntroductionStyle = selectedSection === 'Introduction' && {border: '1px solid black'}
-    return {
-  IntroductionStyle,  
- }
-  }
   
   useEffect(() => {
     axios.get('/createcoursedata')
@@ -38,15 +31,14 @@ export default function Lecture() {
     .catch((error) => console.log(error))
   },[])
 
- useEffect(() => {
-  axios.get('/sectioninput')
-  .then((response) => setSectionTitle(response.data))
-  .catch((error) => console.log(error))
- },[])
-
- const sectionStyles = sectionTitle.map((data) => {
-  return selectedSection === data.section && {border: '1px solid black'} 
+introductionTitle.map((data) => {
+   if(selectedSection === data.introduction){
+    dispatch(getAccessVideo(data.videofilename))
+    window.location.reload()
+   }
 })
+
+console.log(selectedSection)
 
     return (
     <>
@@ -70,10 +62,10 @@ export default function Lecture() {
      >
      {introductionTitle.map((data) => (
       <Card
-      onClick={() => setSelectedSection('Introduction')}
+      onClick={() => setSelectedSection(data.introduction)}
       sx={{
           position:'relative', 
-          border: updateSectionBorder().IntroductionStyle, 
+          border: borderStyle, 
           borderRadius:'0', 
           left:'80rem',  
           width:'25rem', 
@@ -96,7 +88,6 @@ export default function Lecture() {
      ))}
 
    <Section
-   borderStyle={sectionStyles}
    setSelectedSection={setSelectedSection}
    selectSection = {selectedSection}
    />
