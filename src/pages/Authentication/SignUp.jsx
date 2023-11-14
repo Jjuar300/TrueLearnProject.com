@@ -16,21 +16,19 @@ const [file, setfile] = useState();
 
 const [data, setdata] = useState({
   firstname: '',  
-  picturePhoto:null, 
+  picturePath:'', 
   email:'', 
   password:'', 
 }); 
 
 const firstName = data.firstname; 
-const lastName = data.lastname;
 const Email = data.email; 
 const Password = data.password; 
 
-
 const uploadFiles = () => {
-  const formData = new FormData(); 
+  const formData = new FormData();
   formData.append('file', file)
-  axios.post('/upload', formData,{
+  axios.post('/uploadvideo', formData,{
     headers: {
       'Content-Type': 'multipart/form-data',
     },

@@ -66,7 +66,6 @@ export default function CreateCourseGuide() {
     border:'1px solid black', 
     color:'white', 
     backgroundColor:'#431440', 
-   //  ':hover': {backgroundColor:'#80267a'},
    ':hover': {backgroundColor:'#431440'},
     opacity:'.4',   
    }}

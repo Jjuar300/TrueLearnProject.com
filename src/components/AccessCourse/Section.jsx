@@ -32,7 +32,6 @@ export default function Section({
       if(selectSection === data.section){
          dispatch(getAccessVideo(data.sectionVideoFile))
          dispatch(getBorderStyle(borderStyle))
-        window.location.reload()
        }
     })
   

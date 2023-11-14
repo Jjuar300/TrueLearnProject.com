@@ -67,7 +67,6 @@ const ValidateCurriculum = () => {
 
 const handleSaveButton = () => {
   setfile(file)
-  // UploadIntroductionInputValue(); 
   uploadFiles(); 
   ValidateCurriculum(); 
 };
@@ -85,9 +84,7 @@ setSegment('LandingPage')
 
   return (
     <>
-   <form
-   encType='multipart/form-data'
-   >
+   <form>
    <Button
    onClick={ isDataSaved && handleUploadButton}
     sx={{

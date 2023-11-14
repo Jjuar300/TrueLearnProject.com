@@ -3,8 +3,6 @@ import {
   Card, 
   Typography, 
   Divider, 
-  CardMedia,
-  Button,
 } from '@mui/material'
 import React, { useEffect, useState, useRef } from 'react'
 import TrueLearnLogo from '../../assets/Logo.png'
@@ -13,7 +11,7 @@ import axios from 'axios';
 import Section from '../../components/AccessCourse/Section';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccessVideo } from '../../state/createcourse/VideoUrl';
-import { getBorderStyle } from '../../state/createcourse/VideoUrl';
+import ReactPlayer from 'react-player'
 
 export default function Lecture() {
   const dispatch = useDispatch(); 
@@ -21,7 +19,6 @@ export default function Lecture() {
   const [introductionTitle, setIntroductionTitle] = useState([]); 
   const [selectedSection, setSelectedSection] = useState('')
   const videoFile = useSelector(state => state.videoUrl.accessVideo) 
-  const borderStyle = useSelector(state => state.videoUrl.borderStyle)
 
  console.log(videoFile)
   
@@ -34,7 +31,6 @@ export default function Lecture() {
 introductionTitle.map((data) => {
    if(selectedSection === data.introduction){
     dispatch(getAccessVideo(data.videofilename))
-    window.location.reload()
    }
 })
 
@@ -65,7 +61,7 @@ console.log(selectedSection)
       onClick={() => setSelectedSection(data.introduction)}
       sx={{
           position:'relative', 
-          border: borderStyle, 
+          border: selectedSection === data.introduction && '1px solid black', 
           borderRadius:'0', 
           left:'80rem',  
           width:'25rem', 
@@ -107,17 +103,15 @@ console.log(selectedSection)
      sx={{
       position:'absolute', 
       width:'70rem',  
-      left:'5rem', 
+      left:'2.5rem', 
       top:'10rem', 
      }}
      >
-      <video 
-   width={1000}
-   height={660}
+   <ReactPlayer 
+    width='100%'
+    height='100%'
    controls
-   >
-    <source src={`https://d3n6kitjvdjlm1.cloudfront.net/${videoFile}`} type='video/mp4' />
-   </video>
+   url={`https://d3n6kitjvdjlm1.cloudfront.net/${videoFile}`}/>
      </Box>
     </>
   )

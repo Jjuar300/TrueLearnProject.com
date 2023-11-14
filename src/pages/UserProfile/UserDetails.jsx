@@ -32,31 +32,9 @@ export default function UserDetails() {
         isUpdated: true, 
     })
 
-  const uploadUserDetailInputValues = async () => {
-
-    try{
-        const{
-            fullname, 
-            email, 
-            aboutMe, 
-            companyName, 
-            jobTitle, 
-            linked,  
-        } = inputValues; 
-
-       await axios.post('/uploadusereditdetails', {
-        fullname, 
-        email, 
-        aboutMe, 
-        companyName, 
-        jobTitle, 
-        linked, 
-       })
-
-    }catch(error){
-        console.log(error)
+    const handleValidInputs = () => {
+         //get data here
     }
-  }
 
   const updateUserProfileFullName = async () => {
     try{
@@ -80,7 +58,7 @@ export default function UserDetails() {
   const uploadFiles = () => {
     const formData = new FormData(); 
     formData.append('file', file)
-    axios.post('/upload', formData,{
+    axios.post('/uploadvideo', formData,{
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -91,6 +69,7 @@ export default function UserDetails() {
    const validInputs = [{
     fullname: inputValues.fullname, 
     email: inputValues.email, 
+    password: inputValues.password, 
 }]
 
   useEffect(() => {
@@ -99,6 +78,8 @@ export default function UserDetails() {
             inputs.fullname === '' 
             &&
             inputs.email === ''
+            &&
+            inputs.password === ''
             &&
             !file)
     })
@@ -112,7 +93,6 @@ export default function UserDetails() {
   },[])
 
   const handleSaveButton = () => {
-    uploadUserDetailInputValues();
     updateUserProfileFullName(); 
     uploadFiles(); 
     navigate('/');
