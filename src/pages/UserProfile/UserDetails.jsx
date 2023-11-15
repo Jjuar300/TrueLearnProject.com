@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import Navbar from '../Navbar'
 import Cookies from 'js-cookie'
 import Modal from '@mui/material/Modal';
+import { useNewInput } from '../../helper/useNewInput';
 
 export default function UserDetails() {
     const navigate = useNavigate();
@@ -32,9 +33,22 @@ export default function UserDetails() {
         isUpdated: true, 
     })
 
-    const handleValidInputs = () => {
-         //get data here
-    }
+    const validInputs = [{
+        fullname: inputValues.fullname, 
+        email: inputValues.email, 
+        password: inputValues.password, 
+    }]
+
+    let newFullName;
+    let newEmail;
+    let newPassword; 
+   userEditData.filter((data) => {
+     newFullName = inputValues.fullname !== "" ?  inputValues.fullname : data.firstname; 
+     newEmail = inputValues.email !== '' ? inputValues.email : data.email; 
+     newPassword = inputValues.password !== '' ? inputValues.password : data.password; 
+   })
+
+   console.log(newFullName)
 
   const updateUserProfileFullName = async () => {
     try{
@@ -45,9 +59,9 @@ export default function UserDetails() {
      }= inputValues
 
      await axios.put('/updatefullname', {
-        fullname,
-        email, 
-        password,  
+        newFullName, 
+        newEmail, 
+        newPassword, 
     })
 
     }catch(error){
@@ -65,12 +79,6 @@ export default function UserDetails() {
     })
     dipatch(getImageUrl(file.name));  
    }
-
-   const validInputs = [{
-    fullname: inputValues.fullname, 
-    email: inputValues.email, 
-    password: inputValues.password, 
-}]
 
   useEffect(() => {
     validInputs.map((inputs) => {
