@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import Navbar from '../Navbar'
 import Cookies from 'js-cookie'
 import Modal from '@mui/material/Modal';
-import { useNewInput } from '../../helper/useNewInput';
+import { useGetId } from '../../helper/useGetId';
 
 export default function UserDetails() {
     const navigate = useNavigate();
@@ -21,6 +21,13 @@ export default function UserDetails() {
     const [isOpen, setOpen] = useState(false);
     const handleOpenModal = () => {setOpen(true)}
     const handleCloseModal = () => {setOpen(false)}
+    
+   const introductionId = useGetId('/createcoursedata');
+   const courseLandingPageId = useGetId('/uploadCourseLandingInputValues');
+   const sectionInputsId = useGetId('/sectioninput');
+   const searchInputId = useGetId('/getsearchinputs'); 
+
+   console.log(sectionInputsId)
 
     const [inputValues, setinputValues] = useState({
         fullname: '', 
@@ -52,12 +59,6 @@ export default function UserDetails() {
 
   const updateUserProfileFullName = async () => {
     try{
-     const {
-      fullname, 
-      email, 
-      password, 
-     }= inputValues
-
      await axios.put('/updatefullname', {
         newFullName, 
         newEmail, 
@@ -109,12 +110,21 @@ export default function UserDetails() {
   const handleDeleteButton =  async () => {
     try{
         const userId = userEditData[0]._id; 
-        await axios.post('/deleteacount', {userId})
+        await axios.post('/deleteacount', {
+            userId, 
+            introductionId, 
+            courseLandingPageId, 
+            sectionInputsId, 
+            searchInputId, 
+        })
         console.log(userId)
     }catch(error){
         console.log(error)
     }
-    Cookies.remove('token')
+    // Cookies.remove('persist:root')
+    // Cookies.remove('token')
+    localStorage.removeItem('token')
+    localStorage.removeItem('persist:root')
     window.location.reload(); 
   }
 
