@@ -5,6 +5,7 @@ import SliderImage from '../SliderImage/SliderImage'
 import Greet from '../../components/LoadingSpinner'
 const Trending = lazy(() => import('../TrendingCourses/Trending'))
 
+
 export default function HomePage() {
   return (
   <>

@@ -7,7 +7,7 @@ import {
     Typography, 
     CardActionArea, 
 } from "@mui/material";
-import { useNavigate, useRouteError } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getCourseData } from "../../state/DummyCourses/index.js";
 import CourseCard from "../../components/Course/CourseCard.jsx";
@@ -16,8 +16,8 @@ export default function DummyCourses() {
 
     const dispatch = useDispatch(); 
     const navigate = useNavigate(); 
+
     const handleCardClick = (index) => {
-      
         userCourses.forEach((course) => {
             index === course.id && dispatch(getCourseData({
                 title: course.title, 
@@ -54,7 +54,7 @@ export default function DummyCourses() {
         top:'20rem',   
     }}
     >
-        <CardActionArea>
+       <CardActionArea>
            <CardMedia 
                 component='img'
                 style={{objectFit:'cover'}}
@@ -76,8 +76,8 @@ export default function DummyCourses() {
                 </Typography>
             </CardContent>
         </CardActionArea>
+
     </Card>
-    
     ))
    }
     <CourseCard/>
