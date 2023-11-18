@@ -39,7 +39,6 @@ if(data.error) {
     data: Cookies.get('token')
   }))
 }
-
 }catch(err){
 console.log(err)
 }

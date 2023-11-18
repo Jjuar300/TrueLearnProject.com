@@ -16,19 +16,17 @@ export function UserContextProvider({children}){
     exist in the user.
     */
     const getUser = async () => {
-          const data =  await axios.get('/authorization') //get data from getAuthorize controller.
 
                 /*adding data and stored it in the ServerSlice redux slice.
                 all the way to the data key in the initialState.
                 */
-                dispatch(getData({
-                    data: Cookies.set(data) /* i install js-cookies 
+                dispatch(getData({ 
+                    data: Cookies.get('token') /* i install js-cookies 
                     to get the token from the cookies in the 
                     browser. 
                     */
                 }))
     }
-
 
     /* im using useEffect here so when 
     user refresh the page then features that are added after

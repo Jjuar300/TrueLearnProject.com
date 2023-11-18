@@ -10,10 +10,11 @@ import Navbar from '../Navbar'
 import Cookies from 'js-cookie'
 import Modal from '@mui/material/Modal';
 import { useGetId } from '../../helper/useGetId';
+import { getLogout } from '../../state/ServerSlice';
 
 export default function UserDetails() {
     const navigate = useNavigate();
-    const dipatch = useDispatch(); 
+    const dispatch = useDispatch(); 
     const [file, setfile] = useState(); 
     const [isInput, setInput] = useState(true); 
     const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
@@ -52,10 +53,10 @@ export default function UserDetails() {
    userEditData.filter((data) => {
      newFullName = inputValues.fullname !== "" ?  inputValues.fullname : data.firstname; 
      newEmail = inputValues.email !== '' ? inputValues.email : data.email; 
-     newPassword = inputValues.password !== '' ? inputValues.password : data.password; 
-   })
-
-   console.log(newFullName)
+     newPassword = inputValues.password;  
+    //  console.log(data.password)
+    });
+   console.log(newPassword)
 
   const updateUserProfileFullName = async () => {
     try{
@@ -78,7 +79,7 @@ export default function UserDetails() {
         'Content-Type': 'multipart/form-data',
       },
     })
-    dipatch(getImageUrl(file.name));  
+    dispatch(getImageUrl(file.name));  
    }
 
   useEffect(() => {
@@ -121,11 +122,12 @@ export default function UserDetails() {
     }catch(error){
         console.log(error)
     }
-    // Cookies.remove('persist:root')
-    // Cookies.remove('token')
-    localStorage.removeItem('token')
-    localStorage.removeItem('persist:root')
-    window.location.reload(); 
+    Cookies.remove('persist:root')
+    Cookies.remove('token')
+    dispatch(getLogout({
+        data: Cookies.remove('token'), 
+      }))
+    navigate('/')
   }
 
     return (

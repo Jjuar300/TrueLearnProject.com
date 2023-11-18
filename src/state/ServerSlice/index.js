@@ -12,12 +12,10 @@ const UserSlice = createSlice({
         }, 
 
         getData: (state, action) => {
-            state.data = action.payload.data; 
+            state.data = action.payload; 
         }, 
         getLogout:( state, action) => 
-           { state.data = null
-    
-           }
+           { state.data = null }
         
     }
 })

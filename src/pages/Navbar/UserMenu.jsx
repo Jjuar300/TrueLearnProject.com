@@ -33,7 +33,7 @@ const handleclose = () => {
 
 const handlelogout = () => {
   dispatch(getLogout({
-    data: Cookies.remove('token') , 
+    data: Cookies.remove('token'), 
   }))
   navigate('/')
 }
