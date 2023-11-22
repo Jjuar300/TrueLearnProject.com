@@ -1,0 +1,13 @@
+
+
+.typoStyleComment{
+    color:#322d2e ;
+}
+
+.description{
+    position: absolute;
+    left: 5%;
+    align-items: center;
+    top: -10rem;
+    font-size: 30px;
+}

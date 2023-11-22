@@ -1,0 +1,47 @@
+
+
+
+.signUptext{
+    position: absolute;
+    left: 18%;
+    top: 10px;
+    width: 250px;
+}
+
+
+.signupform{
+    position: absolute;
+    border: 1px solid gray;
+    height:50rem;
+    width: 47vh;
+    left: -1%;
+    top: 5rem;
+}
+
+.signupform form{
+    position: absolute;
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+    gap: 3rem;
+    top: 110px;
+    left: 13%;
+}
+
+
+@media only screen and (min-width:1000px){
+    .signupform{
+        height: 45rem;
+        left: 36%;
+        top: 140px;
+    }
+
+    .signupform form {
+        top: 100px;
+        gap: 1.5rem;
+    }
+
+    .signUptext{
+        top: 20px;
+    }
+}
