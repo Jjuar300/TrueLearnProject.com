@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy" :"https://truelearn-api.onrender.com", 
+  "proxy": "https://truelearn-api.onrender.com",
   "private": true,
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
@@ -17,10 +17,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
-    "cloudinary": "^1.41.0",
-    "cloudinary-video-player": "^1.9.16",
     "dropzone": "^6.0.0-beta.2",
-    "formik": "^2.4.2",
+    "formik": "^2.4.5",
     "framer-motion": "^10.12.17",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
@@ -68,6 +66,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "cypress": "^12.15.0"
+    "cypress": "^12.17.4"
   }
 }

@@ -20,7 +20,8 @@ import DummyBuyCourse from './pages/ExploreCourse/DummyBuyCourse'
 import SearchResult from "./components/SearchResult";
 import AccessCourse from './pages/AccessCourse'
 
-axios.defaults.baseURL = 'https://truelearn-api.onrender.com'; // passing the home url and add the next credentials all around our components
+// axios.defaults.baseURL = 'https://truelearn-api.onrender.com'; // passing the home url and add the next credentials all around our components
+axios.defaults.baseURL = 'https://true-learn-project-com.vercel.app'
 
 axios.defaults.withCredentials = true; 
 

@@ -38,6 +38,7 @@ export default function LectureSection({
     setfile(selectedFile)
   }
 
+  console.log(file)
   
   //orginal endpoint is '/upload'
   const upload = () => {
@@ -109,6 +110,7 @@ sx={{
 />
 
 { !isDataSaved && <OutlinedInput
+data-testid='outlinedInput'
 placeholder='Add a section title:'
 type='text'
 onChange={handleInputChange}
@@ -139,12 +141,11 @@ sx={{
     >
      
      <input 
+     name='file'
      type='file' 
      onChange={handleFileChange}
      onClick={() => setFileError(styleDefault)}
      />
-
-
     </Box>}
 
     {isDataSaved && <DoneAllIcon
@@ -158,6 +159,7 @@ sx={{
 />}
 
 { !isDataSaved ? <Button
+  name='saveButton'
   onClick={handleSaveButton}
   sx={{
     position:'relative', 

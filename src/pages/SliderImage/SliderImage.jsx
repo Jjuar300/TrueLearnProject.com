@@ -18,12 +18,13 @@ export default function SliderImage() {
   return (
    
     <>
-    <Box sx={{ 
+    <Box
+    sx={{ 
       position:'absolute', 
       top: isNotMobileScreen ? '200px' :'80px', 
       left: isNotMobileScreen ? '5%' : '0%', 
       }}  > 
-        <SimpleImageSlider 
+        <SimpleImageSlider
         width={isNotMobileScreen ? 800 : 370} 
         height={isNotMobileScreen ? 550 : 260}
         images={setimages}
