@@ -53,6 +53,8 @@ export default function ClassInfo() {
       const formData = new FormData(); 
       formData.append('file', file)
        axios.post('/uploadvideo', formData)
+       .then(response => {console.log(response.data)})
+       .catch(error => console.log('error:', error))
        dispatch(getVideoUrl(file.name))
    }
 

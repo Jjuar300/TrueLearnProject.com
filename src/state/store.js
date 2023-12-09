@@ -2,7 +2,6 @@ import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
 import Slice from './CancelButtonSlice'
 import PromoSlice from './PromoSlice'
 import  SearchBar  from './SearchbarSlice'
-import AuthenticationSlice from './AuthenticationSlice'
 import TrueLearnLogoSlice from './TrueLearnLogoSlice'
 import AddSectionSlice from './createcourse/AddSectionSlice'
 import indexSlice from './createcourse/indexSlice'
@@ -15,6 +14,10 @@ import InputResults from './InputResults'
 import AccessCourse from './AccessCourse'
 import storage from 'redux-persist/lib/storage'
 import persistReducer from 'redux-persist/es/persistReducer'
+import UserSignIn from './Auth/SignIn'
+import Authentication from './AuthenticationSlice'
+import userData from './createcourse/userData'
+
 import { combineReducers } from '@reduxjs/toolkit'
 
 const persistConfig = {
@@ -27,7 +30,6 @@ const reducer = combineReducers({
     handleDrawer: Slice,
     Promo: PromoSlice,
     SearchBar: SearchBar,
-    Authenticate: AuthenticationSlice,
     TrueLearnLogoSlice: TrueLearnLogoSlice,
     AddSection: AddSectionSlice,
     CreatingCourse: indexSlice, 
@@ -38,6 +40,9 @@ const reducer = combineReducers({
     DummyCourse: DummyCourses, 
     ImportValue: InputResults, 
     AccessCourse: AccessCourse,  
+    UserSignIn: UserSignIn, 
+    Authenticate: Authentication, 
+    userData: userData, 
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer)

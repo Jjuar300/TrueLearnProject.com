@@ -5,7 +5,7 @@ import axios from 'axios';
 import UserTitle from './UserTitle'
 import { useNavigate } from 'react-router-dom';
 import {getImageUrl} from '../../state/createcourse/VideoUrl'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../Navbar'
 import Cookies from 'js-cookie'
 import Modal from '@mui/material/Modal';
@@ -13,22 +13,31 @@ import { useGetId } from '../../helper/useGetId';
 import { getLogout } from '../../state/ServerSlice';
 
 export default function UserDetails() {
+    const userName = useSelector(state => state.userData.userName)
+    const userEmail = useSelector(state => state.userData.userEmail)
+    const userId = useSelector(state => state.userData.userId)
+    const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
+
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
-    const [file, setfile] = useState(); 
+    const [file, setfile] = useState();
     const [isInput, setInput] = useState(true); 
     const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
     const [userEditData, setUserEditData] = useState([]);   
     const [isOpen, setOpen] = useState(false);
     const handleOpenModal = () => {setOpen(true)}
     const handleCloseModal = () => {setOpen(false)}
-    
+  
    const introductionId = useGetId('/createcoursedata');
    const courseLandingPageId = useGetId('/uploadCourseLandingInputValues');
    const sectionInputsId = useGetId('/sectioninput');
    const searchInputId = useGetId('/getsearchinputs'); 
 
    console.log(sectionInputsId)
+  console.log(
+    userName, 
+    userEmail
+  )
 
     const [inputValues, setinputValues] = useState({
         fullname: '', 
@@ -38,7 +47,7 @@ export default function UserDetails() {
         companyName: '', 
         jobTitle: '', 
         linked: '', 
-        isUpdated: true, 
+        isUpdated: true,  
     })
 
     const validInputs = [{
@@ -46,7 +55,7 @@ export default function UserDetails() {
         email: inputValues.email, 
         password: inputValues.password, 
     }]
-
+    
     let newFullName;
     let newEmail;
     let newPassword; 
@@ -54,16 +63,18 @@ export default function UserDetails() {
      newFullName = inputValues.fullname !== "" ?  inputValues.fullname : data.firstname; 
      newEmail = inputValues.email !== '' ? inputValues.email : data.email; 
      newPassword = inputValues.password;  
-    //  console.log(data.password)
     });
    console.log(newPassword)
 
   const updateUserProfileFullName = async () => {
     try{
      await axios.put('/updatefullname', {
+        userId, 
         newFullName, 
         newEmail, 
-        newPassword, 
+        newPassword,  
+        imageFileUrl,
+        file,  
     })
 
     }catch(error){
@@ -74,14 +85,17 @@ export default function UserDetails() {
   const uploadFiles = () => {
     const formData = new FormData(); 
     formData.append('file', file)
-    axios.post('/uploadvideo', formData,{
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    dispatch(getImageUrl(file.name));  
+    formData.append('userId', userId)
+    if(!file){
+        return console.log('no userProfile file uploaded')
+    }else{
+        axios.put('/userfile', formData)
+        .then(response => {console.log(response)})
+        .catch(error => {console.log(error)})
+        dispatch(getImageUrl(file.name)); 
+    }
    }
-
+   
   useEffect(() => {
     validInputs.map((inputs) => {
          setInput(
@@ -103,14 +117,13 @@ export default function UserDetails() {
   },[])
 
   const handleSaveButton = () => {
+    navigate('/');
     updateUserProfileFullName(); 
     uploadFiles(); 
-    navigate('/');
   }
 
   const handleDeleteButton =  async () => {
     try{
-        const userId = userEditData[0]._id; 
         await axios.post('/deleteacount', {
             userId, 
             introductionId, 
@@ -128,6 +141,10 @@ export default function UserDetails() {
         data: Cookies.remove('token'), 
       }))
     navigate('/')
+  }
+
+  const handleFileChange = (e) => { 
+    setfile(e.target.files[0])
   }
 
     return (
@@ -219,8 +236,7 @@ onClick={handleCloseModal}
    }}
    >
    
-  { 
-  userEditData.map((input) => (
+  
     <Box
    sx={{ 
     display:'flex',
@@ -239,16 +255,14 @@ onClick={handleCloseModal}
 
     <TextField
     fullWidth
-        placeholder={input.firstname}
+        placeholder={userName}
         type='text'
         onChange={(e) => setinputValues({...inputValues, fullname: e.target.value})}
         />
    </Box>
-  ))
-   }
+ 
 
-  {
-    userEditData.map((input) => (
+  
         <Box
         name='email'
         sx={{
@@ -269,13 +283,11 @@ onClick={handleCloseModal}
          <TextField
          onChange={(e) => setinputValues({...inputValues, email: e.target.value})}
          fullWidth
-             placeholder={input.email}
+             placeholder={userEmail}
              type='Email'
              />
         </Box>
-    ))
-  }
-
+  
 <Box
         name='email'
         sx={{
@@ -504,6 +516,7 @@ onClick={handleCloseModal}
             Delete Account
         </Button>
    </Box>
+
    <TextField
    sx={{
     position:'absolute',  
@@ -513,9 +526,10 @@ onClick={handleCloseModal}
     ':hover': {cursor:'pointer'}
    }}
    type="file"
-   accept='video/*, image/*'
-   onChange={(e) => setfile(e.target.files[0])}
+   accept='image/*'
+   onChange={handleFileChange}
    />
+   
     {<UserTitle handleSaveButton={handleSaveButton} isInput={isInput} />}
   </>
   )

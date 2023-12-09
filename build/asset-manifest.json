@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e2ccfc3b.css",
+    "main.js": "/static/js/main.13d1edc0.js",
+    "static/css/584.baccce99.chunk.css": "/static/css/584.baccce99.chunk.css",
+    "static/js/584.e4ce7af9.chunk.js": "/static/js/584.e4ce7af9.chunk.js",
+    "static/media/thisisengineering-raeng-SyRlD4s_amw-unsplash.jpg": "/static/media/thisisengineering-raeng-SyRlD4s_amw-unsplash.9f4511c61dbf3e4b2515.jpg",
+    "static/media/thisisengineering-raeng-64YrPKiguAE-unsplash.jpg": "/static/media/thisisengineering-raeng-64YrPKiguAE-unsplash.caf41baee93227b371ee.jpg",
+    "static/media/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg": "/static/media/alexandre-debieve-FO7JIlwjOtU-unsplash.04f65620805223b2bdf3.jpg",
+    "static/media/andrea-de-santis-zwd435-ewb4-unsplash.jpg": "/static/media/andrea-de-santis-zwd435-ewb4-unsplash.e8dfa5b01cd1cd173ed6.jpg",
+    "static/media/mohamed-nohassi-tdu54W07_gw-unsplash.jpg": "/static/media/mohamed-nohassi-tdu54W07_gw-unsplash.9a31ba59bfffc3836ca5.jpg",
+    "static/media/simon-kadula-8gr6bObQLOI-unsplash.jpg": "/static/media/simon-kadula-8gr6bObQLOI-unsplash.a83b6bc2c04b3c0dd072.jpg",
+    "static/media/thisisengineering-raeng--RFVw0jMyM4-unsplash.jpg": "/static/media/thisisengineering-raeng--RFVw0jMyM4-unsplash.dd31a4b50d89f3d9033e.jpg",
+    "static/media/samantha-borges-EeS69TTPQ18-unsplash.jpg": "/static/media/samantha-borges-EeS69TTPQ18-unsplash.76b32484c94831d680f5.jpg",
+    "static/media/airfocus-v89zhr0iBFY-unsplash.jpg": "/static/media/airfocus-v89zhr0iBFY-unsplash.14d2b3ad47f22c8249ef.jpg",
+    "static/media/daria-nepriakhina-zoCDWPuiRuA-unsplash.jpg": "/static/media/daria-nepriakhina-zoCDWPuiRuA-unsplash.8e3b26fdc49d55744beb.jpg",
+    "static/media/sahand-babali-gavODTHG36Y-unsplash.jpg": "/static/media/sahand-babali-gavODTHG36Y-unsplash.4b836ee4ec5376319dc9.jpg",
+    "static/media/julien-tromeur-FYOwBvRb2Mk-unsplash.jpg": "/static/media/julien-tromeur-FYOwBvRb2Mk-unsplash.3953cc595faf462569d5.jpg",
+    "static/media/delfino-barboza-UMqpxPOrxsY-unsplash.jpg": "/static/media/delfino-barboza-UMqpxPOrxsY-unsplash.51ed59d6d8124233aa44.jpg",
+    "static/media/alex-kondratiev-yS3XM9qx3hQ-unsplash.jpg": "/static/media/alex-kondratiev-yS3XM9qx3hQ-unsplash.defce2a9f1595b4319da.jpg",
+    "static/media/jason-goodman-Oalh2MojUuk-unsplash.jpg": "/static/media/jason-goodman-Oalh2MojUuk-unsplash.3ff9124048d7331d8ee0.jpg",
+    "static/media/mathew-schwartz-c5sTal8LQyo-unsplash.jpg": "/static/media/mathew-schwartz-c5sTal8LQyo-unsplash.a3b955860fa0a2c45d93.jpg",
+    "static/media/thisisengineering-raeng-sbVu5zitZt0-unsplash.jpg": "/static/media/thisisengineering-raeng-sbVu5zitZt0-unsplash.bf7aa154d658333ced62.jpg",
+    "static/media/emmanuel-ikwuegbu-MSX3O-Sqa8U-unsplash.jpg": "/static/media/emmanuel-ikwuegbu-MSX3O-Sqa8U-unsplash.ebd02f37382396222932.jpg",
+    "static/media/canva.png": "/static/media/canva.f2d149feaa2d40d5e291.png",
+    "static/media/blender.png": "/static/media/blender.b9fe129b1d1c5f32921a.png",
+    "static/media/linkedin-sales-solutions-1LyBcHrH4J8-unsplash.jpg": "/static/media/linkedin-sales-solutions-1LyBcHrH4J8-unsplash.2f5064cfc5d3609da37d.jpg",
+    "static/media/poster.jpg": "/static/media/poster.bfd7ef08233aaa27537f.jpg",
+    "static/media/webDesign.png": "/static/media/webDesign.03ed1f851823961a7159.png",
+    "static/media/TensorFlow_logo.svg.png": "/static/media/TensorFlow_logo.svg.2bbf83876c3bd235c1af.png",
+    "static/media/Logo.png": "/static/media/Logo.a53a1fce76b7e0bc91dc.png",
+    "static/media/GameDevIconCard.png": "/static/media/GameDevIconCard.db597216c86e8c96df4d.png",
+    "index.html": "/index.html",
+    "main.e2ccfc3b.css.map": "/static/css/main.e2ccfc3b.css.map",
+    "main.13d1edc0.js.map": "/static/js/main.13d1edc0.js.map",
+    "584.baccce99.chunk.css.map": "/static/css/584.baccce99.chunk.css.map",
+    "584.e4ce7af9.chunk.js.map": "/static/js/584.e4ce7af9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e2ccfc3b.css",
+    "static/js/main.13d1edc0.js"
+  ]
+}

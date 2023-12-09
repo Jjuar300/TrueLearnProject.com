@@ -13,42 +13,55 @@ const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const navigate = useNavigate(); 
 const dispatch = useDispatch(); 
 const [file, setfile] = useState(); 
+const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
 
 const [data, setdata] = useState({
   firstname: '',  
   picturePath:'', 
   email:'', 
   password:'', 
+  picturePath:imageFileUrl, 
 }); 
+
+console.log(data.picturePath)
+console.log(imageFileUrl)
 
 const firstName = data.firstname; 
 const Email = data.email; 
 const Password = data.password; 
 
-const uploadFiles = () => {
-  const formData = new FormData();
+// const uploadFiles = () => {
+//   const formData = new FormData();
+//   formData.append('file', file)
+//   axios.post('/uploadvideo', formData)
+//   .then((error) => console.log(error))
+//   dispatch(getImageUrl(file.name))
+//  }
+
+ const uploadFiles = () => {
+  const formData = new FormData(); 
   formData.append('file', file)
-  axios.post('/uploadvideo', formData,{
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  })
-  dispatch(getImageUrl(file.name))
- }
+  //  axios.post('/uploadvideo', formData)
+  //  .then(response => {console.log(response.data)})
+  //  .catch(error => console.log('error:', error))
+   dispatch(getImageUrl(file.name))
+}
 
 const getUserSignUp = async (e) => {
   e.preventDefault();
-  const {
-    firstname,
-    email, 
-    password 
-  } = data;
-
   try{
- const {data} = await axios.post('/usersignup', {
+    const {
+      firstname,
+      email, 
+      password, 
+      picturePath,  
+    } = data;  
+
+ await axios.post('/usersignup', {
   firstname, 
   email,
   password, 
+  picturePath, 
  })
 
  if(!data){
@@ -64,7 +77,6 @@ const getUserSignUp = async (e) => {
 
   return (
   <>
-
  <NavBar/> 
   <div className='signupform'>
   <h1 className='signUptext' >Create an account</h1>
@@ -108,7 +120,6 @@ const getUserSignUp = async (e) => {
     ':hover': {cursor:'pointer'}
    }}
    type="file"
-   accept='video/*, image/*'
    onChange={(e) => setfile(e.target.files[0])}
    />
 

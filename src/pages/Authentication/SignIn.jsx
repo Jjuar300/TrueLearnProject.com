@@ -8,6 +8,7 @@ import {useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { getData } from '../../state/ServerSlice'
 import Cookies from 'js-cookie'
+import { getUserEmail } from '../../state/Auth/SignIn'
 
 export default function SignIn() {
 const isSignUp = useSelector(state => state.Authenticate.signup)
@@ -37,7 +38,8 @@ if(data.error) {
   navigate('/')
   dispatch(getData({
     data: Cookies.get('token')
-  }))
+  })); 
+  dispatch(getUserEmail(email))
 }
 }catch(err){
 console.log(err)

@@ -34,6 +34,8 @@ export default function UploadVideo({setSegment}) {
     formData.append('introduction', introduction) 
     formData.append('file', file)
     axios.post('/upload', formData)
+    .then(response => {console.log(response.data)})
+    .catch(error => console.log('error:', error))
     dispatch(getAccessVideo(file.name))
    }
 

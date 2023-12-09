@@ -11,6 +11,7 @@ import { getLogout } from '../../state/ServerSlice';
 import Cookies from 'js-cookie'
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
+import { getUserData } from '../../state/createcourse/userData';
 
 export default function UserMenu() {
  const [Anchor, setAnchor] = useState(null); 
@@ -20,8 +21,35 @@ const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const dispatch = useDispatch(); 
 const [userEditData, setUserEditData] = useState([]);   
 const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
+const userEmail = useSelector(state => state.UserSignIn.userEmail)
+
+console.log(userEmail)
 
 console.log(imageFileUrl)
+
+let firstname; 
+let newImageUrl; 
+let userId; 
+let Email; 
+
+ userEditData.filter((data) => {
+   if(data.email === userEmail){
+       userId = data._id
+       firstname = data.firstname
+       newImageUrl = data.picturepath
+       Email = data.email
+      }
+})
+
+dispatch(getUserData({
+  newUserName: firstname, 
+  newUserEmail: Email, 
+  Id: userId, 
+}))
+
+
+console.log(newImageUrl)
+console.log(Email)
 
 const handleClick = (event) => {
  setAnchor(event.currentTarget)
@@ -61,10 +89,8 @@ console.log(userEditData)
         cursor:'pointer', 
         fontSize:'35px',
        }}
-      src={`https://d3n6kitjvdjlm1.cloudfront.net/${imageFileUrl}`}/>
+      src={`https://d3n6kitjvdjlm1.cloudfront.net/${newImageUrl}`}/>
 
-      {
-        userEditData.map((input) => (
           <Typography
           sx={{
            position:'absolute', 
@@ -73,10 +99,8 @@ console.log(userEditData)
            top:'0.5rem',  
           }}
           >
-           {input.firstname} 
+           {firstname} 
           </Typography>
-        ))
-      }
 
        <Menu
        anchorEl={Anchor}

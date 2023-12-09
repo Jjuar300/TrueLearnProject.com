@@ -111,7 +111,7 @@ console.log(selectedSection)
     width='100%'
     height='100%'
    controls
-   url={`https://d3n6kitjvdjlm1.cloudfront.net/${videoFile}`}/>
+   url={`https://d2tzetpgtg6u5l.cloudfront.net/${videoFile}`}/>
      </Box>
     </>
   )
