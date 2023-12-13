@@ -14,7 +14,6 @@ export default function NavBar() {
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
   const navigate = useNavigate(); 
   const userData =  useSelector(state => state.ServerSlice.data)
- console.log(userData)
   return (
     <>
 

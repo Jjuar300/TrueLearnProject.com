@@ -3,7 +3,7 @@ import {Box,Button, Typography, OutlinedInput, TextField, InputAdornment} from '
 import MenuItem from '@mui/material/MenuItem';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +31,6 @@ const Catergories = [
     label:'Engineering', 
   }
 ]
-
 
 export default function ClassInfo() {
   const dispatch = useDispatch(); 
@@ -79,7 +78,6 @@ export default function ClassInfo() {
     console.log(error); 
   }
  }
- 
 
 const ValidateCourseLandingPage = () => {
  const isTitle = courseInput.title === ''; 
@@ -101,8 +99,6 @@ const handleCreateCourseButton = () => {
   ValidateCourseLandingPage(); 
   navigate('/'); 
 }
-
-console.log(file)
 
   return (
    <>

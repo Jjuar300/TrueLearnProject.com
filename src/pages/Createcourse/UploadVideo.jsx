@@ -6,7 +6,6 @@ import LectureSection from '../../components/LectureSection'
 import axios from 'axios';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useDispatch } from 'react-redux';
-import { getCourseLandingPage } from '../../state/createcourse/upload';
 import Section from '../../components/AccessCourse/Section';
 import { addSection } from '../../state/AccessCourse';
 import { getAccessVideo } from '../../state/createcourse/VideoUrl';

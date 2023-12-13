@@ -11,7 +11,6 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { handleCourseCardTitle } from "../../state/InputResults";
-import { getVideoUrl } from "../../state/createcourse/VideoUrl";
 
 export default function CourseCard() {
 const [data, setData] = useState([]); 
@@ -19,7 +18,6 @@ const videoFile = useSelector(state => state.videoUrl.VideoUrl);
 const navigate = useNavigate(); 
 const [searchInput, setSearchInput] = useState(''); 
 const dispatch = useDispatch(); 
-const [fileName, setFileName] = useState(); 
 
 useEffect(() => {
     axios.get('/uploadCourseLandingInputValues')
@@ -32,10 +30,6 @@ useEffect(() => {
     .then((response) => setSearchInput(response.data[0].inputResult))
     .catch((error) => console.log(error))
    },[])
-
-console.log(videoFile)
-console.log(videoFile ? true : false)
-
 
 data.filter((data) => {
     dispatch(handleCourseCardTitle(data.title.includes(searchInput)))  

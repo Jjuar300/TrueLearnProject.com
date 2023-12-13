@@ -20,12 +20,7 @@ const navigate = useNavigate();
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const dispatch = useDispatch(); 
 const [userEditData, setUserEditData] = useState([]);   
-const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
 const userEmail = useSelector(state => state.UserSignIn.userEmail)
-
-console.log(userEmail)
-
-console.log(imageFileUrl)
 
 let firstname; 
 let newImageUrl; 
@@ -47,10 +42,6 @@ dispatch(getUserData({
   Id: userId, 
 }))
 
-
-console.log(newImageUrl)
-console.log(Email)
-
 const handleClick = (event) => {
  setAnchor(event.currentTarget)
 }
@@ -70,8 +61,6 @@ useEffect(() => {
   axios.get('/userData')
  .then((res) => setUserEditData(res.data))
 },[])
-
-console.log(userEditData)
 
   return (
     <>

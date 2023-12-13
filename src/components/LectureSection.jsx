@@ -38,9 +38,6 @@ export default function LectureSection({
     setfile(selectedFile)
   }
 
-  console.log(file)
-  
-  //orginal endpoint is '/upload'
   const upload = () => {
     const inputValue = sectionInput.SectionInputValue; 
     const formData = new FormData(); 

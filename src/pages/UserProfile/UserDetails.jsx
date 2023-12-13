@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Typography, TextField, Button, Input } from '@mui/material'
+import { Box, Typography, TextField, Button } from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import axios from 'axios';
 import UserTitle from './UserTitle'
@@ -16,7 +16,6 @@ export default function UserDetails() {
     const userName = useSelector(state => state.userData.userName)
     const userEmail = useSelector(state => state.userData.userEmail)
     const userId = useSelector(state => state.userData.userId)
-    const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
 
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
@@ -32,12 +31,6 @@ export default function UserDetails() {
    const courseLandingPageId = useGetId('/uploadCourseLandingInputValues');
    const sectionInputsId = useGetId('/sectioninput');
    const searchInputId = useGetId('/getsearchinputs'); 
-
-   console.log(sectionInputsId)
-  console.log(
-    userName, 
-    userEmail
-  )
 
     const [inputValues, setinputValues] = useState({
         fullname: '', 
@@ -59,12 +52,12 @@ export default function UserDetails() {
     let newFullName;
     let newEmail;
     let newPassword; 
+
    userEditData.filter((data) => {
      newFullName = inputValues.fullname !== "" ?  inputValues.fullname : data.firstname; 
      newEmail = inputValues.email !== '' ? inputValues.email : data.email; 
      newPassword = inputValues.password;  
     });
-   console.log(newPassword)
 
   const updateUserProfileFullName = async () => {
     try{
@@ -73,7 +66,6 @@ export default function UserDetails() {
         newFullName, 
         newEmail, 
         newPassword,  
-        imageFileUrl,
         file,  
     })
 
@@ -109,8 +101,6 @@ export default function UserDetails() {
     })
   },[validInputs])
 
-  console.log(isInput)
-
   useEffect(() => {
     axios.get('/userData')
    .then((res) => setUserEditData(res.data))
@@ -131,7 +121,6 @@ export default function UserDetails() {
             sectionInputsId, 
             searchInputId, 
         })
-        console.log(userId)
     }catch(error){
         console.log(error)
     }

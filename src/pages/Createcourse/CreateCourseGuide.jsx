@@ -3,16 +3,12 @@ import { Box, Button, Typography } from '@mui/material'
 import NavBar from '../Navbar';
 import UploadVideo from './UploadVideo';
 import CourseInfo from './CourseLandingPage';
-import { useSelector } from 'react-redux';
 
 export default function CreateCourseGuide() { 
 
    const [segment, setSegment] = useState('Curriculum'); 
-   
    const isCourseLandingPage = segment === 'LandingPage'; 
    const isCurriculum = segment === 'Curriculum';
-
-   console.log(segment)
 
     return (
    <>

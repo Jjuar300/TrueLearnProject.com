@@ -23,8 +23,6 @@ export default function SearchResult() {
     const navigate = useNavigate(); 
     const isCourseInputTitle = useSelector(state => state.ImportValue.isCourseCardTitle)
 
-    console.log(searchInput.toLowerCase())
-
    useEffect(() => {
    axios.get('/getsearchinputs')
    .then((response) => setSearchInput(response.data[0].inputResult))

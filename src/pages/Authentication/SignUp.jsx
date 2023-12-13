@@ -1,4 +1,4 @@
-import {Box, Card, TextField, Button, Typography} from '@mui/material'
+import {Box, TextField, Button, Typography} from '@mui/material'
 import './css/signUp.css'
 import {useSelector, useDispatch} from 'react-redux'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -20,7 +20,7 @@ const [data, setdata] = useState({
   picturePath:'', 
   email:'', 
   password:'', 
-  picturePath:imageFileUrl, 
+  picturePath: file.name, 
 }); 
 
 console.log(data.picturePath)
@@ -30,20 +30,12 @@ const firstName = data.firstname;
 const Email = data.email; 
 const Password = data.password; 
 
-// const uploadFiles = () => {
-//   const formData = new FormData();
-//   formData.append('file', file)
-//   axios.post('/uploadvideo', formData)
-//   .then((error) => console.log(error))
-//   dispatch(getImageUrl(file.name))
-//  }
-
  const uploadFiles = () => {
   const formData = new FormData(); 
   formData.append('file', file)
-  //  axios.post('/uploadvideo', formData)
-  //  .then(response => {console.log(response.data)})
-  //  .catch(error => console.log('error:', error))
+   axios.post('/usersignup', formData)
+   .then(response => {console.log(response.data)})
+   .catch(error => console.log('error:', error))
    dispatch(getImageUrl(file.name))
 }
 
@@ -69,7 +61,6 @@ const getUserSignUp = async (e) => {
  }else{
   navigate('/signin')
  }
-
   }catch(err){
     console.log(err)
   }

@@ -1,11 +1,10 @@
 import React from 'react'
-import {Box, Typography} from '@mui/material'
+import { Typography} from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 
 export default function Courses() {
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)');
-
 
   return (
     <>

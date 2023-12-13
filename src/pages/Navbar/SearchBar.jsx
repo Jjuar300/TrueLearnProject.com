@@ -65,8 +65,6 @@ export default function SearchBar() {
    search.searchInput === '' && navigate('/')
 }
 
-console.log(searchInputData)
-
   return (
 <>
   { 

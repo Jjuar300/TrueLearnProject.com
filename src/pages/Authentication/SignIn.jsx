@@ -29,8 +29,6 @@ const {data} = await axios.post('/usersignin', {
   password,
 })  
  
-console.log(data)
-
 if(data.error) {
   console.log('sign in did not work ')
 }else{
@@ -45,7 +43,6 @@ if(data.error) {
 console.log(err)
 }
 }
-
 
 const Email = data.email; 
 const Password = data.password; 

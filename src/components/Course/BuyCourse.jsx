@@ -5,11 +5,9 @@ import axios from 'axios';
 import 'video-react/dist/video-react.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getVideoUrl } from '../../state/createcourse/VideoUrl';
 
 export default function BuyCourse() {
 
-const dispatch = useDispatch(); 
 const videoFile = useSelector(state => state.videoUrl.VideoUrl)
 const [data, setData] = useState([]); 
 const navigate = useNavigate(); 
@@ -19,8 +17,6 @@ useEffect(() => {
   .then((response) => setData(response.data))
   .catch((error) => console.log(error))
 },[]);
-
-console.log(videoFile)
 
   return (
     <>

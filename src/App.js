@@ -1,6 +1,6 @@
 import SignInPage from "./pages/Authentication/SignIn";
 import HomePage from "./pages/Homepage";
-import {BrowserRouter, Navigate, Routes, Route, Link, useNavigate} from 'react-router-dom'
+import {BrowserRouter,Routes, Route} from 'react-router-dom'
 import Createcourse from './pages/Createcourse'
 import UserProfile from "./pages/UserProfile";
 import LearningPage from "./pages/LearningPage.jsx/index.jsx";
@@ -8,7 +8,6 @@ import Mycourses from "./pages/Mycourses";
 import axios from 'axios'
 import SignUpPage from './pages/Authentication/SignUp' 
 import { UserContextProvider } from "./context/userContext";
-import { useSelector } from "react-redux";
 import NotFound from "./pages/Homepage/NotFound";
 import PrivateRoutes from "./utils/AuthRoutes";
 import UserRoutes from "./utils/UserRoutes";
@@ -26,8 +25,6 @@ axios.defaults.baseURL = 'http://localhost:3002';
 axios.defaults.withCredentials = true; 
 
 function App() {
-const userData = Boolean(useSelector(state => state.ServerSlice.data))
-console.log(userData)
 return (
 
  <UserContextProvider>

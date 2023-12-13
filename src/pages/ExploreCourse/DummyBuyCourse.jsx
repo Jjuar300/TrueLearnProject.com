@@ -17,9 +17,6 @@ const courseImage = useSelector(state => state.DummyCourse.image);
 const userData = Boolean(useSelector(state => state.ServerSlice.data))
 const navigate = useNavigate(); 
 
-console.log(courseTitle)
-
-
 const handleCheckoutButton = () => {
   axios.post('/stripe/create-checkout-session', {
     ProductName: courseTitle, 
@@ -33,7 +30,6 @@ const handleCheckoutButton = () => {
   })
   .catch((error) => console.log(error))
  }
-
 
   return (
     <>

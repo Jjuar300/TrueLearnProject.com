@@ -1,9 +1,9 @@
 
 //passing data through out our application.
 import axios from "axios";
-import { createContext, useState, useEffect } from "react";
-import {useDispatch, useSelector} from 'react-redux'
-import { getData, getLogout } from "../state/ServerSlice";
+import { createContext, useEffect } from "react";
+import {useDispatch} from 'react-redux'
+import { getData} from "../state/ServerSlice";
 import Cookies from 'js-cookie'
 
 

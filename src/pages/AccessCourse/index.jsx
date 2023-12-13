@@ -4,7 +4,7 @@ import {
   Typography, 
   Divider, 
 } from '@mui/material'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState} from 'react'
 import TrueLearnLogo from '../../assets/Logo.png'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
@@ -19,8 +19,6 @@ export default function Lecture() {
   const [introductionTitle, setIntroductionTitle] = useState([]); 
   const [selectedSection, setSelectedSection] = useState('')
   const videoFile = useSelector(state => state.videoUrl.accessVideo) 
-
- console.log(videoFile)
   
   useEffect(() => {
     axios.get('/createcoursedata')
@@ -33,8 +31,6 @@ introductionTitle.map((data) => {
     dispatch(getAccessVideo(data.videofilename))
    }
 })
-
-console.log(selectedSection)
 
     return (
     <>
