@@ -12,18 +12,18 @@ export default function SignIn() {
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const navigate = useNavigate(); 
 const dispatch = useDispatch(); 
-const [file, setfile] = useState(); 
+const [file, setfile] = useState({}); 
 const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
+const picturePath = file.name
+
+console.log(picturePath)
 
 const [data, setdata] = useState({
   firstname: '',  
-  picturePath:'', 
   email:'', 
   password:'', 
-  picturePath: file.name, 
 }); 
 
-console.log(data.picturePath)
 console.log(imageFileUrl)
 
 const firstName = data.firstname; 
@@ -32,24 +32,25 @@ const Password = data.password;
 
  const uploadFiles = () => {
   const formData = new FormData(); 
-  formData.append('file', file)
+  formData.append('file', file.name)
    axios.post('/usersignup', formData)
    .then(response => {console.log(response.data)})
    .catch(error => console.log('error:', error))
-   dispatch(getImageUrl(file.name))
+  //  dispatch(getImageUrl(file.name))
+  console.log(formData)
 }
 
 const getUserSignUp = async (e) => {
   e.preventDefault();
+
   try{
     const {
       firstname,
       email, 
       password, 
-      picturePath,  
     } = data;  
 
- await axios.post('/usersignup', {
+ await axios.post('/usersignup',{
   firstname, 
   email,
   password, 
@@ -65,6 +66,7 @@ const getUserSignUp = async (e) => {
     console.log(err)
   }
 }
+
 
   return (
   <>
@@ -102,6 +104,7 @@ const getUserSignUp = async (e) => {
     >  
    
       <TextField
+      type='file'
    sx={{
     position:'absolute',  
     height:'4rem',
@@ -110,7 +113,6 @@ const getUserSignUp = async (e) => {
     left:'1.5rem', 
     ':hover': {cursor:'pointer'}
    }}
-   type="file"
    onChange={(e) => setfile(e.target.files[0])}
    />
 
