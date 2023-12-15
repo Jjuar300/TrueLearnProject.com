@@ -3,7 +3,7 @@ import NavBar from '../../pages/Navbar'
 import { Box, Button } from '@mui/material'
 import axios from 'axios';
 import 'video-react/dist/video-react.css'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export default function BuyCourse() {
