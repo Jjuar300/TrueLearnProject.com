@@ -39,7 +39,8 @@ export default function ClassInfo() {
   const [file, setfile] = useState(); 
   const [error, setError] = useState(false); 
   const videoFile = useSelector(state => state.videoUrl.VideoUrl);
-  
+  const userId = useSelector(state => state.userData.userId)
+
   const [courseInput, setCourseInput] = useState({
     title: '', 
     description: '', 
@@ -72,6 +73,7 @@ export default function ClassInfo() {
       price, 
       catergory, 
       fileName, 
+      userId, 
     })
    
   }catch(error){

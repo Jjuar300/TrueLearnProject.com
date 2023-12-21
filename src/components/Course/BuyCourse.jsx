@@ -11,6 +11,9 @@ export default function BuyCourse() {
 const videoFile = useSelector(state => state.videoUrl.VideoUrl)
 const [data, setData] = useState([]); 
 const navigate = useNavigate(); 
+const userId = useSelector(state => state.userData.userId)
+const courseTitle = useSelector(state => state.CourseData.title)
+const courseDescription = useSelector(state => state.CourseData.description)
 
 useEffect(() => {
    axios.get('/uploadCourseLandingInputValues')
@@ -21,9 +24,7 @@ useEffect(() => {
   return (
     <>
     <NavBar/>
-
-   {
-    data.map((data) => (
+  
       <Box
       name = 'courseTitle'
       sx={{
@@ -33,14 +34,9 @@ useEffect(() => {
           fontSize:'1.5rem', 
       }}
       >
-      <h1 key={data._id} >{data.title}</h1>
+      <h1 key={userId} >{courseTitle}</h1>
       </Box>
-      
-    ))
-   }
 
-   {
-    data.map((data) => (
       <Box
       name = 'courseDescription'
       sx={{
@@ -51,12 +47,9 @@ useEffect(() => {
           whiteSpace:'nowrap', 
       }}
       >
-          <p>{data.description}</p>
+          <p>{courseDescription}</p>
 
       </Box>
-    ))
-   }
-  
 
     <Box
     name = 'coursePreviewVideo'

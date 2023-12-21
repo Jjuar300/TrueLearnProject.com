@@ -17,6 +17,7 @@ import persistReducer from 'redux-persist/es/persistReducer'
 import UserSignIn from './Auth/SignIn'
 import Authentication from './AuthenticationSlice'
 import userData from './createcourse/userData'
+import CourseData from './courseInfo/CourseData'
 
 import { combineReducers } from '@reduxjs/toolkit'
 
@@ -43,6 +44,7 @@ const reducer = combineReducers({
     UserSignIn: UserSignIn, 
     Authenticate: Authentication, 
     userData: userData, 
+    CourseData: CourseData, 
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer)
