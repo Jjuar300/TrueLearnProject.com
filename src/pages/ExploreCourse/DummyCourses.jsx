@@ -10,6 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getCourseData } from "../../state/DummyCourses/index.js";
 import CourseCard from "../../components/Course/CourseCard.jsx";
+import {motion} from 'framer-motion'
+import DeleteIcon from '@mui/icons-material/Delete';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+
 
 export default function DummyCourses() {
 
@@ -44,7 +48,10 @@ export default function DummyCourses() {
   >
   {
     userCourses.map((data) =>(
-        <Card
+     <motion.div
+     whileHover={{opacity:0.7}}
+     >
+           <Card
         onClick={() => handleCardClick(data.id)}
         key={data.id}
         sx={{
@@ -56,6 +63,7 @@ export default function DummyCourses() {
         ':hover': { cursor:'pointer', } 
     }}
     >
+
            <CardMedia 
                 component='img'
                 sx={{
@@ -81,6 +89,7 @@ export default function DummyCourses() {
                 </Typography>
                </CardContent>
     </Card>
+     </motion.div>
     ))
    }
     <CourseCard/>

@@ -120,7 +120,7 @@ export default function UserDetails() {
             courseLandingPageId, 
             sectionInputsId, 
             searchInputId, 
-        })
+        });
     }catch(error){
         console.log(error)
     }

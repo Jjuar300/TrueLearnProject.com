@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getVideoUrl } from '../../state/createcourse/VideoUrl';
+import { getDelete } from '../../state/MyCourses/UserMenu';
 
 const Catergories = [
   {
@@ -98,7 +99,8 @@ isCategory ? setError(true) : setError(false)
 const handleCreateCourseButton = () => {
   uploadCourseInputValues(); 
   uploadFiles(); 
-  ValidateCourseLandingPage(); 
+  ValidateCourseLandingPage();
+  dispatch(getDelete({ Delete: true }));  
   navigate('/'); 
 }
 

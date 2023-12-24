@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export const courseData = createSlice({
     name: 'courseData',
     initialState: {
+            Id: String, 
             title: String, 
             description: String, 
             price: Boolean, 
             category: String, 
+            filename: String, 
     },
     reducers:{
         getCourseData: (state, action) => {
@@ -14,6 +16,8 @@ export const courseData = createSlice({
          state.description = action.payload.description; 
          state.price = action.payload.price; 
          state.category = action.payload.category; 
+         state.filename = action.payload.filename; 
+         state.Id = action.payload.Id
         }, 
     }
 })

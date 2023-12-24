@@ -7,9 +7,7 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccessVideo } from '../state/createcourse/VideoUrl';
 
-export default function LectureSection({
-
-}) {
+export default function LectureSection() {
 
   const dispatch = useDispatch(); 
   const styleDefault = {border:'2px solid gray'}

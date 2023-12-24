@@ -18,16 +18,20 @@ import UserSignIn from './Auth/SignIn'
 import Authentication from './AuthenticationSlice'
 import userData from './createcourse/userData'
 import CourseData from './courseInfo/CourseData'
+import UserMenu from './MyCourses/UserMenu'
 
 import { combineReducers } from '@reduxjs/toolkit'
 
 const persistConfig = {
     key:'root', 
     version: 1, 
-    storage, 
+    storage,
+    whitelist: ['UserMenu'],
+    blacklist: ['CourseData'], 
 }
 
 const reducer = combineReducers({
+    UserMenu: UserMenu, 
     handleDrawer: Slice,
     Promo: PromoSlice,
     SearchBar: SearchBar,

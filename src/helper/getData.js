@@ -7,4 +7,4 @@ export const GetData = (endpoint, setState) => {
     .then((response) => setState(response.data))
     .catch((error) => console.log(error) )
     },[])
- }
+ };

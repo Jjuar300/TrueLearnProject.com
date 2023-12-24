@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Typography } from '@mui/material'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,8 +13,8 @@ import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import { getUserData } from '../../state/createcourse/userData';
 
-export default function UserMenu() {
- const [Anchor, setAnchor] = useState(null); 
+export default function UserMenu() { 
+const [Anchor, setAnchor] = useState(null); 
 const open = Boolean(Anchor); 
 const navigate = useNavigate(); 
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
@@ -78,7 +78,8 @@ useEffect(() => {
         cursor:'pointer', 
         fontSize:'35px',
        }}
-      src={`https://d3n6kitjvdjlm1.cloudfront.net/${newImageUrl}`}/>
+      src={`https://d3n6kitjvdjlm1.cloudfront.net/${newImageUrl}`}
+      />
 
           <Typography
           sx={{
