@@ -34,9 +34,9 @@ if(data.error) {
 }else{
   setdata({})
   navigate('/')
-  dispatch(getData({
-    data: Cookies.get('token')
-  })); 
+  // dispatch(getData({
+  //   data: Cookies.get('token')
+  // })); 
   dispatch(getUserEmail(email))
 }
 }catch(err){
@@ -49,9 +49,7 @@ const Password = data.password;
 
   return (
   <>
-  
   <NavBar></NavBar>
-  
 {isSignUp ?  <div className='signform'>
    <h1 className='signintext' >Sign In to your account</h1>
     <form

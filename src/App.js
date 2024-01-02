@@ -7,17 +7,21 @@ import LearningPage from "./pages/LearningPage.jsx/index.jsx";
 import Mycourses from "./pages/Mycourses";
 import axios from 'axios'
 import SignUpPage from './pages/Authentication/SignUp' 
-import { UserContextProvider } from "./context/userContext";
 import NotFound from "./pages/Homepage/NotFound";
 import PrivateRoutes from "./utils/AuthRoutes";
 import UserRoutes from "./utils/UserRoutes";
-import ExploreCourse from './pages/ExploreCourse'
-import Course from './components/Course/index'
+import ExploreCourse from './pages/ExploreCourse';
+import Course from './components/Course/index';
 import BuyCourse from "./components/Course/BuyCourse";
 import CourseCard from "./components/Course/CourseCard";
 import DummyBuyCourse from './pages/ExploreCourse/DummyBuyCourse'
 import SearchResult from "./components/SearchResult";
 import AccessCourse from './pages/AccessCourse'
+import { 
+  ClerkProvider, 
+  SignedIn, 
+  SignedOut,
+} from '@clerk/clerk-react'
 
 // axios.defaults.baseURL = process.env.AXIOS_API_URL || 'http://localhost:3000'; // passing the home url and add the next credentials all around our components
 axios.defaults.baseURL = 'http://localhost:3002';
@@ -27,26 +31,22 @@ axios.defaults.withCredentials = true;
 function App() {
 return (
 
- <UserContextProvider>
  <div className="app" >
     <BrowserRouter>
     <Routes>
-      <Route element={<PrivateRoutes/>}>
-
+   
       <Route path="/signin" element={<SignInPage/>} />
       <Route path="/signup" element={<SignUpPage/>} />
       <Route path="/coursecard" element={<CourseCard/>} />
-      </Route>
+     
 
-      <Route element={<UserRoutes/>}>
-
+      
       <Route path="/createcourse" element={ <Createcourse/>} /> 
       <Route path="/userprofile" element={<UserProfile/>} />
       <Route path="/mylearnings" element={<LearningPage/>} />
       <Route path="/mycourses" element={<Mycourses/>}/>
       <Route path="course" element={<Course/>} />
       <Route path="/accesslecture" element={<AccessCourse/>} />
-      </Route>
 
    <Route path="/explorecourse" element={<ExploreCourse/>} /> 
    <Route path="*" element={<NotFound/>} />
@@ -54,10 +54,11 @@ return (
    <Route path="/buycourse" element={<BuyCourse/>} />
    <Route path="/dummybuycourse" element={<DummyBuyCourse/>} />
    <Route path="/searchresult" element={<SearchResult/>} />
+    
     </Routes>
+
     </BrowserRouter>
    </div>
-</UserContextProvider>
 
   );
 }

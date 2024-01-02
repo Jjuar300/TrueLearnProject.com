@@ -11,11 +11,13 @@ import Cookies from 'js-cookie'
 import Modal from '@mui/material/Modal';
 import { useGetId } from '../../helper/useGetId';
 import { getLogout } from '../../state/ServerSlice';
+import { useUser } from '@clerk/clerk-react';
 
 export default function UserDetails() {
     const userName = useSelector(state => state.userData.userName)
     const userEmail = useSelector(state => state.userData.userEmail)
     const userId = useSelector(state => state.userData.userId)
+    const {user} = useUser(); 
 
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
@@ -26,7 +28,7 @@ export default function UserDetails() {
     const [isOpen, setOpen] = useState(false);
     const handleOpenModal = () => {setOpen(true)}
     const handleCloseModal = () => {setOpen(false)}
-  
+
    const introductionId = useGetId('/createcoursedata');
    const courseLandingPageId = useGetId('/uploadCourseLandingInputValues');
    const sectionInputsId = useGetId('/sectioninput');
@@ -113,6 +115,7 @@ export default function UserDetails() {
   }
 
   const handleDeleteButton =  async () => {
+    user?.delete()
     try{
         await axios.post('/deleteacount', {
             userId, 
@@ -135,7 +138,6 @@ export default function UserDetails() {
   const handleFileChange = (e) => { 
     setfile(e.target.files[0])
   }
-
     return (
   <>
   <Navbar/>
@@ -224,7 +226,6 @@ onClick={handleCloseModal}
     height:'60rem',   
    }}
    >
-   
   
     <Box
    sx={{ 
@@ -244,14 +245,12 @@ onClick={handleCloseModal}
 
     <TextField
     fullWidth
-        placeholder={userName}
+        placeholder={user?.fullName}
         type='text'
         onChange={(e) => setinputValues({...inputValues, fullname: e.target.value})}
         />
    </Box>
  
-
-  
         <Box
         name='email'
         sx={{
@@ -272,13 +271,13 @@ onClick={handleCloseModal}
          <TextField
          onChange={(e) => setinputValues({...inputValues, email: e.target.value})}
          fullWidth
-             placeholder={userEmail}
+             placeholder={user?.emailAddresses}
              type='Email'
              />
         </Box>
   
 <Box
-        name='email'
+        name='password'
         sx={{
          display:'flex',
          flexDirection:'column',

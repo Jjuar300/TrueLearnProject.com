@@ -13,6 +13,10 @@ import { useNavigate } from "react-router-dom";
 import { handleCourseCardTitle } from "../../state/InputResults";
 import {GetData} from "../../helper/getData";
 import { getCourseData } from "../../state/courseInfo/CourseData";
+import io from 'socket.io-client'
+import { getDelete } from "../../state/MyCourses/UserMenu";
+
+const socket = io().connect('http://localhost:3002')
 
 export default function CourseCard() {
 const [data, setData] = useState([]); 
@@ -28,16 +32,29 @@ const courseId = useSelector(state => state.CourseData.Id);
 
  GetData('/uploadCourseLandingInputValues', setData)
 
+console.log(userId)
+console.log(courseId)
+console.log(data)
+console.log(courseTitle)
+
+useEffect(() => {
+    socket.on('emitcourse', {
+        title: courseTitle,
+        description: courseDescription ,
+        filename: courseFilename,
+     })
+},[])
+
  data.filter((data) => {
-    if(data.userId === userId){
+    if(data._id){
      dispatch(getCourseData({
         title: data.title,
-        description: data.description ,
+        description: data.description,
         price: data.price,
         category: data.category,
         filename: data.filename,
         Id: data._id, 
-     }))
+     }));
     }
  });
 

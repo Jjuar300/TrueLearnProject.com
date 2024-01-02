@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const courseData = createSlice({
     name: 'courseData',
     initialState: {
-            Id: String, 
+            Id: Object, 
             title: String, 
             description: String, 
             price: Boolean, 

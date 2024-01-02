@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getVideoUrl } from '../../state/createcourse/VideoUrl';
 import { getDelete } from '../../state/MyCourses/UserMenu';
+import io from 'socket.io-client'
+
+const socket = io().connect('http://localhost:3002/')
 
 const Catergories = [
   {
@@ -93,7 +96,6 @@ isDescription ? setError(true) : setError(false)
 isPrice ? setError(true) : setError(false)
 isCategory ? setError(true) : setError(false)
 !file ? setError(true) : setError(false)
-
 }
 
 const handleCreateCourseButton = () => {

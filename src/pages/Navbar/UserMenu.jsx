@@ -12,6 +12,8 @@ import Cookies from 'js-cookie'
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import { getUserData } from '../../state/createcourse/userData';
+import { SignOutButton } from '@clerk/clerk-react';
+import { useUser } from '@clerk/clerk-react';
 
 export default function UserMenu() { 
 const [Anchor, setAnchor] = useState(null); 
@@ -21,6 +23,8 @@ const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const dispatch = useDispatch(); 
 const [userEditData, setUserEditData] = useState([]);   
 const userEmail = useSelector(state => state.UserSignIn.userEmail)
+const {user} = useUser(); 
+const userPhoto = user?.imageUrl; 
 
 let firstname; 
 let newImageUrl; 
@@ -34,7 +38,7 @@ let Email;
        newImageUrl = data.picturepath
        Email = data.email
       }
-})
+});
 
 dispatch(getUserData({
   newUserName: firstname, 
@@ -78,7 +82,8 @@ useEffect(() => {
         cursor:'pointer', 
         fontSize:'35px',
        }}
-      src={`https://d3n6kitjvdjlm1.cloudfront.net/${newImageUrl}`}
+      src={userPhoto}
+      // src='https://d2tzetpgtg6u5l.cloudfront.net/nike logo.jpg'
       />
 
           <Typography
@@ -109,9 +114,11 @@ useEffect(() => {
             onClick={() => navigate('/userprofile')}
             >Edit Profile</MenuItem>
             <Divider/>
+            <SignOutButton>
             <MenuItem
             onClick={handlelogout}
             >Logout</MenuItem>
+            </SignOutButton>
         </Menu>
     </Box>
   :

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Typography} from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -8,6 +8,9 @@ import { getDelete } from '../../state/MyCourses/UserMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import {Box} from '@mui/material';
 import axios from 'axios';
+import io from 'socket.io-client'
+
+const socket = io().connect('http://localhost:3002')
 
 export default function Courses() {
   const [isDelete, setDelete] = useState(true)
@@ -17,6 +20,8 @@ export default function Courses() {
   const isNotMobileScreen = useMediaQuery('(min-width:1000px)');
   const Delete = useSelector(state => state.UserMenu.Delete); 
   const courseId = useSelector(state => state.CourseData.Id);
+  const userData = useSelector(state => state.ServerSlice.data)
+  const userId = useSelector(state => state.userData.userId)
 
   console.log(Delete)
   console.log(courseId)
