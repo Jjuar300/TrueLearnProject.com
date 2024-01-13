@@ -48,15 +48,15 @@ sx={{
   display:'flex', 
   gap:'3rem',  
    width:'20rem', 
-   left: userData ? '65%' : '65%',
-   top:'2.4rem',  
+   left: false ? '70%' : '68%',
+   top:'3rem',  
 }}
 >
 <Typography
 onClick={() => {navigate('/explorecourse')}}
 name='exploreCourses'
-sx={{ 
-  left: '60%', 
+sx={{  
+  left: '55%', 
   top: '40px', 
   fontSize: '18px',  
   fontFamily:'roman', 
@@ -69,15 +69,14 @@ sx={{
 </Typography>
 
 {
-
   <SignedIn>
     <Typography
   onClick={() =>{navigate('/createcourse')}}
   name='createCourse'
   sx={{
-    top:'40px',
+    top:'2px',
     fontSize: '25px', 
-    left:'70%', 
+    left:'40%', 
     fontSize:'18px', 
     fontFamily:'roman', 
     fontWeight:'bold', 

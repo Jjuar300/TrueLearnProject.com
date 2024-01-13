@@ -1,43 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import axios from 'axios';
 import UserTitle from './UserTitle'
 import { useNavigate } from 'react-router-dom';
-import {getImageUrl} from '../../state/createcourse/VideoUrl'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import Navbar from '../Navbar'
-import Cookies from 'js-cookie'
 import Modal from '@mui/material/Modal';
-import { useGetId } from '../../helper/useGetId';
-import { getLogout } from '../../state/ServerSlice';
-import { useUser } from '@clerk/clerk-react';
+import { useUser, useClerk } from '@clerk/clerk-react';
+import UploadFile from '../../components/UploadFile';
+import { uploadUserProfileImage } from '../../state/components/UserFile';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function UserDetails() {
-    const userName = useSelector(state => state.userData.userName)
-    const userEmail = useSelector(state => state.userData.userEmail)
-    const userId = useSelector(state => state.userData.userId)
+  
     const {user} = useUser(); 
+    const clerk = useClerk(); 
 
+    const userProfileImage = useSelector(state => state.UserFile.userProfileImage)
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
     const [file, setfile] = useState();
     const [isInput, setInput] = useState(true); 
     const isNotMobileScreen = useMediaQuery('(min-width:1000px)'); 
-    const [userEditData, setUserEditData] = useState([]);   
     const [isOpen, setOpen] = useState(false);
+    const [isPasswordModalOpen, setPasswordModalOpen] = useState(false); 
     const handleOpenModal = () => {setOpen(true)}
     const handleCloseModal = () => {setOpen(false)}
+    const handlePasswordButtonChange = async () => {
+        await clerk?.user.updatePassword({
+            currentPassword: inputValues.current_password, 
+            newPassword: inputValues.password, 
+        })
+        setPasswordModalOpen(false)
+    }
 
-   const introductionId = useGetId('/createcoursedata');
-   const courseLandingPageId = useGetId('/uploadCourseLandingInputValues');
-   const sectionInputsId = useGetId('/sectioninput');
-   const searchInputId = useGetId('/getsearchinputs'); 
+
+    const [userImage, setUserImage] = useState(); 
 
     const [inputValues, setinputValues] = useState({
         fullname: '', 
         email: '', 
-        password: '', 
+        password: '',
+        current_password:'',  
         aboutMe: '', 
         companyName: '', 
         jobTitle: '', 
@@ -45,93 +49,39 @@ export default function UserDetails() {
         isUpdated: true,  
     })
 
-    const validInputs = [{
-        fullname: inputValues.fullname, 
-        email: inputValues.email, 
-        password: inputValues.password, 
+    const validateInputs = [{
+        fullname: inputValues.fullname,  
     }]
     
-    let newFullName;
-    let newEmail;
-    let newPassword; 
+    useEffect(() => {
+        validateInputs.map((inputs) => {
+            setInput(
+                inputs.fullname === '' 
+                &&
+                !file
+            )
+                
+        })
+      },[validateInputs])
 
-   userEditData.filter((data) => {
-     newFullName = inputValues.fullname !== "" ?  inputValues.fullname : data.firstname; 
-     newEmail = inputValues.email !== '' ? inputValues.email : data.email; 
-     newPassword = inputValues.password;  
-    });
-
-  const updateUserProfileFullName = async () => {
-    try{
-     await axios.put('/updatefullname', {
-        userId, 
-        newFullName, 
-        newEmail, 
-        newPassword,  
-        file,  
-    })
-
-    }catch(error){
-        console.log(error)
-    }
+   const handleUserProfileUpdate = async () => {
+     await clerk?.user.update({firstName: inputValues.fullname}); 
   }
 
-  const uploadFiles = () => {
-    const formData = new FormData(); 
-    formData.append('file', file)
-    formData.append('userId', userId)
-    if(!file){
-        return console.log('no userProfile file uploaded')
-    }else{
-        axios.put('/userfile', formData)
-        .then(response => {console.log(response)})
-        .catch(error => {console.log(error)})
-        dispatch(getImageUrl(file.name)); 
-    }
-   }
-   
-  useEffect(() => {
-    validInputs.map((inputs) => {
-         setInput(
-            inputs.fullname === '' 
-            &&
-            inputs.email === ''
-            &&
-            inputs.password === ''
-            &&
-            !file)
-    })
-  },[validInputs])
-
-  useEffect(() => {
-    axios.get('/userData')
-   .then((res) => setUserEditData(res.data))
-  },[])
+ const handleUserProfileImage = () => {
+    const userAvatarImage = !userImage ? userProfileImage : userImage?.name;
+   return  dispatch(uploadUserProfileImage(userAvatarImage));  
+}
 
   const handleSaveButton = () => {
+    const isFullName = Boolean(inputValues.fullname !== ''); 
+    isFullName && handleUserProfileUpdate(); 
+    handleUserProfileImage(); 
     navigate('/');
-    updateUserProfileFullName(); 
-    uploadFiles(); 
   }
 
-  const handleDeleteButton =  async () => {
-    user?.delete()
-    try{
-        await axios.post('/deleteacount', {
-            userId, 
-            introductionId, 
-            courseLandingPageId, 
-            sectionInputsId, 
-            searchInputId, 
-        });
-    }catch(error){
-        console.log(error)
-    }
-    Cookies.remove('persist:root')
-    Cookies.remove('token')
-    dispatch(getLogout({
-        data: Cookies.remove('token'), 
-      }))
+  const handleDeleteButton = async () => {
+   await user?.delete()
     navigate('/')
   }
 
@@ -140,7 +90,9 @@ export default function UserDetails() {
   }
     return (
   <>
+
   <Navbar/>
+
   <Modal
   open={isOpen}
   onClose={handleCloseModal}
@@ -213,6 +165,7 @@ onClick={handleCloseModal}
         >Cancel</Button>
     </Box>
   </Modal>
+
     <form>
     <Box
    name='userDetails'
@@ -245,7 +198,7 @@ onClick={handleCloseModal}
 
     <TextField
     fullWidth
-        placeholder={user?.fullName}
+        placeholder={user?.firstName}
         type='text'
         onChange={(e) => setinputValues({...inputValues, fullname: e.target.value})}
         />
@@ -257,13 +210,13 @@ onClick={handleCloseModal}
          display:'flex',
          flexDirection:'column',
          top:'30rem',
-         width:'22rem',  
+         width:'22rem', 
         }}
         >
         <Typography
          sx={{
-             top:'30rem', 
-         }}
+             top:'30rem',      
+            }}
          >
              Email
          </Typography>
@@ -273,10 +226,79 @@ onClick={handleCloseModal}
          fullWidth
              placeholder={user?.emailAddresses}
              type='Email'
+             disabled={true}
              />
         </Box>
-  
+
+        <Modal
+  open={isPasswordModalOpen}
+  onClose={ () => setPasswordModalOpen(false)}
+  >
+
 <Box
+sx={{
+    position:'absolute', 
+    display:'flex', 
+    justifyContent:'center', 
+    alignItems:'center', 
+    flexDirection:'column', 
+    gap:'2rem', 
+    backgroundColor:'white', 
+    width:'40rem',
+    height:'20rem',  
+    left:'38rem', 
+    top:'20rem',
+}}
+>
+
+     <Typography
+     sx={{
+        position:'absolute', 
+        top:'2rem',
+        left:'2.6rem',
+        fontSize:'1.5rem',   
+     }}
+     >
+        Change Password
+     </Typography>
+
+         <TextField
+         sx={{
+            width:'35rem', 
+         }}
+         onChange={(e) => setinputValues({...inputValues, password: e.target.value})}
+             placeholder='Enter new password'
+             type='password'
+             />
+        
+         <TextField
+          sx={{
+            width:'35rem', 
+         }}
+         onChange={(e) => setinputValues({...inputValues, current_password: e.target.value})}
+             placeholder='Enter current Password'
+             type='password'
+             />
+      
+      <Button
+      onClick={handlePasswordButtonChange}
+       sx={{
+        position:'absolute', 
+        color: 'white',
+        backgroundColor:'black',  
+        top:'16rem', 
+        left:'25rem', 
+        ':hover' : {backgroundColor:'gray'}, 
+       }}
+      >
+        Change password
+      </Button>
+  
+</Box>
+
+  </Modal>
+
+        <Box
         name='password'
         sx={{
          display:'flex',
@@ -290,16 +312,36 @@ onClick={handleCloseModal}
              top:'30rem', 
          }}
          >
-             password
+           Change Password
          </Typography>
      
          <TextField
          onChange={(e) => setinputValues({...inputValues, password: e.target.value})}
          fullWidth
-             placeholder='password'
+             placeholder='************'
              type='password'
+             disabled={true}
              />
+        
+          <Button
+          onClick={() => setPasswordModalOpen(true)}
+          sx={{
+            position:'relative', 
+            backgroundColor:'black', 
+            color:'white', 
+            width:'3rem',
+            height:'3rem', 
+            left:'22.5rem',
+            top:'-3.3rem', 
+            ':hover': {
+                backgroundColor: 'gray'
+            }  
+          }}
+          >
+           <EditIcon/>
+          </Button>
         </Box>
+
 
    <Box
    name='About me'
@@ -408,8 +450,8 @@ onClick={handleCloseModal}
         type='text'
         fullWidth
         />
-   </Box>
 
+   </Box>
 
    <Box
    name='Linked'
@@ -460,8 +502,9 @@ onClick={handleCloseModal}
     flexDirection:'column', 
     width: isNotMobileScreen ? '30rem' : '20rem', 
     left: isNotMobileScreen ? '36%' : '7%',  
-}}
+  }}
    >
+
     <Box
     sx={{
         position:'relative', 
@@ -489,35 +532,38 @@ onClick={handleCloseModal}
         </Typography>
     </Box>
 
+   </Box>
+
+   <Box
+    sx={{
+        position:'absolute', 
+        width:'10rem',
+        height:'4rem', 
+        margin:'3rem',
+        left:'43%',
+        top:'89rem',   
+    }}
+    >
     <Button
     onClick={handleOpenModal}
         sx={{
             border:'1px solid gray', 
-            position:'absolute', 
-            left:'35%',
-            top:'79rem', 
+            position:'relative',  
             backgroundColor:'#b80d18', 
             color:'white',
-            ':hover':{backgroundColor:'#930a13'}   
+            ':hover':{backgroundColor:'#930a13'}, 
         }}
         >
             Delete Account
         </Button>
-   </Box>
+    </Box>
 
-   <TextField
-   sx={{
-    position:'absolute',  
-    height:'4rem', 
-    top:'16.5rem', 
-    left:'45rem', 
-    ':hover': {cursor:'pointer'}
-   }}
-   type="file"
-   accept='image/*'
-   onChange={handleFileChange}
-   />
-   
+    <UploadFile
+    handleFileChange={handleFileChange}
+    file={file}
+    setUserImage={setUserImage}
+    />
+
     {<UserTitle handleSaveButton={handleSaveButton} isInput={isInput} />}
   </>
   )

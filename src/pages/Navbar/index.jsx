@@ -14,6 +14,7 @@ import {useNavigate } from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import UserMenu from './UserMenu'
 import { 
+  SignUp, 
   SignedIn, 
   SignInButton, 
   SignOutButton, 
@@ -22,6 +23,7 @@ import {
   UserProfile,
 } from '@clerk/clerk-react'
 import CreateCourse from '../Createcourse'
+// import SignUp from '../Authentication/SignUp'
 
 export default function NavBar() {
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
@@ -66,26 +68,7 @@ export default function NavBar() {
     </SignedIn>
 
     <SignedOut>
-    
-    <SignInButton>
-    <Button
-  name='SignUpButton'
-  sx={{
-    position:'absolute',     
-    color: 'white',
-    backgroundColor:'#8002a2',
-    width:'60px',
-    height:'30px', 
-    left: isNotMobileScreen ? '70rem' :'50%',
-    ":hover": {backgroundColor: '#a403cf'}, 
-    borderRadius: '5px',
-     top: isNotMobileScreen ? '3rem'  : '35px', 
-     fontSize:'10px', 
-  }}
-  >
-   Sign In
-  </Button>
-    </SignInButton>
+    <Signup/>
     </SignedOut>
 
     <HamburgerMenu></HamburgerMenu>

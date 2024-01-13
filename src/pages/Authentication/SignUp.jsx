@@ -4,69 +4,63 @@ import {useSelector, useDispatch} from 'react-redux'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useNavigate } from 'react-router-dom'
 import { useState} from 'react'
-import axios from 'axios'
 import NavBar from '../Navbar'
-import { getImageUrl } from '../../state/createcourse/VideoUrl'
+import {useSignUp, useClerk} from '@clerk/clerk-react'
+import UploadFile from '../../components/UploadFile';
+import { uploadUserProfileImage } from '../../state/components/UserFile'
 
-export default function SignIn() {
+export default function SignUp() {
+const {isLoaded, signUp, setActive} = useSignUp(); 
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const navigate = useNavigate(); 
 const dispatch = useDispatch(); 
-const [file, setfile] = useState({}); 
 const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
-const picturePath = file.name
+const [userImage, setUserImage] = useState(); 
+const [isEmailVerify, setEmailVerify] = useState(false); 
+const [code, setCode] = useState(''); 
+const [password, setPassword] = useState('') 
 
-console.log(picturePath)
+console.log(isEmailVerify)
 
 const [data, setdata] = useState({
-  firstname: '',  
+  fullname: '',  
   email:'', 
   password:'', 
 }); 
 
 console.log(imageFileUrl)
 
-const firstName = data.firstname; 
+const firstName = data.fullname; 
 const Email = data.email; 
 const Password = data.password; 
 
- const uploadFiles = () => {
-  const formData = new FormData(); 
-  formData.append('file', file.name)
-   axios.post('/usersignup', formData)
-   .then(response => {console.log(response.data)})
-   .catch(error => console.log('error:', error))
-  //  dispatch(getImageUrl(file.name))
-  console.log(formData)
-}
+console.log(Password)
 
-const getUserSignUp = async (e) => {
-  e.preventDefault();
-
+const handleSubmit = async (e) => {
+  e.preventDefault(); 
+  dispatch(uploadUserProfileImage(userImage?.name))
+  if(!isLoaded){return null;}
+  
   try{
-    const {
-      firstname,
-      email, 
-      password, 
-    } = data;  
+    await signUp.create({
+      password: data.password,
+      firstName: data.fullname, 
+      emailAddress: data.email, 
+    }).then((result) => {
+      if(result.status === 'complete'){
+        console.log(result); 
+        setActive({session: result.createdSessionId})
+        navigate('/')
+      }else{
+        console.log(result)
+      }
+    })
+    .catch((error) => console.log(error))
 
- await axios.post('/usersignup',{
-  firstname, 
-  email,
-  password, 
-  picturePath, 
- })
-
- if(!data){
-  console.log('not data')
- }else{
-  navigate('/signin')
- }
-  }catch(err){
-    console.log(err)
+  }catch(error){
+    console.log(JSON.stringify(error, null, 2))
   }
-}
-
+}; 
 
   return (
   <>
@@ -74,14 +68,14 @@ const getUserSignUp = async (e) => {
   <div className='signupform'>
   <h1 className='signUptext' >Create an account</h1>
 
-  <form onSubmit={getUserSignUp} >
+  <form >
 
     <TextField 
     autoComplete='new-text'
     label='Full Name'
     variant='outlined'
     value={firstName}
-    onChange={(e) => setdata({...data, firstname: e.target.value})}
+    onChange={(e) => setdata({...data, fullname: e.target.value})}
     type='text'
     required
     sx={{
@@ -89,41 +83,16 @@ const getUserSignUp = async (e) => {
     }}
     />
 
-    <Box
-    sx={{
-      border:'1px solid gray',
-      borderRadius:'5px', 
-      width: '16rem',
-      height:'5rem',
-      display:'flex',  
-      justifyContent:'center', 
-      padding:'1rem',  
-      backgroundColor:'#fdf8ff',
-      color:'gray'
-    }}
-    >  
-   
-      <TextField
-      type='file'
-   sx={{
-    position:'absolute',  
-    height:'4rem',
-    width:'15rem',  
-    top:'6.5rem', 
-    left:'1.5rem', 
-    ':hover': {cursor:'pointer'}
-   }}
-   onChange={(e) => setfile(e.target.files[0])}
-   />
-
-    </Box>
+  <UploadFile
+  setUserImage={setUserImage}
+  />
 
   <TextField
   name='email' 
   required
     label='Email' 
     variant='outlined'  
-    type='Email'
+    type='email'
     value={Email}
     onChange={(e) => setdata({...data, email: e.target.value})}
     autoComplete='new-Email' 
@@ -148,7 +117,7 @@ const getUserSignUp = async (e) => {
       />
 
       <Button
-      onClick={uploadFiles}
+      onClick={handleSubmit}
       name='signupbutton'
       type='submit'
       sx={{

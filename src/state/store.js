@@ -19,6 +19,7 @@ import Authentication from './AuthenticationSlice'
 import userData from './createcourse/userData'
 import CourseData from './courseInfo/CourseData'
 import UserMenu from './MyCourses/UserMenu'
+import UserFile from './components/UserFile'
 
 import { combineReducers } from '@reduxjs/toolkit'
 
@@ -26,7 +27,7 @@ const persistConfig = {
     key:'root', 
     version: 1, 
     storage,
-    whitelist: ['UserMenu'],
+    whitelist: ['UserMenu', 'UserFile'],
     blacklist: ['CourseData'], 
 }
 
@@ -49,6 +50,7 @@ const reducer = combineReducers({
     Authenticate: Authentication, 
     userData: userData, 
     CourseData: CourseData, 
+    UserFile: UserFile, 
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer)

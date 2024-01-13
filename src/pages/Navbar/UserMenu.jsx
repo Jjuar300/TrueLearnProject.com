@@ -14,6 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import { getUserData } from '../../state/createcourse/userData';
 import { SignOutButton } from '@clerk/clerk-react';
 import { useUser } from '@clerk/clerk-react';
+import { updateUserPosition } from '../../state/components/UserFile';
 
 export default function UserMenu() { 
 const [Anchor, setAnchor] = useState(null); 
@@ -24,7 +25,16 @@ const dispatch = useDispatch();
 const [userEditData, setUserEditData] = useState([]);   
 const userEmail = useSelector(state => state.UserSignIn.userEmail)
 const {user} = useUser(); 
-const userPhoto = user?.imageUrl; 
+const urlEndPoint = 'https://ik.imagekit.io/4pwok1cjp/'; 
+const userProfileImage = useSelector(state => state.UserFile.userProfileImage)
+
+console.log(userProfileImage)
+
+const handleUserProfileMenuItem = () => {
+  console.log('userProfile was clicked')
+  dispatch(updateUserPosition(true))
+  navigate('/userprofile')
+}
 
 let firstname; 
 let newImageUrl; 
@@ -72,7 +82,7 @@ useEffect(() => {
     sx={{
         position:'absolute', 
         left: '86%',
-        top:'35px',   
+        top:'45px',   
     }}
     >
        
@@ -82,10 +92,8 @@ useEffect(() => {
         cursor:'pointer', 
         fontSize:'35px',
        }}
-      src={userPhoto}
-      // src='https://d2tzetpgtg6u5l.cloudfront.net/nike logo.jpg'
-      />
-
+     src={`${urlEndPoint}${userProfileImage}`}
+/>
           <Typography
           sx={{
            position:'absolute', 
@@ -94,7 +102,7 @@ useEffect(() => {
            top:'0.5rem',  
           }}
           >
-           {firstname} 
+           {user?.fullName} 
           </Typography>
 
        <Menu
@@ -111,7 +119,7 @@ useEffect(() => {
             My courses
             </MenuItem>
             <MenuItem
-            onClick={() => navigate('/userprofile')}
+            onClick={handleUserProfileMenuItem}
             >Edit Profile</MenuItem>
             <Divider/>
             <SignOutButton>
