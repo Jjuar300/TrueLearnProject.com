@@ -11,9 +11,6 @@ import { useDispatch } from "react-redux";
 import { getCourseData } from "../../state/DummyCourses/index.js";
 import CourseCard from "../../components/Course/CourseCard.jsx";
 import {motion} from 'framer-motion'
-import DeleteIcon from '@mui/icons-material/Delete';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-
 
 export default function DummyCourses() {
 
