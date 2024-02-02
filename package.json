@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "https://truelearn-api.onrender.com",
+  "proxy": "http://localhost:3002",
   "private": true,
   "dependencies": {
     "@clerk/clerk-react": "^4.30.2",
