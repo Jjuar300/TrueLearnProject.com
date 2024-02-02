@@ -6,16 +6,13 @@ import {
 } from 'imagekitio-react'
 import { 
   useSelector, 
-  useDispatch
 } from 'react-redux';
 
 export default function UploadFile({
     handleFileChange, 
-    file, 
     setUserImage, 
 }) {
     
-    const dispatch = useDispatch(); 
     const isFilePosition = useSelector(state => state.UserFile.isFilePosition)
     const publicKey = 'public_GjEtjvvBdROHsJ46QIVXwiNKWGo='; 
     const urlEndPoint = 'https://ik.imagekit.io/4pwok1cjp/'; 

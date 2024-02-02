@@ -34,7 +34,6 @@ export default function UserDetails() {
         setPasswordModalOpen(false)
     }
 
-
     const [userImage, setUserImage] = useState(); 
 
     const [inputValues, setinputValues] = useState({

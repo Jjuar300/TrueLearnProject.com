@@ -4,8 +4,7 @@ import {
   CardContent, 
   CardMedia, 
   CardActionArea, 
-  Card,
-  Button, 
+  Card, 
 } from '@mui/material'
 
 import {useEffect, useState} from 'react'

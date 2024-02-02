@@ -1,8 +1,6 @@
 
 import { 
   Box, 
-  Button,
-  Typography,
 } from '@mui/material'
 import Signup from './Signup'
 import HamburgerMenu from './HamburgerMenu/index'
@@ -11,29 +9,19 @@ import Promo from './Promo'
 import TrueLearnlogo from '../../assets/Logo.png'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import {useNavigate } from 'react-router-dom'
-import {useSelector, useDispatch} from 'react-redux'
 import UserMenu from './UserMenu'
 import { 
-  SignUp, 
   SignedIn, 
-  SignInButton, 
-  SignOutButton, 
   SignedOut, 
-  UserButton, 
-  UserProfile,
 } from '@clerk/clerk-react'
-import CreateCourse from '../Createcourse'
-// import SignUp from '../Authentication/SignUp'
 
 export default function NavBar() {
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
   const navigate = useNavigate(); 
-  const userData =  useSelector(state => state.ServerSlice.data)
-  const dispatch = useDispatch(); 
 
   return (
     <>
-    <Promo></Promo>
+    {/* <Promo></Promo> */}
 <Box
     sx={{
       position:'relative', 

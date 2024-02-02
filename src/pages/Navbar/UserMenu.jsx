@@ -9,9 +9,7 @@ import {useMediaQuery }from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { getLogout } from '../../state/ServerSlice';
 import Cookies from 'js-cookie'
-import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
-import { getUserData } from '../../state/createcourse/userData';
 import { SignOutButton } from '@clerk/clerk-react';
 import { useUser } from '@clerk/clerk-react';
 import { updateUserPosition } from '../../state/components/UserFile';
@@ -22,39 +20,15 @@ const open = Boolean(Anchor);
 const navigate = useNavigate(); 
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const dispatch = useDispatch(); 
-const [userEditData, setUserEditData] = useState([]);   
-const userEmail = useSelector(state => state.UserSignIn.userEmail)
 const {user} = useUser(); 
 const urlEndPoint = 'https://ik.imagekit.io/4pwok1cjp/'; 
 const userProfileImage = useSelector(state => state.UserFile.userProfileImage)
-
-console.log(userProfileImage)
 
 const handleUserProfileMenuItem = () => {
   console.log('userProfile was clicked')
   dispatch(updateUserPosition(true))
   navigate('/userprofile')
 }
-
-let firstname; 
-let newImageUrl; 
-let userId; 
-let Email; 
-
- userEditData.filter((data) => {
-   if(data.email === userEmail){
-       userId = data._id
-       firstname = data.firstname
-       newImageUrl = data.picturepath
-       Email = data.email
-      }
-});
-
-dispatch(getUserData({
-  newUserName: firstname, 
-  newUserEmail: Email, 
-  Id: userId, 
-}))
 
 const handleClick = (event) => {
  setAnchor(event.currentTarget)
@@ -70,11 +44,6 @@ const handlelogout = () => {
   }))
   navigate('/')
 }
-
-useEffect(() => {
-  axios.get('/userData')
- .then((res) => setUserEditData(res.data))
-},[])
 
   return (
     <>

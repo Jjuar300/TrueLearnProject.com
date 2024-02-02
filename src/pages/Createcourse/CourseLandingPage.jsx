@@ -9,9 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getVideoUrl } from '../../state/createcourse/VideoUrl';
 import { getDelete } from '../../state/MyCourses/UserMenu';
-import io from 'socket.io-client'
-
-const socket = io().connect('http://localhost:3002/')
 
 const Catergories = [
   {
@@ -311,7 +308,7 @@ const handleCreateCourseButton = () => {
     ':hover': {backgroundColor:'#80267a'},
    }}
    >
-    Create Course
+    Publish
    </Button>
 
       </form>

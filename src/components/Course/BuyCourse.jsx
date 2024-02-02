@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import NavBar from '../../pages/Navbar'
 import { Box, Button } from '@mui/material'
-import axios from 'axios';
 import 'video-react/dist/video-react.css'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -9,17 +8,10 @@ import { useNavigate } from 'react-router-dom';
 export default function BuyCourse() {
 
 const videoFile = useSelector(state => state.videoUrl.VideoUrl)
-const [data, setData] = useState([]); 
 const navigate = useNavigate(); 
 const userId = useSelector(state => state.userData.userId)
 const courseTitle = useSelector(state => state.CourseData.title)
 const courseDescription = useSelector(state => state.CourseData.description)
-
-useEffect(() => {
-   axios.get('/uploadCourseLandingInputValues')
-  .then((response) => setData(response.data))
-  .catch((error) => console.log(error))
-},[]);
 
   return (
     <>

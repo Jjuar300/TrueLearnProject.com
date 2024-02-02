@@ -13,37 +13,18 @@ import { useNavigate } from "react-router-dom";
 import { handleCourseCardTitle } from "../../state/InputResults";
 import {GetData} from "../../helper/getData";
 import { getCourseData } from "../../state/courseInfo/CourseData";
-import io from 'socket.io-client'
-import { getDelete } from "../../state/MyCourses/UserMenu";
-
-const socket = io().connect('http://localhost:3002')
 
 export default function CourseCard() {
 const [data, setData] = useState([]); 
 const navigate = useNavigate(); 
 const [searchInput, setSearchInput] = useState(''); 
 const dispatch = useDispatch(); 
-const userId = useSelector(state => state.userData.userId)
 const courseTitle = useSelector(state => state.CourseData.title)
 const courseDescription = useSelector(state => state.CourseData.description)
 const courseFilename = useSelector(state => state.CourseData.filename)
 const Delete = useSelector(state => state.UserMenu.Delete) 
-const courseId = useSelector(state => state.CourseData.Id);
 
  GetData('/uploadCourseLandingInputValues', setData)
-
-console.log(userId)
-console.log(courseId)
-console.log(data)
-console.log(courseTitle)
-
-useEffect(() => {
-    socket.on('emitcourse', {
-        title: courseTitle,
-        description: courseDescription ,
-        filename: courseFilename,
-     })
-},[])
 
  data.filter((data) => {
     if(data._id){

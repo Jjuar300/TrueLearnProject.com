@@ -17,10 +17,6 @@ const dispatch = useDispatch();
 const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
 const [userImage, setUserImage] = useState(); 
 const [isEmailVerify, setEmailVerify] = useState(false); 
-const [code, setCode] = useState(''); 
-const [password, setPassword] = useState('') 
-
-console.log(isEmailVerify)
 
 const [data, setdata] = useState({
   fullname: '',  
@@ -28,13 +24,9 @@ const [data, setdata] = useState({
   password:'', 
 }); 
 
-console.log(imageFileUrl)
-
 const firstName = data.fullname; 
 const Email = data.email; 
 const Password = data.password; 
-
-console.log(Password)
 
 const handleSubmit = async (e) => {
   e.preventDefault(); 

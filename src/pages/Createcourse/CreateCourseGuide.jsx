@@ -1,8 +1,8 @@
 import React, { useState }  from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import NavBar from '../Navbar';
-import UploadVideo from './UploadVideo';
 import CourseInfo from './CourseLandingPage';
+import Curriculum from './Curriculum';
 
 export default function CreateCourseGuide() { 
 
@@ -14,7 +14,7 @@ export default function CreateCourseGuide() {
    <>
 
 <NavBar/>
-{ isCurriculum && <UploadVideo setSegment={setSegment} />}
+{ isCurriculum && <Curriculum setSegment={setSegment} />}
 
 {isCourseLandingPage && <CourseInfo/> }
 
@@ -40,7 +40,6 @@ export default function CreateCourseGuide() {
    Curriculum
    </Typography>
  
-
    <Typography
    sx={{
     color:'black', 
@@ -66,7 +65,7 @@ export default function CreateCourseGuide() {
     opacity:'.4',   
    }}
    >
-    Create Course
+    Publish
    </Button>}
    </>
   )
