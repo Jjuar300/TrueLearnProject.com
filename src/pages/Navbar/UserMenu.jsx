@@ -24,6 +24,8 @@ const {user} = useUser();
 const urlEndPoint = 'https://ik.imagekit.io/4pwok1cjp/'; 
 const userProfileImage = useSelector(state => state.UserFile.userProfileImage)
 
+console.log(userProfileImage)
+
 const handleUserProfileMenuItem = () => {
   console.log('userProfile was clicked')
   dispatch(updateUserPosition(true))
