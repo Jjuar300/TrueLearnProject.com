@@ -24,8 +24,18 @@ import {
   SignIn, 
 } from '@clerk/clerk-react'
 
+<<<<<<< HEAD
 axios.defaults.baseURL = process.env.AXIOS_API_URL || 'http://localhost:3000'; // passing the home url and add the next credentials all around our components
 // axios.defaults.baseURL = 'https://truelearn-api.onrender.com';
+=======
+<<<<<<< HEAD
+// axios.defaults.baseURL = 'https://truelearn-api.onrender.com'; // passing the home url and add the next credentials all around our components
+axios.defaults.baseURL = 'https://truelearn-api.vercel.app'
+=======
+axios.defaults.baseURL = process.env.AXIOS_API_URL || 'http://localhost:3000'; // passing the home url and add the next credentials all around our components
+// axios.defaults.baseURL = 'https://truelearn-api.onrender.com';
+>>>>>>> dev
+>>>>>>> main
 
 axios.defaults.withCredentials = true; 
 
