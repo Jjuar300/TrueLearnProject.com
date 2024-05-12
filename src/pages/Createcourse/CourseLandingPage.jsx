@@ -3,11 +3,12 @@ import {Box,Button, Typography, OutlinedInput, TextField, InputAdornment} from '
 import MenuItem from '@mui/material/MenuItem';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getVideoUrl } from '../../state/createcourse/VideoUrl';
+import { getDelete } from '../../state/MyCourses/UserMenu';
 
 const Catergories = [
   {
@@ -32,7 +33,6 @@ const Catergories = [
   }
 ]
 
-
 export default function ClassInfo() {
   const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
@@ -40,7 +40,8 @@ export default function ClassInfo() {
   const [file, setfile] = useState(); 
   const [error, setError] = useState(false); 
   const videoFile = useSelector(state => state.videoUrl.VideoUrl);
-  
+  const userId = useSelector(state => state.userData.userId)
+
   const [courseInput, setCourseInput] = useState({
     title: '', 
     description: '', 
@@ -53,6 +54,8 @@ export default function ClassInfo() {
       const formData = new FormData(); 
       formData.append('file', file)
        axios.post('/uploadvideo', formData)
+       .then(response => {console.log(response.data)})
+       .catch(error => console.log('error:', error))
        dispatch(getVideoUrl(file.name))
    }
 
@@ -71,13 +74,13 @@ export default function ClassInfo() {
       price, 
       catergory, 
       fileName, 
+      userId, 
     })
    
   }catch(error){
     console.log(error); 
   }
  }
- 
 
 const ValidateCourseLandingPage = () => {
  const isTitle = courseInput.title === ''; 
@@ -90,17 +93,15 @@ isDescription ? setError(true) : setError(false)
 isPrice ? setError(true) : setError(false)
 isCategory ? setError(true) : setError(false)
 !file ? setError(true) : setError(false)
-
 }
 
 const handleCreateCourseButton = () => {
   uploadCourseInputValues(); 
   uploadFiles(); 
-  ValidateCourseLandingPage(); 
+  ValidateCourseLandingPage();
+  dispatch(getDelete({ Delete: true }));  
   navigate('/'); 
 }
-
-console.log(file)
 
   return (
    <>
@@ -307,7 +308,7 @@ console.log(file)
     ':hover': {backgroundColor:'#80267a'},
    }}
    >
-    Create Course
+    Publish
    </Button>
 
       </form>

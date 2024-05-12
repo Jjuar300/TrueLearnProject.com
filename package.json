@@ -1,9 +1,10 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "https://truelearn-api.onrender.com",
+  "proxy": "http://localhost:3002",
   "private": true,
   "dependencies": {
+    "@clerk/clerk-react": "^4.30.2",
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.11.2",
     "@emotion/react": "^11.11.1",
@@ -17,9 +18,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
     "dropzone": "^6.0.0-beta.2",
     "formik": "^2.4.5",
-    "framer-motion": "^10.12.17",
+    "framer-motion": "^10.16.16",
+    "imagekitio-react": "^3.0.0",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-aspect-ratio": "^1.1.6",
@@ -36,6 +39,8 @@
     "react-stripe-checkout": "^2.6.3",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2",
     "video-react": "^0.16.0",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"

@@ -14,7 +14,7 @@ export default function Promo() {
 
    PromoOpen ? <Box
     sx={{
-        position:'relative', 
+        position:'absolute', 
         top:'-10px', 
         left: isNotMobileScreen ? '-.4%' : '-2%', 
         backgroundColor:'#052451', 
@@ -22,7 +22,8 @@ export default function Promo() {
         height:'40px', 
         padding: '1rem', 
         textAlign:'center',  
-        borderRadius: isNotMobileScreen ? '5px' : 'none', 
+        borderRadius: isNotMobileScreen ? '5px' : 'none',
+        zIndex:'1' 
     }}
     >
         <Typography

@@ -2,42 +2,41 @@ import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
 import Slice from './CancelButtonSlice'
 import PromoSlice from './PromoSlice'
 import  SearchBar  from './SearchbarSlice'
-import AuthenticationSlice from './AuthenticationSlice'
-import TrueLearnLogoSlice from './TrueLearnLogoSlice'
-import AddSectionSlice from './createcourse/AddSectionSlice'
-import indexSlice from './createcourse/indexSlice'
 import ServerSlice from './ServerSlice'
-import InputSlice from './createcourse/InputSlice'
-import upload from './createcourse/upload'
 import VideoUrl from './createcourse/VideoUrl'
 import DummyCourses from './DummyCourses'
 import InputResults from './InputResults'
-import AccessCourse from './AccessCourse'
 import storage from 'redux-persist/lib/storage'
 import persistReducer from 'redux-persist/es/persistReducer'
+import Authentication from './AuthenticationSlice'
+import userData from './createcourse/userData'
+import CourseData from './courseInfo/CourseData'
+import UserMenu from './MyCourses/UserMenu'
+import UserFile from './components/UserFile'
+
 import { combineReducers } from '@reduxjs/toolkit'
 
 const persistConfig = {
     key:'root', 
     version: 1, 
-    storage, 
+    storage,
+    whitelist: ['UserMenu', 'UserFile'],
+    blacklist: ['CourseData'], 
 }
 
 const reducer = combineReducers({
+    UserMenu: UserMenu, 
     handleDrawer: Slice,
     Promo: PromoSlice,
     SearchBar: SearchBar,
-    Authenticate: AuthenticationSlice,
-    TrueLearnLogoSlice: TrueLearnLogoSlice,
-    AddSection: AddSectionSlice,
-    CreatingCourse: indexSlice, 
     ServerSlice: ServerSlice,
-    Input: InputSlice, 
-    upload: upload, 
     videoUrl: VideoUrl,
     DummyCourse: DummyCourses, 
     ImportValue: InputResults, 
-    AccessCourse: AccessCourse,  
+    Authenticate: Authentication, 
+    userData: userData, 
+    CourseData: CourseData, 
+    UserFile: UserFile, 
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer)

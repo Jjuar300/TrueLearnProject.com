@@ -15,11 +15,13 @@ export default function Courses() {
       fontSize:'30px', 
       fontFamily:'roman', 
       fontWeight:'bold', 
-      left: isNotMobileScreen ? '7%' : 'none',  
+      left: isNotMobileScreen ? '10rem' : 'none',  
      }}
      >
         Explore Courses
        </Typography>
+
+       
     </>
   )
 }

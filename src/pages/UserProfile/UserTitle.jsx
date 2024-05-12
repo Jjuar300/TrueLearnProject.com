@@ -17,8 +17,8 @@ export default function UserInfo({
         position:'relative',  
         border:'1px solid #f2eeef', 
         height:'5rem', 
-        width: isNotMobileScreen ? '80rem' : '20rem',
-        left: isNotMobileScreen ? '15%' : '5%',
+        width: isNotMobileScreen ? '30rem' : '20rem',
+        left: isNotMobileScreen ? '35rem' : '5%',
         borderLeftStyle:'hidden',
         borderRightStyle:'hidden', 
     }}
@@ -54,7 +54,7 @@ export default function UserInfo({
         sx={{
             border:'1px solid gray', 
             position:'relative', 
-            left:'74%',
+            left:'35rem',
             top:'-40px',
             backgroundColor:'#8002a2', 
             color:'white',

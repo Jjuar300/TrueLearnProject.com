@@ -1,16 +1,16 @@
-import { Box } from "@mui/material";
+import { Box, keyframes } from "@mui/material";
 import { userCourses } from "../../data/courses.js";
 import { 
     Card, 
     CardContent, 
     CardMedia, 
     Typography, 
-    CardActionArea, 
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getCourseData } from "../../state/DummyCourses/index.js";
 import CourseCard from "../../components/Course/CourseCard.jsx";
+import {motion} from 'framer-motion'
 
 export default function DummyCourses() {
 
@@ -39,29 +39,39 @@ export default function DummyCourses() {
         gap:'2rem', 
         width:'100rem', 
         top:'16rem',  
-        justifyContent:'center', 
+        left:'10rem', 
+        justifyContent:'left', 
   }}
   >
   {
     userCourses.map((data) =>(
-        <Card
+     <motion.div
+     whileHover={{opacity:0.7}}
+     >
+           <Card
         onClick={() => handleCardClick(data.id)}
         key={data.id}
         sx={{
         width:'20rem',
-        height:'auto', 
+        height:'20rem', 
         left:'15rem',
         top:'20rem',   
+        objectFit:'cover',
+        ':hover': { cursor:'pointer', } 
     }}
     >
-       <CardActionArea>
+
            <CardMedia 
                 component='img'
-                style={{objectFit:'cover'}}
+                sx={{
+                    objectFit:'cover',
+                    height:'10rem',
+                    width:'20rem',
+                }}
                 image={data.image}
                 />
-            <CardContent>
-                <Typography
+               <CardContent>
+               <Typography
                 gutterBottom
                 variant="h5"
                 component='div'
@@ -74,10 +84,9 @@ export default function DummyCourses() {
                 <Typography>
                    $ {data.price}
                 </Typography>
-            </CardContent>
-        </CardActionArea>
-
+               </CardContent>
     </Card>
+     </motion.div>
     ))
    }
     <CourseCard/>

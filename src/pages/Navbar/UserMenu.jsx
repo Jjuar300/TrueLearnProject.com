@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Typography } from '@mui/material'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -9,19 +9,26 @@ import {useMediaQuery }from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { getLogout } from '../../state/ServerSlice';
 import Cookies from 'js-cookie'
-import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
+import { SignOutButton } from '@clerk/clerk-react';
+import { useUser } from '@clerk/clerk-react';
+import { updateUserPosition } from '../../state/components/UserFile';
 
-export default function UserMenu() {
- const [Anchor, setAnchor] = useState(null); 
+export default function UserMenu() { 
+const [Anchor, setAnchor] = useState(null); 
 const open = Boolean(Anchor); 
 const navigate = useNavigate(); 
 const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
 const dispatch = useDispatch(); 
-const [userEditData, setUserEditData] = useState([]);   
-const imageFileUrl = useSelector(state => state.videoUrl.imageUrl)
+const {user} = useUser(); 
+const urlEndPoint = 'https://ik.imagekit.io/4pwok1cjp/'; 
+const userProfileImage = useSelector(state => state.UserFile.userProfileImage)
 
-console.log(imageFileUrl)
+const handleUserProfileMenuItem = () => {
+  console.log('userProfile was clicked')
+  dispatch(updateUserPosition(true))
+  navigate('/userprofile')
+}
 
 const handleClick = (event) => {
  setAnchor(event.currentTarget)
@@ -38,20 +45,13 @@ const handlelogout = () => {
   navigate('/')
 }
 
-useEffect(() => {
-  axios.get('/userData')
- .then((res) => setUserEditData(res.data))
-},[])
-
-console.log(userEditData)
-
   return (
     <>
     { isNotMobileScreen ? <Box
     sx={{
         position:'absolute', 
         left: '86%',
-        top:'35px',   
+        top:'45px',   
     }}
     >
        
@@ -61,10 +61,8 @@ console.log(userEditData)
         cursor:'pointer', 
         fontSize:'35px',
        }}
-      src={`https://d3n6kitjvdjlm1.cloudfront.net/${imageFileUrl}`}/>
-
-      {
-        userEditData.map((input) => (
+     src={`${urlEndPoint}${userProfileImage}`}
+/>
           <Typography
           sx={{
            position:'absolute', 
@@ -73,10 +71,8 @@ console.log(userEditData)
            top:'0.5rem',  
           }}
           >
-           {input.firstname} 
+           {user?.fullName} 
           </Typography>
-        ))
-      }
 
        <Menu
        anchorEl={Anchor}
@@ -92,12 +88,14 @@ console.log(userEditData)
             My courses
             </MenuItem>
             <MenuItem
-            onClick={() => navigate('/userprofile')}
+            onClick={handleUserProfileMenuItem}
             >Edit Profile</MenuItem>
             <Divider/>
+            <SignOutButton>
             <MenuItem
             onClick={handlelogout}
             >Logout</MenuItem>
+            </SignOutButton>
         </Menu>
     </Box>
   :

@@ -4,8 +4,7 @@ import {
   CardContent, 
   CardMedia, 
   CardActionArea, 
-  Card,
-  Button, 
+  Card, 
 } from '@mui/material'
 
 import {useEffect, useState} from 'react'
@@ -22,8 +21,6 @@ export default function SearchResult() {
     const dispatch = useDispatch(); 
     const navigate = useNavigate(); 
     const isCourseInputTitle = useSelector(state => state.ImportValue.isCourseCardTitle)
-
-    console.log(searchInput.toLowerCase())
 
    useEffect(() => {
    axios.get('/getsearchinputs')

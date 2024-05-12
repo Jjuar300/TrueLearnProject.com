@@ -20,6 +20,7 @@ import { getLogout} from '../../../state/ServerSlice';
 import SignUpButton from '../../../components/SignUpButton';
 import Cookies from 'js-cookie';
 import Divider from '@mui/material/Divider';
+import { SignedIn } from '@clerk/clerk-react';
 
 export default function HamburgerMenu() {
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
@@ -47,15 +48,15 @@ sx={{
   display:'flex', 
   gap:'3rem',  
    width:'20rem', 
-   left: userData ? '65%' : '72%',
-   top:'2.4rem',  
+   left: false ? '70%' : '68%',
+   top:'3rem',  
 }}
 >
 <Typography
 onClick={() => {navigate('/explorecourse')}}
 name='exploreCourses'
-sx={{ 
-  left: '60%', 
+sx={{  
+  left: '55%', 
   top: '40px', 
   fontSize: '18px',  
   fontFamily:'roman', 
@@ -68,14 +69,14 @@ sx={{
 </Typography>
 
 {
-  userData ?
-  <Typography
+  <SignedIn>
+    <Typography
   onClick={() =>{navigate('/createcourse')}}
   name='createCourse'
   sx={{
-    top:'40px',
+    top:'2px',
     fontSize: '25px', 
-    left:'70%', 
+    left:'40%', 
     fontSize:'18px', 
     fontFamily:'roman', 
     fontWeight:'bold', 
@@ -85,8 +86,8 @@ sx={{
   >
     Create Course
   </Typography>
-  : 
-null
+  </SignedIn>
+
 }
 
 </Box>

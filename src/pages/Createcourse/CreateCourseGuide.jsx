@@ -1,24 +1,20 @@
 import React, { useState }  from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import NavBar from '../Navbar';
-import UploadVideo from './UploadVideo';
 import CourseInfo from './CourseLandingPage';
-import { useSelector } from 'react-redux';
+import Curriculum from './Curriculum';
 
 export default function CreateCourseGuide() { 
 
    const [segment, setSegment] = useState('Curriculum'); 
-   
    const isCourseLandingPage = segment === 'LandingPage'; 
    const isCurriculum = segment === 'Curriculum';
-
-   console.log(segment)
 
     return (
    <>
 
 <NavBar/>
-{ isCurriculum && <UploadVideo setSegment={setSegment} />}
+{ isCurriculum && <Curriculum setSegment={setSegment} />}
 
 {isCourseLandingPage && <CourseInfo/> }
 
@@ -44,7 +40,6 @@ export default function CreateCourseGuide() {
    Curriculum
    </Typography>
  
-
    <Typography
    sx={{
     color:'black', 
@@ -70,7 +65,7 @@ export default function CreateCourseGuide() {
     opacity:'.4',   
    }}
    >
-    Create Course
+    Publish
    </Button>}
    </>
   )

@@ -5,63 +5,57 @@ import SignUpPage from './SignUp'
 import {useSelector, useDispatch} from 'react-redux'
 import NavBar from '../Navbar'
 import {useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { getData } from '../../state/ServerSlice'
-import Cookies from 'js-cookie'
+import { useSignIn } from '@clerk/clerk-react'
+import { updateUserPosition } from '../../state/components/UserFile'
 
-export default function SignIn() {
+export default function SignInPage() {
 const isSignUp = useSelector(state => state.Authenticate.signup)
 const dispatch = useDispatch(); 
 const navigate =  useNavigate(); 
+const {signIn, setActive} = useSignIn(); 
 
 const [data, setdata] = useState({
   email: '', 
   password:'', 
 })
 
-const UserSignIn = async (e) => {
-e.preventDefault(); 
-const {email, password} = data; 
-try{
-const {data} = await axios.post('/usersignin', {
-  email, 
-  password,
-})  
- 
-console.log(data)
-
-if(data.error) {
-  console.log('sign in did not work ')
-}else{
-  setdata({})
-  navigate('/')
-  dispatch(getData({
-    data: Cookies.get('token')
-  }))
-}
-}catch(err){
-console.log(err)
-}
+const userSignIn = async (e) => {
+  e.preventDefault(); 
+  await signIn.create({
+    identifier: data.email, 
+    password: data.password, 
+  }).then((result) => {
+    if (result.status === "complete") {
+      console.log(result);
+      setActive({ session: result.createdSessionId });
+      navigate('/')
+    } else {
+      console.log(result);
+    }
+  })
+  .catch((err) => console.error("error", err.errors[0].longMessage));
 }
 
+const handleSignUpButton = () => {
+  dispatch(updateUserPosition(false))
+  navigate('/signup')
+}
 
 const Email = data.email; 
 const Password = data.password; 
 
   return (
   <>
-  
   <NavBar></NavBar>
-  
 {isSignUp ?  <div className='signform'>
    <h1 className='signintext' >Sign In to your account</h1>
     <form
     name='form'
-    onSubmit={UserSignIn}
+    onSubmit={userSignIn}
     >
    <TextField 
    required
-       id='email' //this was changed
+       id='email' 
        name='email'
       label='Email' 
       variant='outlined'
@@ -76,7 +70,7 @@ const Password = data.password;
        >
 
         <TextField 
-        id='password' //this was changed
+        id='password'
         name='password'
         required
         label='password'
@@ -137,7 +131,7 @@ const Password = data.password;
 
         <Button
         name='signupbutton'
-        onClick={() => navigate('/signup')}
+        onClick={handleSignUpButton}
         sx={{
           width:'90px', 
           fontSize:'12px',

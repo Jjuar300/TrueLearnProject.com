@@ -1,5 +1,7 @@
 
-import { Box } from '@mui/material'
+import { 
+  Box, 
+} from '@mui/material'
 import Signup from './Signup'
 import HamburgerMenu from './HamburgerMenu/index'
 import SearchBar from './SearchBar'
@@ -7,19 +9,19 @@ import Promo from './Promo'
 import TrueLearnlogo from '../../assets/Logo.png'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import {useNavigate } from 'react-router-dom'
-import {useSelector} from 'react-redux'
 import UserMenu from './UserMenu'
+import { 
+  SignedIn, 
+  SignedOut, 
+} from '@clerk/clerk-react'
 
 export default function NavBar() {
   const isNotMobileScreen = useMediaQuery('(min-width: 1000px)')
   const navigate = useNavigate(); 
-  const userData =  useSelector(state => state.ServerSlice.data)
- console.log(userData)
+
   return (
     <>
-
-    <Promo></Promo>
-
+    {/* <Promo></Promo> */}
 <Box
     sx={{
       position:'relative', 
@@ -47,8 +49,16 @@ export default function NavBar() {
         }}
         />
       </Box>
+ 
+    
+    <SignedIn>
+      <UserMenu/>
+    </SignedIn>
 
-    { userData ? <UserMenu/> : <Signup/>}
+    <SignedOut>
+    <Signup/>
+    </SignedOut>
+
     <HamburgerMenu></HamburgerMenu>
     <SearchBar></SearchBar>
     </Box>

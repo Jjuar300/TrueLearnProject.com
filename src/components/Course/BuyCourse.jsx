@@ -1,33 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
 import NavBar from '../../pages/Navbar'
 import { Box, Button } from '@mui/material'
-import axios from 'axios';
 import 'video-react/dist/video-react.css'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getVideoUrl } from '../../state/createcourse/VideoUrl';
 
 export default function BuyCourse() {
 
-const dispatch = useDispatch(); 
 const videoFile = useSelector(state => state.videoUrl.VideoUrl)
-const [data, setData] = useState([]); 
 const navigate = useNavigate(); 
-
-useEffect(() => {
-   axios.get('/uploadCourseLandingInputValues')
-  .then((response) => setData(response.data))
-  .catch((error) => console.log(error))
-},[]);
-
-console.log(videoFile)
+const userId = useSelector(state => state.userData.userId)
+const courseTitle = useSelector(state => state.CourseData.title)
+const courseDescription = useSelector(state => state.CourseData.description)
 
   return (
     <>
     <NavBar/>
-
-   {
-    data.map((data) => (
+  
       <Box
       name = 'courseTitle'
       sx={{
@@ -37,14 +26,9 @@ console.log(videoFile)
           fontSize:'1.5rem', 
       }}
       >
-      <h1 key={data._id} >{data.title}</h1>
+      <h1 key={userId} >{courseTitle}</h1>
       </Box>
-      
-    ))
-   }
 
-   {
-    data.map((data) => (
       <Box
       name = 'courseDescription'
       sx={{
@@ -55,12 +39,9 @@ console.log(videoFile)
           whiteSpace:'nowrap', 
       }}
       >
-          <p>{data.description}</p>
+          <p>{courseDescription}</p>
 
       </Box>
-    ))
-   }
-  
 
     <Box
     name = 'coursePreviewVideo'
